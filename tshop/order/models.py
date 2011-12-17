@@ -18,10 +18,15 @@ from order.views import email_notification
 
 # Create your models here.
 class Order(models.Model):
+    
+    PENDING = 'pendiente'
+    PAYED = 'pagado'
+    SENDED = 'enviado'
+    
     STATUS_OPTIONS = (
-        ('pendiente', u'Pendiente de Pago'),
-        ('pagado', u'Pendiente de Envío'),
-        ('enviado', u'Enviado'),
+        (PENDING, u'Pendiente de Pago'),
+        (PAYED, u'Pendiente de Envío'),
+        (SENDED, u'Enviado'),
     )
     uid = models.CharField(max_length=250, blank=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -43,6 +48,8 @@ class Order(models.Model):
     def quantity(self):
         return self.line_set.aggregate(Sum('quantity'))['quantity__sum']-1
 
+    def total_no_ship(self):
+        return self.line_set.exclude(types='ship').aggregate(Sum('total'))['total__sum']
 
 def order_from_cart(cart, client, payment_type):
     '''Creates an order from a given session cart and a client..'''

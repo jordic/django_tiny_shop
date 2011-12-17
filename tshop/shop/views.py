@@ -7,7 +7,7 @@
 '''
 from django.views.generic.simple import direct_to_template
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse
+
 from django.http import HttpResponseRedirect, Http404, HttpResponse, QueryDict, HttpRequest
 from datetime import datetime, timedelta
 from django.conf import settings

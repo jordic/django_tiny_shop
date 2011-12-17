@@ -1,0 +1,30 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_modify adminmedia %}
+{% load url from future %}
+
+
+{% block after_field_sets %}
+<style>
+.datos p span { font-weight:Bold; }
+</style>
+<div id="" class="module datos" style="padding:10px">
+	<h3>Datos del cliente</h3>
+	<p><span>{% trans "Email" %}: </span>{{ adminform.form.instance.client.email }}<br/>
+	<span>{% trans "Teléfono" %}: </span>{{ adminform.form.instance.client.phone }}<br/>
+	{{ adminform.form.instance.client.full_name }}<br />
+		{{ adminform.form.instance.client.ship_address }}<br />
+		{{ adminform.form.instance.client.ship_pc }} {{ adminform.form.instance.client.ship_city }}<br />
+		{{ adminform.form.instance.client.get_ship_provincia_display }}
+		</p>
+	</div>	
+</div>
+<div class="module" style="padding:10px">
+	<h1 style="padding-right:20px; float:left"><strong>Total: </strong>{{ adminform.form.instance.total }}&euro; 
+		<span style="font-size:11px">({{ adminform.form.instance.total_no_ship }})</span></h1> 
+		<input type="button" value="Notificar Envío" style="float:left" 
+			onclick="window.location.href='{% url 'admin:notificar_comprador' adminform.form.instance.pk  %}'">
+	<div class="clear"> </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,15 @@
+{% extends "base_email.html" %}
+
+{% block content %}
+<p>Hola {{ order.client.full_name }}.</p> 
+
+<p>Te escribimos para notificarte que tu pedido, <br />
+{{ order.uid }}
+<br />
+ya ha salido de nuestras oficinas en dirección a tu domicilio.</p>
+
+
+<p>Muchas gracias por haber confiado en nosotros.</p>
+
+{% endblock content %}
+
