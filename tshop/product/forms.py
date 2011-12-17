@@ -7,7 +7,6 @@
 '''
 
 
-
 from django import forms
 
 
@@ -27,10 +26,8 @@ class CartForm(forms.Form):
         from models import Product
         return Product.objects.get(pk=self.cleaned_data['pk'])
 
-
     pk = forms.IntegerField( widget=forms.HiddenInput, required=True )
     sub = forms.IntegerField( widget=forms.HiddenInput, required=False)
     qty = forms.ChoiceField(choices=CHOICES, label="Cantidad", initial=1 )
 
-    
     

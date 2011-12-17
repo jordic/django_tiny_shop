@@ -15,7 +15,7 @@ from django.views.generic.simple import direct_to_template
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from sorl.thumbnail.admin import AdminImageMixin
-from files.forms import TempoImageWidget
+from fields import TempoImageWidget
 from sorl.thumbnail import ImageField
 from django.conf.urls.defaults import *
 

@@ -88,14 +88,7 @@ class Product(models.Model):
         else:
             uprice = vprice.price / vprice.quantity
         return uprice*qty
-
     
-            
-        
-
-            
-        
-        
     
 class Options(models.Model):
     product = models.ForeignKey(Product, related_name="variations")
@@ -115,8 +108,6 @@ class Options(models.Model):
             return True
         return False
         
-
-
 class Price(models.Model):
     product = models.ForeignKey(Product, related_name="prices")
     quantity = models.IntegerField(blank=False, verbose_name=u"Cantidad")

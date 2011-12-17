@@ -10,13 +10,13 @@ import os, os.path
 import sys
 
 DIRNAME = os.path.dirname(__file__)
-APPDIR = os.path.join(DIRNAME, 'tiny')
+APPDIR = os.path.join(DIRNAME, 'tshop')
 if not APPDIR in sys.path:
     sys.path.insert(0,APPDIR)
 
 # Dynamically calculate the version based on django.VERSION.
-version = __import__('tiny.tshop.shop').__version__
-packages = find_packages('tiny')
+version = __import__('tshop').__version__
+packages = find_packages('tshop')
 
 setup(name = "Django Tiny Shop",
       version = version,
@@ -29,7 +29,7 @@ setup(name = "Django Tiny Shop",
       include_package_data = True,
       zip_safe = False,
       package_dir = {
-      '' : 'tiny',
+      '' : 'tshop',
       },
       packages = packages,
       classifiers = [

@@ -7,3 +7,4 @@
 """ 
 
 """
+from shop import VERSION, __version__
