@@ -10,21 +10,12 @@
 from django import template
 from django.db import models
 from product.models import Product, Category
-from faqs.models import Faq
+
 
 from templatetag_sugar.register import tag
 from templatetag_sugar.parser import Name, Variable, Constant, Optional, Model
 
 register = template.Library()
-
-
-@register.inclusion_tag('shop/faqs.html', takes_context=True)
-def widget_faqs(context):
-    p = Faq.objects.all()
-    context['faqs'] = p
-    return context
-
-
 
 @register.inclusion_tag('shop/productos.html', takes_context=True)
 def widget_productos(context):

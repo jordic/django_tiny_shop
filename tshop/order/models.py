@@ -88,20 +88,17 @@ def order_from_cart(cart, client, payment_type):
     
 
 def confirm_payment(sender, **kwargs):
-    #print "Order from %s" % sender.invoice
-    #print repr(sender)
     try:
         order = Order.objects.get(uid=sender.invoice)
         order.status = 'pagado'
         order.pay_date = sender.payment_date
-        #print sender.payment_date
         order.pay_total = sender.auth_amount
         order.pay_id = sender.txn_id
         order.save()
         email_notification(order)
     except:
         pass
-
+# paypal ipn signal
 payment_was_successful.connect(confirm_payment)
 
 
