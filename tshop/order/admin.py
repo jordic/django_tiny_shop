@@ -32,7 +32,7 @@ class LineInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     inlines = [LineInline]
     list_filter = ('status',)
-    list_display = ('client', 'status', 'date', 'pay_type', 'pay_date', 'total', 'enviar')
+    list_display = ('uid', 'client', 'status', 'date', 'pay_type', 'pay_date', 'total', 'enviar')
     exclude = ('client', 'pay_details')
     readonly_fields = ('status', 'pay_date', 'date', 'pay_type', 'pay_id')
     

@@ -17,7 +17,6 @@ from paypal.standard.forms import PayPalPaymentsForm
 def get_payment(order):
     res = {
         'paypal': paypal_form,
-        'sanostra': sanostra_form
     }
     return res[order.pay_type](order)
 
@@ -48,9 +47,6 @@ def paypal_form(order):
     return rendered_form
 
 
-def sanostra_form(order):
-    pass
-    
     
     
     

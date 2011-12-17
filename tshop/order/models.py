@@ -15,6 +15,9 @@ from django.db.models import Sum
 from shipping import calc_shipping_costs, cart_arrival_day
 from paypal.standard.ipn.signals import payment_was_successful
 from order.views import email_notification
+import random
+import base64
+
 
 # Create your models here.
 class Order(models.Model):
@@ -57,7 +60,8 @@ def order_from_cart(cart, client, payment_type):
     o.client = client
     o.status = 'pendiente'
     o.pay_type = payment_type
-    o.uid = uuid.uuid1()
+    uid = base64.standard_b64encode(str(random.random()*1000).replace(".", "")[:6])
+    o.uid = uid
     o.save()
     l = cart_list(cart)
     for item in l:
