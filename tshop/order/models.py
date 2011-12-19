@@ -54,13 +54,16 @@ class Order(models.Model):
     def total_no_ship(self):
         return self.line_set.exclude(types='ship').aggregate(Sum('total'))['total__sum']
 
+def generate_order_id():
+    return base64.standard_b64encode(str(random.random()*1000).replace(".", ""))
+
 def order_from_cart(cart, client, payment_type):
     '''Creates an order from a given session cart and a client..'''
     o = Order()
     o.client = client
     o.status = 'pendiente'
     o.pay_type = payment_type
-    uid = base64.standard_b64encode(str(random.random()*1000).replace(".", "")[:6])
+    uid = generate_order_id()
     o.uid = uid
     o.save()
     l = cart_list(cart)

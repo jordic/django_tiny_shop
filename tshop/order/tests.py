@@ -10,7 +10,9 @@ from client.models import *
 from shop.cart import Cart
 from order.models import order_from_cart
 from product.cart import cart_list, cart_weight, cart_total
-
+from order.models import generate_order_id
+from decimal import *
+from shipping import calc_shipping_costs
 
 class SimpleTest(TestCase):
     fixtures = ['product.json']
@@ -29,9 +31,20 @@ class SimpleTest(TestCase):
         
         order = order_from_cart(c, client, 'paypal')
         self.assertEqual(len(order.line_set.all()), 3)
-        self.assertEqual(order.total(), cart_total(l) )
+        # this test fails because not shipping costs
+        ship_cost = Decimal(calc_shipping_costs(c, '08695', cart_total(l)))
+        self.assertEqual(order.total(), cart_total(l) + ship_cost )
+        
         self.assertEqual(order.line_set.all()[2].types, 'ship' )
         self.assertEqual(order.pay_type, 'paypal' )
+
+
+    def test_numeros_aleatoris(self):
+        t = []
+        for k in range(10000):
+            num = generate_order_id()
+            self.assertNotIn(num, t)
+            t.append(num)
         
         #[(12L, 37, u'1')]
         
