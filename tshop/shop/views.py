@@ -86,8 +86,11 @@ def checkout(request):
     if request.method == "GET":
         if request.session.get(settings.ORDER_KEY):
             uid = request.session.get(settings.ORDER_KEY)
-            order = get_object_or_404(Order, uid=uid)
-            f = CheckoutForm(instance=order.client)
+            try:
+                order = get_object_or_404(Order, uid=uid)
+                f = CheckoutForm(instance=order.client)
+            except:
+                pass
             
         c['form'] = f
         return direct_to_template(request, 

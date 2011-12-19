@@ -7,6 +7,9 @@ Jordi Collell <jordi@tempointeractiu.com>
 
 
 
++001. Cuando intentaba recuperar una orden antigua, si no existía, saltava un 404
+	en realidad debería, haber reconstruido el formulario de pedido
+
 
 December 2011
 ===================
