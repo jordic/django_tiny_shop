@@ -20,6 +20,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
+from django.conf.urls.defaults import *
 
 class LineInline(admin.TabularInline):
     #readonly_fields = ('types', 'product', )
@@ -68,7 +69,6 @@ class OrderAdmin(admin.ModelAdmin):
         
     
     def get_urls(self):
-        from django.conf.urls.defaults import *
         urls = super(OrderAdmin, self).get_urls()
         my_urls = patterns('',
             url(
