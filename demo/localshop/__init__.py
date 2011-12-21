@@ -34,3 +34,41 @@ def extra_form_validation(sender, data, **kwargs):
         raise forms.ValidationError(u"El código postal y la provincia no coinciden")
 
 signals.clean_checkout_form.connect(extra_form_validation)
+
+# this is a sample that adds a line with tax to order, using order_created
+# signal
+def add_tax_sample(sender, order, client, amount, cart, **kwargs):
+    total = float(order.total_no_ship())*0.18
+    from order.models import Line
+    Line.objects.create(
+        order       = order,
+        types       = Line.TAX,
+        quantity    = 1,
+        total       = str(total))
+    
+signals.order_created.connect(add_tax_sample)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

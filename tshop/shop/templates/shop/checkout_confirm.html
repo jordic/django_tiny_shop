@@ -46,9 +46,13 @@
                 <td>{{ c.quantity }}</td>
                 {% if c.types == 'product' %}
                 <td>{{ c.product }} {% if c.product_option %}<span>({{ c.product_option }})</span>{% endif %}</td>    
-                {% else %}
-                    <td>Costes de Envío. ASM</td>    
                 {% endif %}
+				{% if c.types == 'ship' %}
+                    <td>Costes de Envío.</td> 
+                {% endif %}
+				{% if c.types == 'tax' %}
+					<td>Impuestos</td>
+				{% endif %}
                 <td class="precio">{% if c.amount %}{{ c.amount|floatformat:2}}&euro;{% endif %}</td>
                 <td>{% if c.amount_discount %}{{ c.amount_discount|floatformat:2 }}&euro;{% endif %}</td>
                 <td class="total">{% if c.total %}{{ c.total|floatformat:2 }}&euro;{% endif %}</td>
