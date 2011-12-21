@@ -9,19 +9,19 @@ FEATURES
 ================
 
 - Decoupled:
-	. Client, order, payment, product, shipping are modules, that you can/must overwrite, 
+	- Client, order, payment, product, shipping are modules, that you can/must overwrite, 
 	from your shop specs and local enviroment.
-	. Payment works using django_paypal
+	- Payment works using django_paypal
 		See <http://webcloud.se/log/Implementing-PayPal-in-Django/> for implementing it
 		
 
 - What's provided
-	. Simple client modules, with contact address.
-	. Simple product module, with inline variations, no stock.
-	. Simple shipping modules with correos from spain.
-	. Only sells to spain
-	. Templates: A set of basic templates are provided, but you must overwrite them.
-	. Simple set of templatetags, to work with. Using django_templatetags_sugar, you
+	- Simple client modules, with contact address.
+	- Simple product module, with inline variations, no stock.
+	- Simple shipping modules with correos from spain.
+	- Only sells to spain
+	- Templates: A set of basic templates are provided, but you must overwrite them.
+	- Simple set of templatetags, to work with. Using django_templatetags_sugar, you
 
 - Features plan (Not implemented)
 	- Adding signals to improve shop personalitzation
