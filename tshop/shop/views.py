@@ -22,6 +22,7 @@ from shipping import calc_shipping_costs, cart_arrival_day
 from order.models import Order
 from payment import get_payment
 from django.views.decorators.csrf import csrf_exempt
+import signals
 # Create your views here.
 
 def soon(request):

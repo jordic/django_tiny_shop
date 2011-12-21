@@ -34,7 +34,12 @@ $(document).ready(function(){
         <p style="padding:15px 0 15px 0">Por favor introduce los datos de contacto y envío, para poder proceder a tramitar tu pedido.</p>
         
         {% if form.errors %}
-            <p class="form_error">Hay errores en tu formulario, por favor corrige los campos marcados</p>
+            <p class="form_error">Hay errores en tu formulario, por favor corrige los campos marcados
+				{% for er in form.non_field_errors %}
+						<br />{{ er}} 
+				{% endfor %}
+			</p>
+			
             <div class="clear" style="padding:10px"></div>
             <form action="{% url 'checkout' %}" method="POST" id="formcheckout" class="errors">
         {% else %}

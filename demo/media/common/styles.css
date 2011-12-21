@@ -95,7 +95,7 @@ ul.errorlist { position:absolute; left:380px; top:5px; }
 ul.errorlist li { color:#BF1E2E;  }
 div.checkout ul li input { width:20px;}
 
-
+p.form_error ul.errorlist { position:relative; display:block; }
 
 form#formcheckout {  width:600px; float:left; }
 div#envio_coste { color:#000; float:left; width:150px; padding:10px; 

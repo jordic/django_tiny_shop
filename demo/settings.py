@@ -153,6 +153,9 @@ INSTALLED_APPS = (
     'shipping',
     'shop',
     'payment',
+    
+    #some signal exemples
+    'localshop',
 
 )
 
