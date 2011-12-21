@@ -21,3 +21,5 @@ clean_postal_code = Signal(providing_args=["postal"])
 # extra checkout form validation data
 clean_checkout_form = Signal(providing_args=["data"])
 
+# Create an order
+order_created = Signal(providing_args=["order", "client", "amount"])

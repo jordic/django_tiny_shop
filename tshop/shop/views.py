@@ -149,8 +149,8 @@ def checkout_cancel(request):
     
 def shipping_cost(request):
     ''' calc shipping cost for ajax request...'''
-    if not request.is_ajax():
-        raise Http404
+    #if not request.is_ajax():
+    #    raise Http404
     
     cart = cart_from_session(request)
     cl = cart_list(cart) 

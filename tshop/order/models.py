@@ -12,12 +12,12 @@ from client.models import Client
 from product.models import Product, Options
 from product.cart import cart_list, cart_weight, cart_total
 from django.db.models import Sum
-from shipping import calc_shipping_costs, cart_arrival_day
+#from shipping import calc_shipping_costs, cart_arrival_day
 from paypal.standard.ipn.signals import payment_was_successful
 from order.views import email_notification
 import random
 import base64
-
+from shop import signals
 
 # Create your models here.
 class Order(models.Model):
@@ -81,12 +81,13 @@ def order_from_cart(cart, client, payment_type):
     #afegim linia de calcul dels shippings...
     amount = cart_total( l )
     cp = client.ship_pc
-    shipping_costs = calc_shipping_costs(cart, cp, amount)
-    Line.objects.create(
-        order       = o,
-        types       = "ship",
-        quantity    = 1,
-        total       = shipping_costs)
+    signals.order_created.send(Order, order=o, client=client, amount=amount, cart=cart)
+    #shipping_costs = calc_shipping_costs(cart, cp, amount)
+    #Line.objects.create(
+    #    order       = o,
+    #    types       = "ship",
+    #    quantity    = 1,
+    #    total       = shipping_costs)
     return o
     
 
@@ -108,9 +109,13 @@ payment_was_successful.connect(confirm_payment)
     
     
 class Line(models.Model):
+    PRODUCT = 'product'
+    SHIP = 'ship'
+    TAX = 'tax'
+        
     LINE_TYPES = (
-        ('product', 'Producto'),
-        ('ship', u'Envío'),
+        (PRODUCT, 'Producto'),
+        (SHIP, u'Envío'),
     )
     order = models.ForeignKey(Order, blank=False, verbose_name=u"Pedido")
     types = models.CharField(blank=False, max_length=20, choices=LINE_TYPES, verbose_name=u"Tipo Linea")
