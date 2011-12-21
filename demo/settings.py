@@ -156,7 +156,7 @@ INSTALLED_APPS = (
 
 )
 
-### mail handling settings s'han de sobreescriure als localsettings
+### mail handling settings 
 EMAIL_HOST=''
 EMAIL_PORT=25
 EMAIL_HOST_USER=''
@@ -167,27 +167,29 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # SHOP ESPECIFIC SETTINGS
 CART_SESSSION_NAME = 'gshop_cart'
-
+# available payment modules
 PAYMENT_MODES = (
     ('paypal', 'Paypal'),
 )
 
 PAYMENT_MODES_DEFAULT = 'paypal'
 ORDER_KEY = 'order_key'
+# settings for paypal 
 PAYPAL_SANDBOX_IMAGE = "https://www.sandbox.paypal.com/es_ES/i/btn/btn_buynowCC_LG.gif" 
 PAYPAL_RECEIVER_EMAIL = ""
+# use this constant because not using django.contrib.site 
 SITE_DOMAIN = "http://localhost:8000"
-PAYPAL_SUBJECT_LINE = "Compra online en Gloriafontseca.com"
-
+# subject for paypal
+PAYPAL_SUBJECT_LINE = "Compra online EN ..."
 
 EMAIL_NOTIFICATION_SENDERS = [
     'jordic@gmail.com',
 ]
+# Shop emails...
 EMAIL_NOTIFICATION_SUBJECT = u'[Tiny Shop] Notificación de pedido'
 EMAIL_SENDING_SUBJECT = u'[Tiny Shop] Notificación de envío de pedido'
-
 EMAIL_FROM = 'tinyshop@gmail.com'
-LABEL_VARIATIONS = ''
+LABEL_VARIATIONS = 'Color'
 
 
 # A sample logging configuration. The only tangible logging

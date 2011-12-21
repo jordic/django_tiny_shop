@@ -8,7 +8,7 @@
 
 
 from django import forms
-
+from django.conf import settings as conf
 
 class CartForm(forms.Form):
     
@@ -17,7 +17,7 @@ class CartForm(forms.Form):
     def set_instance(self, instance):
         self.fields['pk'].initial = instance.pk
         if instance.has_variations():
-            self.fields['sub'] = forms.ChoiceField(choices=self.get_variations(instance), label="Perfume")
+            self.fields['sub'] = forms.ChoiceField(choices=self.get_variations(instance), label=conf.LABEL_VARIATIONS)
     
     def get_variations(self, instance):
         return [(str(op.pk), op.title) for op in instance.variations.all()]
