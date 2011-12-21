@@ -1,0 +1,73 @@
+{% extends "base_site.html" %}
+{% load thumbnail products %}
+{% load url from future %}
+
+{% block cart %}{% endblock %}
+
+
+{% block content %}
+    
+    <div id="content" class="checkout_confirm">
+        
+            
+        <h2>Confirmaci&oacute;n de Pedido</h2>
+        
+        <p style="padding:15px 0 15px 0">Por favor revise los datos del pedido, y su dirección de envío.
+        Para continuar, aga clic a pagar.
+        </p>
+        
+        
+        <h3>Datos de env&iacute;o</h3>
+        <p class="row"><span>Nombre completo:</span>{{ order.client.full_name }}</p>
+        <p class="row"><span>Email:</span>{{ order.client.email }}</p>
+        <p class="row"><span>Tel&eacute;fono:</span>{{ order.client.phone }}</p>
+        <p class="row"><span>Direcci&oacute;n:</span> {{ order.client.ship_address }}</p>
+        <p class="row"><span>C&oacute;digo Postal:</span> {{ order.client.ship_pc }}</p>
+        <p class="row"><span>Ciudad: </span>{{ order.client.ship_city }}</p>
+        {% if order.client.ship_extra %}
+            <p><span>Extra:</span> {{ order.client.ship_extra }}</p>    
+        {% endif %}
+        
+        
+        
+        <h3>Su pedido</h3>
+        
+        <table width="100%" border="0" class="checkout" cellpadding=0 cellspacing=0>
+            <tr class="header">
+                <td>Cant.</td>
+                <td>Artículo</td>
+                <td>Precio</td>
+                <td>PU*</td>
+                <td>Total</td>
+            </tr>
+            <!-- product, variation, qty, price, price_dicount_qty, total-->
+            {% for c in order.line_set.all %}
+            <tr class="row">
+                <td>{{ c.quantity }}</td>
+                {% if c.types == 'product' %}
+                <td>{{ c.product }} {% if c.product_option %}<span>({{ c.product_option }})</span>{% endif %}</td>    
+                {% else %}
+                    <td>Costes de Envío. ASM</td>    
+                {% endif %}
+                <td class="precio">{% if c.amount %}{{ c.amount|floatformat:2}}&euro;{% endif %}</td>
+                <td>{% if c.amount_discount %}{{ c.amount_discount|floatformat:2 }}&euro;{% endif %}</td>
+                <td class="total">{% if c.total %}{{ c.total|floatformat:2 }}&euro;{% endif %}</td>
+            </tr>
+            {% endfor  %}
+        
+            <tr>
+                <td colspan="5" class="amount">Total: &nbsp;&nbsp;<span>{{ order.total|floatformat:2 }}&euro;</span></td>
+
+            </tr>
+        
+        </table>
+        
+        <p style="margin-top:10px">* (PU) Precio unitario después del descuento por cantidad.</p>
+        
+        {% include payment_template %}        
+        
+        <div class="clear" style="padding:30px"> </div>
+        
+    </div>
+        
+{% endblock %}

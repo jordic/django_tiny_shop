@@ -1,0 +1,92 @@
+{% load thumbnail %}
+{% load url from future %}
+<!DOCTYPE html> 
+<html dir="ltr" lang="es-es"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Demo online-shop</title>
+	
+	{% block metas %}
+	   <meta name="description" content="" />
+   		<meta name="keywords" content="" />
+   		<meta name="author" content="http://tempointeractiu.es">
+	{% endblock metas %}
+	<link  href='//fonts.googleapis.com/css?family=Ubuntu:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css' >
+	<link href="{{ MEDIA_URL }}common/styles.css" rel="stylesheet" type="text/css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
+	<script src="{{ MEDIA_URL }}common/jquery.simplemodal.1.4.1.min.js"></script>
+	<script>
+	$(document).ready(function() {
+			
+			$('.product').submit(function(){
+				var f = $(this).serialize()
+				var l = $(this).attr('action')
+				$.post(l, f, function(data){
+					$('#add_cart').modal({'closeClass':'close_pop'})
+				})
+				return false;
+			});
+
+			$('.product select').change(function(){
+	            var form = $(this).parent()[0]
+	            var id = $(form).attr('id').replace("prod_", "")
+	            var images = window['form_'+ id]
+				// variaciones de textos en productos
+				console.log(id)
+	            var actual = $(this).val()
+	            if( images[ $(this).val() ] )
+	            {
+	                $('#img_'+id).attr('src', images[ $(this).val() ] )
+	            }
+
+	        })
+
+			$('select').trigger('change')
+			
+	});
+	</script>
+    {% block extra_script %}{% endblock extra_script %}
+</head>
+
+<body>
+<div id="wrapper" class="hfeed">   
+    <div id="header">
+        <div id="branding">
+			<h1><a href="{% url 'home' %}">Demo Shop</a></h1>
+		</div>
+	</div>
+	
+	{% block cart %}
+	    <div id="scart">
+		{% if request.cart.total  %}
+	        {{ request.cart.total }} ({{ request.cart.price|floatformat:"2" }}&euro;)
+	        <a href="{% url 'view_cart' %}" class="button">TRAMITAR</a>
+		{% else %}
+			0 productos
+		{% endif  %}
+	    </div>
+	{% endblock cart %}
+	
+	{% block content %}{% endblock content %}
+	
+	<div>
+		<div class="clear" style="height:40px"></div>
+		<div id="footer">
+		© 2011 Copyright Tempointeractiu.es <a href="mailto:jordi@tempoitneractiu.com">Contacto: jordi@tempointeractiu.com</a>
+		</div>
+	</div>
+	<div class="clear"></div>	
+</div>
+
+<div id="add_cart">	
+	<h3>Producto añadido a la Cesta</h3>
+	<a href="javascript:window.location.reload()" class="css_button" id="popup_continue">Continuar Comprando</a>&nbsp;&nbsp;
+	<a href="{% url 'view_cart' %}" class="css_button" id="popup_next">Tramitar Pedido</a>
+</div>
+
+{% block analytics %}{% endblock analytics %}
+	
+</div>
+</body>
+</html>
+	

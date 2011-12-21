@@ -10,8 +10,6 @@
 from django import template
 from django.db import models
 from product.models import Product, Category
-
-
 from templatetag_sugar.register import tag
 from templatetag_sugar.parser import Name, Variable, Constant, Optional, Model
 
@@ -22,6 +20,13 @@ def widget_productos(context):
     p = Product.objects.featured()[:3]
     context['productos'] = p
     return context
+
+@tag(register, [Constant('as'), Name() ])
+def get_categories(context, asvar):
+    queryset = Category.objects.all()
+    context[asvar] = queryset
+    return ''
+
 
 @register.inclusion_tag('shop/widget_category.html', takes_context=True)
 def widget_category( context, category ):

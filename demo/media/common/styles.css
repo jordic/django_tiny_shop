@@ -1,0 +1,175 @@
+* { margin:0; padding:0; }
+html { height:100%; }
+body {min-height:100%; height:auto !important; height:100%;  }
+
+img { border:0px; }
+
+ul, ul li { list-style:none; padding:0px; font-size:12px; }
+h1, h2, h3, h4, h5, p { font-family: 'Ubuntu', sans-serif; font-weight:normal; font-size:12px; }
+* { margin:0; padding:0; font-family: 'Ubuntu', arial, serif; color:#707071; border:0; }
+
+body, input, h1, h2, h3, h4, p, li, a, textarea  { font-family: 'Ubuntu', serif;
+  font-size: 14px; font-style: normal; font-weight: 400; text-shadow: none; text-decoration: none;
+  text-transform: none; letter-spacing: 0em; word-spacing: 0.0em; line-height: 1.2; color:#666; }
+
+
+a:hover { text-decoration:underline; }
+.clear { clear:both; }
+a.button { padding:8px; text-decoration:none; color:#000;  }
+a.button:hover { background-color:#666; }
+#wrapper { position:relative; margin:0 auto; width:940px; }
+
+
+div#header {  background-color:#0098b2; height:20px; padding:20px; }
+div#header h1 a { color:#fff; font-size:18px; }
+div#content { min-height:500px; margin-top:80px; }
+div#content h1 { font-size:16px; }
+div#content .bloc { padding-top:50px; float:left; width:200px; border:1px solid grey; 
+        margin-right:20px;}
+.bloc li a { color:#0098b2; }
+
+
+div#scart { position:absolute; background-image:url(img/cart.png); background-repeat:no-repeat; 
+    left:731px; top:100px; z-index:5; width:150px; padding:10px; 
+    padding-left:40px; border-bottom:1px solid grey;   }
+    
+div#scart a.button { padding:2px; margin-left:10px; }
+a.buttonb { padding:2px; margin-left:10px; background-color:#000; 
+        color:#fff; padding:8px; text-decoration:none; }
+a.buttonb:hover { background-color:#666; }
+
+
+
+table.checkout td { padding:5px; border-bottom:1px solid #eaeaea; }
+table.checkout tr.header td { background-color:#eaeaea; }
+table.checkout td.amount { font-size:14px; font-weight:700;  text-align:right; 
+    padding-top:15px; padding-bottom:15px; }
+table.checkout td.amount span { color:#000; }
+
+
+
+div.contacto { margin-top:10px; background-image:url(img/bg_si.gif); 
+    background-position:top left; background-repeat:no-repeat; padding-top:40px; }
+#subcolumnes div.contacto h3 { color:#1bfee6; text-align:center; line-height:24px;}
+#subcolumnes div.contacto h3 span { color:#fff; font-size:26px; line-height:32px;}
+
+#footer {  font-size:11px; color:#fff;	padding-bottom:30px; padding-top:10px; clear:both; color:grey;}
+#footer a { color:#000; }
+	
+#formulari { width:530px; padding:5px 0 50px 20px; display:none; }
+#formulari h2 {  text-shadow: 0 1px 1px #6f6f6f; font-size:26px; color:#ec2965; }
+#formulari h3 {  font-size:16px; padding-bottom:14px; color:#939393; }
+
+input { line-height:21px; height:21px; border:0px; background:#fff; width:210px; border:1px solid #aaa; font-size:12px; line-height:14px; }
+label { display:block; padding:6px 0 2px 0; font-size:12px; color:#484848; clear:both; }
+textarea { width:210px; height:75px; line-height:22px; border:0px; background:#fff; border:1px solid #aaa; font-size:12px; line-height:14px;   }
+input.button { background:url('img/boto_bg.gif') no-repeat top left; border:0px; display:block; width:85px; line-height:25px; height:25px; color:#fff; text-align:center; color:#fff; margin-top:10px; margin-bottom:10px;}
+p#errC { font-size:13px; font-weight:bold; color:#2bb673; padding-top:10px; }
+.error { border:1px solid #ff0000; }
+
+#formulari div { float:left; width:193px; padding:25px 0 0 29px; }
+#formulari div h4 { font-size:14px; font-weight:normal; line-height:18px; padding-bottom:20px; }
+#formulari div h5 { background:url('img/logo-telef.gif') no-repeat top left; padding:0 0 0 44px;
+	color:#767475; font-size:21px; line-height:34px; font-weight:normal; }
+#btClose { position:absolute; right:11px; top:11px; }
+
+
+/* simple modal */
+#simplemodal-overlay {background-color:#000;}
+#simplemodal-container {background-color:#fff; border:8px solid #444; padding:12px;}
+	
+
+
+table.tabbedprice { }
+table.tabbedprice td { padding:5px;  }
+table.tabbedprice tr.header { background-color:#eaeaea; }
+table.tabbedprice td.oldprice { text-decoration: line-through; }
+
+div.campo { border-bottom:1px solid #eaeaea; margin-bottom:10px; position:relative; }
+div.haserror input { border:1px solid #BF1E2E;; }
+div#content.checkout { width:800px;  }
+div.checkout div label { float:left; width:150px; font-weight:Bold; }
+div.checkout div input { float:left; margin-bottom:10px;}
+div.checkout div textarea { float:left; margin-bottom:10px; }
+ul.errorlist { position:absolute; left:380px; top:5px; }
+ul.errorlist li { color:#BF1E2E;  }
+div.checkout ul li input { width:20px;}
+
+
+
+form#formcheckout {  width:600px; float:left; }
+div#envio_coste { color:#000; float:left; width:150px; padding:10px; 
+    background-color:#eaeaea; display:none; margin-top:20px; margin-left:20px; }
+div#envio_coste strong { color:#BF1E2E; }
+
+
+#content p.form_error { color:#BF1E2E; border:1px solid #BF1E2E; padding:8px; 
+    margin-top:10px; margin-bottom:10px; background-color:#eaeaea;}
+
+
+#content.checkout_confirm h3 { font-size:20px; margin-top:20px; margin-bottom:10px;  }
+#content.checkout_confirm p.row { padding-bottom:10px; border-bottom:1px solid #eaeaea; padding-top:10px; }
+#content.checkout_confirm p span { padding-right:10px;  }
+
+#content.checkout_confirm input { width:122px; height:47px; margin-top:30px; border:0px; }
+
+
+
+
+div.producto { width:203px; padding-right:20px; float:left;  }
+div.producto h2 { font-size:18px; color:#000; padding-bottom:10px; font-weight:Bold;}
+div.filet { border-bottom:1px dotted grey; padding-top:30px; margin-bottom:30px;}
+div.plateral { float:left; width:265px;   }
+div.plateral h2 { color:#000; font-size:24px; font-weight:Bold; padding-bottom:20px;}
+div.mt { padding-top:30px; }
+div.mt h3 { color:#000; font-size:20px; }
+
+button { line-height:10px; }
+
+#header { padding-bottom:20px; }
+
+.faq h3 { color:#000; padding-bottom:10px; }
+
+#content h2 { margin-top:0px; font-size:20px; color:#000; padding-bottom:20px; font-weight:Bold; }
+
+
+#add_cart { padding:10px 50px 30px 50px;  color:#fff; display:none; }
+#add_cart h3 { text-align:center; font-size:18px; color:#000; margin-bottom:30px; font-weight:Bold; }
+a.css_button { padding:5px 10px 5px 10px; background-color:#666; color:#fff; 
+    margin-right:10px; text-decoration:none; }
+a.css_button:hover { background-color:#999; }
+
+/* player fotos rafel */
+.dnone { display:none; }
+ul.tplayer { margin-top:10px; margin-left:0px; }
+ul.tplayer li { float:left; }
+#fotos_crochet img.dnone { margin-top:0px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
