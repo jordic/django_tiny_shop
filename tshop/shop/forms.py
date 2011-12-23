@@ -26,8 +26,11 @@ class CheckoutForm(forms.ModelForm):
     def create_order(self, request):
         if request.session.get(settings.ORDER_KEY):
             uid = request.session[settings.ORDER_KEY]
-            order = get_object_or_404(Order, uid=uid)
-            order.delete()
+            try:
+                order = Order.objects.get(uid=uid)
+                order.delete()
+            except:
+                pass
         
         #try to search if contact already exists in database
         try:
