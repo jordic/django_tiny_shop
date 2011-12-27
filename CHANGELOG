@@ -1,13 +1,17 @@
-
 DJANGO tiny Shop
 =======================
 2011 © TempoMediaLab Interactiu SL
 Jordi Collell <jordi@tempointeractiu.com>
+s
 
 
+v0.2: 
++ Adding signals to improve shop personalitzation
++ Better shipping module
 
 
-+001. Cuando intentaba recuperar una orden antigua, si no existía, saltava un 404
+v0.1
++ 001. Cuando intentaba recuperar una orden antigua, si no existía, saltava un 404
 	en realidad debería, haber reconstruido el formulario de pedido
 
 

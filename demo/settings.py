@@ -168,6 +168,8 @@ EMAIL_USE_TLS=False
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
+DATE_FORMAT = 'N j, Y'
+
 # SHOP ESPECIFIC SETTINGS
 CART_SESSSION_NAME = 'gshop_cart'
 # available payment modules

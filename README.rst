@@ -22,11 +22,13 @@ FEATURES
 	- Only sells to spain
 	- Templates: A set of basic templates are provided, but you must overwrite them.
 	- Simple set of templatetags, to work with. Using django_templatetags_sugar, you
+	- You can view signals examples at demo/shop
+
+
 
 - Features plan (Not implemented)
-	- Adding signals to improve shop personalitzation
-	- Better shipping module
 	- Adding more shippings modules		
+
 
 TRY
 =============
