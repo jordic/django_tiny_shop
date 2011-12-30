@@ -170,7 +170,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 DATE_FORMAT = 'N j, Y'
 
-# SHOP ESPECIFIC SETTINGS
+###########################################
+########### SHOP ESPECIFIC SETTINGS
+#########################################
+
 CART_SESSSION_NAME = 'gshop_cart'
 # available payment modules
 PAYMENT_MODES = (
@@ -196,6 +199,11 @@ EMAIL_SENDING_SUBJECT = u'[Tiny Shop] Notificación de envío de pedido'
 EMAIL_FROM = 'tinyshop@gmail.com'
 LABEL_VARIATIONS = 'Color'
 
+# quantity on product forms add to basket
+PRODUCT_QTY_FORM = 15
+
+
+## END SHOP SETTINGS
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -30,6 +30,7 @@ def calc_shipping_costs(cart, postal=None, amount=None, client=None):
     #weight = cart_weight(cart)
     return ship.calc_shipping_cost()
 
+
 def register_shipping_method(c):
     shipping_method = c
 
@@ -48,6 +49,8 @@ class BaseShipping(object):
 
         
 class CorreosShipping(BaseShipping):
+
+    method = "Correos"
 
     def calc_shipping_cost(self):
         we = cart_weight(self.cart)

@@ -158,15 +158,21 @@ def shipping_cost(request):
     
     cp = request.GET.get('cp')
     if cp != "":
-        result = calc_shipping_costs(cart, cp, amount)
+        from shipping import shipping_method
+        result = shipping_method(cart, cp, amount)
     else: 
         raise Http404
     
-    response = """Procesaremos tu envío con Correos. El precio del envío será de: <strong>%s€</strong>. 
-        Recibirás tu envío aproximadamente el día, <strong>%s</strong>.""" % (result, 
-            cart_arrival_day().strftime("%d/%m/%Y") )
+    return direct_to_template(request, "shop/shipping_costs.html", extra_context={
+        'arrival_date': cart_arrival_day(),
+        'ship': result
+        })
     
-    return HttpResponse(response)
+    #response = """Procesaremos tu envío con Correos. El precio del envío será de: <strong>%s€</strong>. 
+    #    Recibirás tu envío aproximadamente el día, <strong>%s</strong>.""" % (result, 
+    #        cart_arrival_day().strftime("%d/%m/%Y") )
+    
+    #return HttpResponse(response)
         
     
 
