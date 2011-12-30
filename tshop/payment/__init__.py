@@ -35,7 +35,8 @@ def paypal_form(order):
         # so you don't need to hardcode these values.
         'currency_code': 'EUR',
         'lc': 'es_ES',
-        'notify_url': settings.SITE_DOMAIN + "/tienda/checkout/paypal/ipn",
+        #'notify_url': settings.SITE_DOMAIN + "/tienda/checkout/paypal/ipn",
+        'notify_url': settings.SITE_DOMAIN + reverse('paypal-ipn'),
         'return_url': settings.SITE_DOMAIN + reverse('return_url'),
         'cancel_return': settings.SITE_DOMAIN + reverse('cancel_url'),
     }

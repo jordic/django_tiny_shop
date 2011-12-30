@@ -10,9 +10,13 @@
 from django import forms
 from django.conf import settings as conf
 
+from django.conf import settings
+
+PRODUCT_QTY_FORM = getattr(settings, 'PRODUCT_QTY_FORM', 10)
+
 class CartForm(forms.Form):
     
-    CHOICES = [(k,k) for k in range(1,10)]
+    CHOICES = [(k,k) for k in range(1, PRODUCT_QTY_FORM)]
     
     def set_instance(self, instance):
         self.fields['pk'].initial = instance.pk
