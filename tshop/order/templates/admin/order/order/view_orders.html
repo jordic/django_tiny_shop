@@ -1,0 +1,48 @@
+{% for ord in obj %}
+<hr />
+	<h4>{{ ord.uid }}</h4>
+	<p>
+		<b>{{ ord.client.full_name }}</b><br />
+		{{ ord.client.ship_address }}<br />
+		{{ ord.client.ship_pc }}&nbsp;{{ ord.client.get_ship_provincia_display }}<br />
+		{{ ord.client.ship_extra }}
+		<br />
+		
+		<table width="50%" border="1" class="checkout" cellpadding=2 cellspacing=0 style="border:1px solid grey">
+            <tr class="header">
+                <td>Cant.</td>
+                <td>Artículo</td>
+                <td>Precio</td>
+                <td>PU*</td>
+                <td>Total</td>
+            </tr>
+            <!-- product, variation, qty, price, price_dicount_qty, total-->
+            {% for c in ord.line_set.all %}
+            <tr class="row">
+                <td>{{ c.quantity }}</td>
+                {% if c.types == 'product' %}
+                <td>{{ c.product }} {% if c.product_option %}<span>({{ c.product_option }})</span>{% endif %}</td>    
+                {% else %}
+                    <td>Costes de Envío. ASM</td>    
+                {% endif %}
+                <td class="precio">{% if c.amount %}{{ c.amount|floatformat:2}}&euro;{% endif %}</td>
+                <td>{% if c.amount_discount %}{{ c.amount_discount|floatformat:2 }}&euro;{% endif %}</td>
+                <td class="total">{% if c.total %}{{ c.total|floatformat:2 }}&euro;{% endif %}</td>
+            </tr>
+            {% endfor  %}
+        
+            <tr>
+                <td colspan="5" class="amount" align=right>Total: &nbsp;&nbsp;<span>{{ ord.total|floatformat:2 }}&euro;</span></td>
+
+            </tr>
+         </table>
+		
+	</p>
+
+
+
+{% endfor %}
+
+
+
+

@@ -35,7 +35,9 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status',)
     list_display = ('uid', 'client', 'status', 'date', 'pay_type', 'pay_date', 'total', 'enviar')
     exclude = ('client', 'pay_details')
-    readonly_fields = ('status', 'pay_date', 'date', 'pay_type', 'pay_id')
+    readonly_fields = ('pay_date', 'date', 'pay_type', 'pay_id')
+    
+    actions = ['view_orders']
     
     def enviar(self, obj):
         if obj.status == Order.PAYED:
@@ -45,6 +47,12 @@ class OrderAdmin(admin.ModelAdmin):
     
     enviar.short_description = 'Acciones'
     enviar.allow_tags = True
+    
+    
+    def view_orders(self, request, queryset):
+        c = {}
+        c['obj'] = queryset
+        return direct_to_template(request, 'admin/order/order/view_orders.html', c)
     
     
     def notificar_envio(self, request, pk):
