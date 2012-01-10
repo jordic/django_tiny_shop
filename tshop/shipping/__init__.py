@@ -59,7 +59,9 @@ class BaseShipping(object):
         return 0
     
     def cart_arrival_day(self):
-        return cart_arrival_day()
+        avui = datetime.today()
+        entrega = avui + timedelta(days=10)
+        return entrega
 
         
 class CorreosShipping(BaseShipping):
@@ -86,10 +88,12 @@ class CorreosShipping(BaseShipping):
         else:
             return "100"
 
-def cart_arrival_day():
-    avui = datetime.today()
-    entrega = avui + timedelta(days=10)
-    return entrega
+def cart_arrival_day(cart=None, postal=None, amount=None, client=None):
+    ms = get_shipping_method()
+    ship = ms(cart=cart, postal=postal, amount=amount, client=client)
+    #weight = cart_weight(cart)
+    return ship.cart_arrival_day()
+    
 
 def next_monday():
     today = datetime.today()
