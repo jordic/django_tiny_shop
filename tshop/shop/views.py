@@ -160,7 +160,7 @@ def shipping_cost(request):
     if cp != "":
         from shipping import get_shipping_method
         shipping_method = get_shipping_method()
-        print shipping_method
+        #print shipping_method
         result = shipping_method(cart, cp, amount)
     else: 
         raise Http404

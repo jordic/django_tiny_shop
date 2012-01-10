@@ -52,6 +52,11 @@ class OrderAdmin(admin.ModelAdmin):
     def view_orders(self, request, queryset):
         c = {}
         c['obj'] = queryset
+        total = 0
+        for k in queryset:
+            total = total + k.total()
+        c['total'] = total
+        
         return direct_to_template(request, 'admin/order/order/view_orders.html', c)
     
     

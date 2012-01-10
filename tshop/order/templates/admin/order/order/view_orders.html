@@ -1,12 +1,24 @@
+<html>
+<style>
+
+body, p, td, h1, h2, h3, h4 {font-family:Arial; }
+
+</style>
+<body>
+
+<h3>Informe de pedidos</h3>
+<h3>Total: <b>{{ total }} &euro;</b></h3>
+
 {% for ord in obj %}
 <hr />
-	<h4>{{ ord.uid }}</h4>
+	<h4>{{ ord.uid }} /  {{  ord.client.email }}</h4>
 	<p>
 		<b>{{ ord.client.full_name }}</b><br />
 		{{ ord.client.ship_address }}<br />
-		{{ ord.client.ship_pc }}&nbsp;{{ ord.client.get_ship_provincia_display }}<br />
-		{{ ord.client.ship_extra }}
-		<br />
+		{{ ord.client.ship_pc }}&nbsp;{{ ord.client.ship_city }}<br />
+		{{ ord.client.get_ship_provincia_display }}<br />
+		{{ ord.client.ship_text }}
+		<br /><br />
 		
 		<table width="50%" border="1" class="checkout" cellpadding=2 cellspacing=0 style="border:1px solid grey">
             <tr class="header">
@@ -39,10 +51,11 @@
 		
 	</p>
 
+	<p></p>
 
 
 {% endfor %}
-
-
+</body>
+</html>
 
 
