@@ -85,7 +85,7 @@ class SimpleCartMiddleware(object):
         c = cart_from_session(request)
         if c.total() == 0:
             request.cart = None
-            return
+            return None
             
         val = cache.get('cart')
         if not val:

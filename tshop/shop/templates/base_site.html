@@ -1,4 +1,4 @@
-{% load thumbnail %}
+{% load thumbnail products %}
 {% load url from future %}
 <!DOCTYPE html> 
 <html dir="ltr" lang="es-es"> 
@@ -58,8 +58,9 @@
 	
 	{% block cart %}
 	    <div id="scart">
-		{% if request.cart.total  %}
-	        {{ request.cart.total }} ({{ request.cart.price|floatformat:"2" }}&euro;)
+		{% get_cart as carro %}
+		{% if carro.total  %}
+	        {{ carro.total }} ({{ carro.price|floatformat:"2" }}&euro;)
 	        <a href="{% url 'view_cart' %}" class="button">TRAMITAR</a>
 		{% else %}
 			0 productos
