@@ -84,6 +84,10 @@ def product_view(request, slug):
 def checkout(request):
     f = CheckoutForm()
     c = {}
+    cart = cart_from_session(request)
+    if cart.total() == 0:
+        return HttpResponseRedirect(reverse('view_cart'))
+    
     if request.method == "GET":
         if request.session.get(settings.ORDER_KEY):
             uid = request.session.get(settings.ORDER_KEY)
@@ -92,7 +96,6 @@ def checkout(request):
                 f = CheckoutForm(instance=order.client)
             except:
                 pass
-            
         c['form'] = f
         return direct_to_template(request, 
             template="shop/checkout.html", 
