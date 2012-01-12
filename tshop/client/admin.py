@@ -6,7 +6,7 @@
 '''
 '''
 from django.contrib import admin
-from models import *
+from models import Client
 
 class ClientAdmin(admin.ModelAdmin):
     pass
