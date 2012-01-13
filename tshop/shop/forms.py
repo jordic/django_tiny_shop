@@ -14,6 +14,7 @@ from order.models import order_from_cart, Order
 from django.shortcuts import get_object_or_404    
 from django.contrib.localflavor.es.forms import *
 import signals
+from django.utils.translation import ugettext_lazy as _
 
 class CheckoutForm(forms.ModelForm):
     

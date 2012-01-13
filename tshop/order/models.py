@@ -18,7 +18,7 @@ from order.views import email_notification
 import random
 import base64
 from shop import signals
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 class Order(models.Model):

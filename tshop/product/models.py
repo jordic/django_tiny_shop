@@ -10,15 +10,16 @@
 from django.db import models
 from sorl.thumbnail import ImageField
 from forms import CartForm
+from django.utils.translation import ugettext_lazy as _
 
 class Category(models.Model):
-    title = models.CharField(blank=False, max_length=255, verbose_name=u"Título")
+    title = models.CharField(blank=False, max_length=255, verbose_name=_(u"Título"))
     slug = models.SlugField()
     text = models.TextField(blank=True)
 
     class Meta:
-        verbose_name = u'Categoría'
-        verbose_name_plural = u'Categorias'
+        verbose_name = _(u'Categoría')
+        verbose_name_plural = _(u'Categorias')
         
     def __unicode__(self):
         return self.title
@@ -37,21 +38,21 @@ class ProductManager(models.Manager):
 
 class Product(models.Model):
     category = models.ForeignKey(Category)
-    title = models.CharField(blank=False, max_length=255, verbose_name=u"Título")
+    title = models.CharField(blank=False, max_length=255, verbose_name=_(u"Título"))
     slug = models.SlugField()
-    active = models.BooleanField(default=True, verbose_name=u"Activo?")
-    featured = models.BooleanField(default=False, verbose_name=u"Destacado?")
+    active = models.BooleanField(default=True, verbose_name=_(u"Activo?"))
+    featured = models.BooleanField(default=False, verbose_name=_(u"Destacado?"))
     text = models.TextField(blank=True)
-    image = ImageField(upload_to="upload/producto/", blank=True, verbose_name="Imágen")
-    price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=u"Precio")
-    size = models.CharField(blank=True, max_length=80, verbose_name=u"Tamaño")
-    weight = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=u"Peso en Gramos")
+    image = ImageField(upload_to="upload/producto/", blank=True, verbose_name=_("Imágen"))
+    price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Precio"))
+    size = models.CharField(blank=True, max_length=80, verbose_name=_(u"Tamaño"))
+    weight = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Peso en Gramos"))
 
     objects = ProductManager()
 
     class Meta:
-        verbose_name = u'Producto'
-        verbose_name_plural = u'Productos'
+        verbose_name = _(u'Producto')
+        verbose_name_plural = _(u'Productos')
         
     def __unicode__(self):
         return self.title
@@ -92,9 +93,9 @@ class Product(models.Model):
     
 class Options(models.Model):
     product = models.ForeignKey(Product, related_name="variations")
-    title = models.CharField(blank=False, max_length=255, verbose_name=u"Título")
-    image = ImageField(null=True, upload_to="upload/opciones/", blank=True, verbose_name="Imágen")
-    price = models.DecimalField(null=True, blank=True, max_digits=6, decimal_places=2, verbose_name=u"Precio")
+    title = models.CharField(blank=False, max_length=255, verbose_name=_("Título"))
+    image = ImageField(null=True, upload_to="upload/opciones/", blank=True, verbose_name=_("Imágen"))
+    price = models.DecimalField(null=True, blank=True, max_digits=6, decimal_places=2, verbose_name=_("Precio"))
     text = models.TextField(null=True, blank=True)
     
     class Meta:
@@ -110,11 +111,11 @@ class Options(models.Model):
         
 class Price(models.Model):
     product = models.ForeignKey(Product, related_name="prices")
-    quantity = models.IntegerField(blank=False, verbose_name=u"Cantidad")
-    price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=u"Precio")
+    quantity = models.IntegerField(blank=False, verbose_name=_("Cantidad"))
+    price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_("Precio"))
 
     class Meta:
-        verbose_name=u"Precios Escalados"
+        verbose_name=_("Precios Escalados")
 
 
 

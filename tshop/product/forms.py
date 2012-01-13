@@ -9,8 +9,8 @@
 
 from django import forms
 from django.conf import settings as conf
-
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 PRODUCT_QTY_FORM = getattr(settings, 'PRODUCT_QTY_FORM', 10)
 
@@ -21,7 +21,7 @@ class CartForm(forms.Form):
     def set_instance(self, instance):
         self.fields['pk'].initial = instance.pk
         if instance.has_variations():
-            self.fields['sub'] = forms.ChoiceField(choices=self.get_variations(instance), label=conf.LABEL_VARIATIONS)
+            self.fields['sub'] = forms.ChoiceField(choices=self.get_variations(instance), label=_(conf.LABEL_VARIATIONS))
     
     def get_variations(self, instance):
         return [(str(op.pk), op.title) for op in instance.variations.all()]
@@ -32,6 +32,6 @@ class CartForm(forms.Form):
 
     pk = forms.IntegerField( widget=forms.HiddenInput, required=True )
     sub = forms.IntegerField( widget=forms.HiddenInput, required=False)
-    qty = forms.ChoiceField(choices=CHOICES, label="Cantidad", initial=1 )
+    qty = forms.ChoiceField(choices=CHOICES, label=_("Cantidad"), initial=1 )
 
     

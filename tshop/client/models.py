@@ -10,7 +10,7 @@ Tiny Client model
 
 from django.db import models
 from django.contrib.localflavor.es.es_provinces import PROVINCE_CHOICES
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 
