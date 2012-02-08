@@ -64,8 +64,9 @@ def order_from_cart(cart, client, payment_type):
     o.client = client
     o.status = Order.PENDING
     o.pay_type = payment_type
-    uid = generate_order_id()
-    o.uid = uid
+    o.save()
+    #uid = generate_order_id()
+    o.uid = "0000%s-%s" % (o.pk, o.client.email[0:2])
     o.save()
     l = cart_list(cart)
     for item in l:
