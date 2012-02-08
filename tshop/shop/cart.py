@@ -26,7 +26,10 @@ class Cart(list):
         return total
         
     def delete(self, p):
-        del self[p]
+        try:
+            del self[p]
+        except IndexError:
+            pass
         
     def save(self, request):
         request.session[settings.CART_SESSSION_NAME] = self

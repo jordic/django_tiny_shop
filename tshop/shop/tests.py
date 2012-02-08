@@ -30,7 +30,9 @@ class SimpleTest(TestCase):
         self.assertEqual(c[0][0], 2)
         self.assertEqual(c.total_items(), 2)
         
-        
+    def test_bug_a_delete(self):
+        c = Cart()
+        c.delete(0)    
         
 
     #def test_save_to_session(self):
