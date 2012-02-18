@@ -134,11 +134,16 @@ def checkout_confirm(request):
 @csrf_exempt       
 def checkout_ok(request):
     c = {}
-    print request
+    #print request
     
     if request.session.get(settings.ORDER_KEY):
         uid = request.session.get(settings.ORDER_KEY)
         request.session.flush()
+        try:
+            order = Order.objects.get(uid=uid)
+            c['order'] = order
+        except:
+            pass
     
     return direct_to_template(request, 
            template="shop/checkout_ok.html", extra_context=c)
