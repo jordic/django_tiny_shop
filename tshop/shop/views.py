@@ -138,6 +138,7 @@ def checkout_ok(request):
     
     if request.session.get(settings.ORDER_KEY):
         uid = request.session.get(settings.ORDER_KEY)
+        print "orderuid  %s" % uid
         request.session.flush()
         try:
             order = Order.objects.get(uid=uid)
