@@ -79,11 +79,6 @@ def multiply(value, arg):
     return float(value) * float(arg)
     
     
-@register.filter     
-def truncate_decimal(val, places=2):
-    return trunc_decimal(val, places)
-    
-    
     
     
     

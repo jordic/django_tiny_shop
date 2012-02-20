@@ -144,7 +144,7 @@ def checkout_ok(request):
             c['order'] = order
         except:
             pass
-    
+    #print c
     return direct_to_template(request, 
            template="shop/checkout_ok.html", extra_context=c)
 
