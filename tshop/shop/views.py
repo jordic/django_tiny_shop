@@ -22,6 +22,7 @@ from shipping import calc_shipping_costs, cart_arrival_day
 from order.models import Order
 from payment import get_payment
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import never_cache
 import signals
 # Create your views here.
 
@@ -131,6 +132,7 @@ def checkout_confirm(request):
         return direct_to_template(request, 
                template="shop/checkout_confirm.html", extra_context=c)
 
+@never_cache
 @csrf_exempt       
 def checkout_ok(request):
     c = {}
