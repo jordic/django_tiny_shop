@@ -22,6 +22,8 @@ from shipping import calc_shipping_costs, cart_arrival_day
 from order.models import Order
 from payment import get_payment
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import never_cache
+import signals
 # Create your views here.
 
 def soon(request):
@@ -83,6 +85,10 @@ def product_view(request, slug):
 def checkout(request):
     f = CheckoutForm()
     c = {}
+    cart = cart_from_session(request)
+    if cart.total() == 0:
+        return HttpResponseRedirect(reverse('view_cart'))
+    
     if request.method == "GET":
         if request.session.get(settings.ORDER_KEY):
             uid = request.session.get(settings.ORDER_KEY)
@@ -91,7 +97,6 @@ def checkout(request):
                 f = CheckoutForm(instance=order.client)
             except:
                 pass
-            
         c['form'] = f
         return direct_to_template(request, 
             template="shop/checkout.html", 
@@ -127,15 +132,22 @@ def checkout_confirm(request):
         return direct_to_template(request, 
                template="shop/checkout_confirm.html", extra_context=c)
 
+@never_cache
 @csrf_exempt       
 def checkout_ok(request):
     c = {}
-    print request
+    #print request
     
     if request.session.get(settings.ORDER_KEY):
         uid = request.session.get(settings.ORDER_KEY)
+        print "orderuid  %s" % uid
         request.session.flush()
-    
+        try:
+            order = Order.objects.get(uid=uid)
+            c['order'] = order
+        except:
+            pass
+    #print c
     return direct_to_template(request, 
            template="shop/checkout_ok.html", extra_context=c)
 
@@ -148,8 +160,8 @@ def checkout_cancel(request):
     
 def shipping_cost(request):
     ''' calc shipping cost for ajax request...'''
-    if not request.is_ajax():
-        raise Http404
+    #if not request.is_ajax():
+    #    raise Http404
     
     cart = cart_from_session(request)
     cl = cart_list(cart) 
@@ -157,16 +169,17 @@ def shipping_cost(request):
     
     cp = request.GET.get('cp')
     if cp != "":
-        result = calc_shipping_costs(cart, cp, amount)
+        from shipping import get_shipping_method
+        shipping_method = get_shipping_method()
+        #print shipping_method
+        result = shipping_method(cart, cp, amount)
     else: 
         raise Http404
     
-    response = """Procesaremos tu envío con Correos. El precio del envío será de: <strong>%s€</strong>. 
-        Recibirás tu envío aproximadamente el día, <strong>%s</strong>.""" % (result, 
-            cart_arrival_day().strftime("%d/%m/%Y") )
-    
-    return HttpResponse(response)
-        
+    return direct_to_template(request, "shop/shipping_costs.html", extra_context={
+        'arrival_date': cart_arrival_day(),
+        'ship': result
+        })        
     
 
     

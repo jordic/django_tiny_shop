@@ -14,15 +14,23 @@ from django.conf import settings
 from paypal.standard.forms import PayPalPaymentsForm
 
 
+payment_modules = {}
+
+def register_payment_module(pay_type, form):
+    global payment_modules
+    payment_modules[pay_type] = form
+    
+
 def get_payment(order):
-    res = {
-        'paypal': paypal_form,
-    }
-    return res[order.pay_type](order)
+    #res = {
+    #    'paypal': paypal_form,
+    #}
+    global payment_modules
+    return payment_modules[order.pay_type](order)
 
 
 def paypal_form(order):
-    res = {}
+    #res = {}
     paypal = {
         'business': settings.PAYPAL_RECEIVER_EMAIL,
         'amount': order.total(),
@@ -35,7 +43,8 @@ def paypal_form(order):
         # so you don't need to hardcode these values.
         'currency_code': 'EUR',
         'lc': 'es_ES',
-        'notify_url': settings.SITE_DOMAIN + "/tienda/checkout/paypal/ipn",
+        #'notify_url': settings.SITE_DOMAIN + "/tienda/checkout/paypal/ipn",
+        'notify_url': settings.SITE_DOMAIN + reverse('paypal-ipn'),
         'return_url': settings.SITE_DOMAIN + reverse('return_url'),
         'cancel_return': settings.SITE_DOMAIN + reverse('cancel_url'),
     }
@@ -46,8 +55,7 @@ def paypal_form(order):
         rendered_form = form.render()
     return rendered_form
 
-
-    
+register_payment_module('paypal', paypal_form)    
     
     
     

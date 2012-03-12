@@ -16,6 +16,12 @@
 		{{ adminform.form.instance.client.ship_pc }} {{ adminform.form.instance.client.ship_city }}<br />
 		{{ adminform.form.instance.client.get_ship_provincia_display }}
 		</p>
+		{% if adminform.form.instance.client.ship_text %}
+		<p><strong>Mensaje:</strong><br />
+			{{ adminform.form.instance.client.ship_text|linebreaksbr }}
+		</p>
+		{% endif %}
+		
 	</div>	
 </div>
 <div class="module" style="padding:10px">

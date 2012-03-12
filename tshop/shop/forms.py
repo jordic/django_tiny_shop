@@ -13,13 +13,18 @@ from shop.cart import Cart, cart_from_session
 from order.models import order_from_cart, Order
 from django.shortcuts import get_object_or_404    
 from django.contrib.localflavor.es.forms import *
+import signals
+from django.utils.translation import ugettext_lazy as _
 
 class CheckoutForm(forms.ModelForm):
     
     pago = forms.ChoiceField(widget=RadioSelect(), 
         choices=settings.PAYMENT_MODES, initial=settings.PAYMENT_MODES_DEFAULT )
-    
-    
+
+    def __init__(self, *args, **kwargs):
+        super(CheckoutForm, self).__init__(*args, **kwargs)
+        signals.checkout_form_created.send(sender=CheckoutForm, form=self)
+        
     class Meta:
         model = Client
     
@@ -45,9 +50,47 @@ class CheckoutForm(forms.ModelForm):
         pay_type = self.cleaned_data['pago']
         
         order = order_from_cart(c, self.contact, pay_type)
-        return order
+        return order    
+
+
+    def clean_ship_pc(self):
+        data = self.cleaned_data.get('ship_pc')
+        # as done in satchmo, emiting a postal code
+        responses = signals.clean_postal_code.send(sender=CheckoutForm, postal=data)
+        for responder, response in responses:
+            if response:
+                return response
+        return data
+
+    def clean(self):
+        data = self.cleaned_data
+        responses = signals.clean_checkout_form.send(sender=CheckoutForm, data=data)
+        for responder, response in responses:
+            if response:
+                return response
+        return data
         
-        
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

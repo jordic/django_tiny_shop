@@ -1,0 +1,30 @@
+{% extends "base_site.html" %}
+{% load thumbnail products %}
+{% load url from future %}
+
+{% block cart %}{% endblock %}
+
+
+{% block content %}
+    
+    <div id="content">
+        
+        <h2 style="line-height:24px; padding-bottom:40px">Su pedido ha sido procesado. </h2>
+        
+        <p>Tan pronto como recibamos la confirmación del pago, 
+            te enviaremos un email con los datos de tu pedido.</p>
+        
+        <p>Para cualquier duda, sobre el envío, no dudes en <a href="/contacto">ponerte en contacto</a> con nosotros.</p>
+        
+        <div class="clear" style="padding:20px"> </div>
+        
+        <input type="button" class="button" 
+            onclick="window.location.href='/'" value="Continuar" />
+        
+        <div class="clear" style="padding:40px"> </div>
+        
+    </div>
+        
+        
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base_site.html" %}
+{% load thumbnail products %}
+{% load url from future %}
+
+{% block cart %}{% endblock %}
+
+
+{% block content %}
+    
+    <div id="content">
+        
+        <h2 style="line-height:24px; padding-bottom:40px">Su pedido no ha sido procesado. </h2>
+        
+        <p>Ha habido un problema con el método de pago seleccionado. Inténtalo de nuevo</p>
+        
+        <p></p>
+        
+        <div class="clear" style="padding:20px"> </div>
+        
+        <input type="button" class="button" 
+            onclick="window.location.href='/cart/checkout'" value="Intentar de nuevo" />
+        
+        <div class="clear" style="padding:40px"> </div>
+        
+    </div>
+        
+        
+
+{% endblock %}

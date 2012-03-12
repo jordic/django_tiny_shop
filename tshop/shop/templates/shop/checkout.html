@@ -1,0 +1,90 @@
+{% extends "base_site.html" %}
+{% load thumbnail products %}
+{% load url from future %}
+
+{% block extra_script %}
+<script>
+$(document).ready(function(){
+   $('#id_ship_pc').blur(function(){
+       if($(this).val()!="") {
+           $('#envio_coste').html('Consultado costes envío...').show()
+           $.get('{% url 'shipping_costs' %}', {'cp':$(this).val()}, function(data){
+               $('#envio_coste').html(data)
+           })
+       }
+   })
+   
+   if($('#id_ship_pc').val()!="") {
+        $('#id_ship_pc').trigger('blur')
+   }
+   
+    
+});    
+</script>
+{% endblock extra_script %}
+
+
+{% block content %}
+    
+    <div id="content" class="checkout">
+        
+            
+        <h2>Tramitar el Pedido</h2>
+        
+        <p style="padding:15px 0 15px 0">Por favor introduce los datos de contacto y envío, para poder proceder a tramitar tu pedido.</p>
+        
+        {% if form.errors %}
+            <p class="form_error">Hay errores en tu formulario, por favor corrige los campos marcados
+				{% for er in form.non_field_errors %}
+						<br />{{ er}} 
+				{% endfor %}
+			</p>
+			
+            <div class="clear" style="padding:10px"></div>
+            <form action="{% url 'checkout' %}" method="POST" id="formcheckout" class="errors">
+        {% else %}
+            <form action="{% url 'checkout' %}" method="POST" id="formcheckout">
+        {% endif %}
+        
+            {% csrf_token %}
+            
+            
+            {% for field in form %}
+
+                {% if field.name != "pago" %}
+                <div class="campo {% if field.errors  %}haserror{% endif %}">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field }}
+                    <div class="clear"> </div>
+                </div>
+                {% else %}
+                
+                <div class="campo ">
+
+                <label for="id_pago_0">Pago</label> <ul>
+                    <li><label for="id_pago_0" style="width:600px; font-weight:normal"><input checked="checked" type="radio" id="id_pago_0" value="paypal" name="pago" /> <img src="{{ MEDIA_URL }}common/img/paypal.gif" height=20 /><br />Puede pagar con targeta de crédito sin disponer de una cuenta Paypal</label></li>
+                    <!--<li><label for="id_pago_1"><input type="radio" id="id_pago_1" value="sanostra" name="pago" /> Sa Nostra</label></li>-->
+                </ul>
+                                    <div class="clear"> </div>
+
+                                </div>
+                
+                {% endif %}
+            {% endfor %}
+            
+        <div class="clear"> </div>
+        <input type="Submit" name="procesar" value="Comprar" class="button" 
+            style="margin-left:50px; margin-top:30px; background-color:#000"/>
+        
+        </form>
+        
+        <div id="envio_coste" style="float:left">Procesaremos tu envío con ASM. El contenido de tu cesta, pesa: , 
+            y el precio del envío es de.. </div>
+        
+        <div class="clear"> </div>
+        
+    </div>
+
+    <div class="clear" style="padding:20px"> </div>
+
+{% endblock content %}

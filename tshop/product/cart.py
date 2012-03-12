@@ -74,6 +74,8 @@ def cart_total(c):
     return amount
 
 
+""" This middleware is obsolte and will disapear """
+
 class SimpleCartMiddleware(object):
     '''
     Middleware to support a cart in request object.
@@ -85,7 +87,7 @@ class SimpleCartMiddleware(object):
         c = cart_from_session(request)
         if c.total() == 0:
             request.cart = None
-            return
+            return None
             
         val = cache.get('cart')
         if not val:

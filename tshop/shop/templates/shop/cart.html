@@ -1,0 +1,52 @@
+{% extends "base_site.html" %}
+{% load products  %}
+{% load url from future %}
+
+{% block content %}
+
+    <div id="content">
+        
+        <h2>Tu cesta</h2>
+        
+        <div class="clear"> </div>
+        
+        <table width="100%" border="0" class="checkout" cellpadding=0 cellspacing=0>
+            <tr class="header">
+                <td>Cant.</td>
+                <td>Artículo</td>
+                <td>Precio</td>
+                <td>PU*</td>
+                <td>Total</td>
+                <td>&nbsp</td>
+            </tr>
+            <!-- product, variation, qty, price, price_dicount_qty, total-->
+            {% for c in cart %}
+            <tr class="row">
+                <td>{{ c.2 }}</td>
+                <td>{{ c.0.title }} {% if c.1 %}<span>({{ c.1.title }})</span>{% endif %}</td>
+                <td class="precio">{{ c.3|floatformat:2}}&euro;</td>
+                <td>{% if c.4 %}{{ c.4|floatformat:2 }}&euro;{% endif %}</td>
+                <td class="total">{% if c.5 %}{{ c.5|floatformat:2 }}&euro;{% endif %}</td>
+                <td><a href="{% url "remove_from_cart" forloop.counter0 %}"><img src="{{ MEDIA_URL }}common/img/icon_remove.gif" width="20"></a></td>
+            </tr>
+            {% endfor  %}
+            
+            <tr>
+                <td colspan="5" class="amount">Total: &nbsp;&nbsp;<span>{{ total|floatformat:2 }}&euro;</span></td>
+                <td>&nbsp;</td>
+            </tr>
+            
+            </table>
+
+        <p style="text-align:center; padding-top:30px"><a href="{% url 'checkout' %}" class="button">Tramitar Pedido</a></p>
+        <p style="padding-top:20px">(*) Te sale a este precio al comprar más unidades</p>    
+
+
+        
+    </div>    
+
+    <div class="clear" style="padding:20px"> </div> 
+
+
+
+{% endblock  %}

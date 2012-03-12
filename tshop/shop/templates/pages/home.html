@@ -1,0 +1,26 @@
+{% extends "base_site.html" %}
+{% load thumbnail products %}
+{% load url from future %}
+
+
+{% block content %}
+<div id="content">
+	
+	<h1>Demo site homepage</h1>
+	<div class="bloc category">
+		{% get_categories as category %}
+		<ul>
+		{% for c in category %}
+			<li><a href="">{{ c.title }}</a></li>
+		{% endfor %}
+		</ul>
+	</div>
+	
+	<!--  this is a simple product featured widget .. -->
+	{% widget_productos %}
+	
+	
+	
+</div>	
+{% endblock content %}
+	

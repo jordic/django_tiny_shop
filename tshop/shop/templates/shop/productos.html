@@ -1,0 +1,40 @@
+{% load thumbnail %}
+{% load url from future %}
+
+
+{% for prod in productos %}
+	<div class="bloc">
+	<h2><a href="{% url 'product_view' prod.slug %}">{{ prod.title }}</a></h2>
+	{% if prod.image %}
+	    <img src="{{ prod.image.url }}" width="200" id="img_{{ prod.pk }}" />
+	{% endif %}
+
+	<!-- this is onlye a implementation for demo pruposes -->
+	{% if prod.has_variations %}
+    <script>
+        var form_{{ prod.pk }} = {
+            {% for k in prod.variations.all %}
+			{% if k.has_image %}
+				{% thumbnail k.image "200" crop="center" as im %}
+                	'{{ k.pk }}': '{{ im.url }}',
+                {% endthumbnail %}
+				{% endif %}
+				{% endfor %}
+            'o':0
+        }
+    </script>
+    {% endif %}
+
+	<form action="{% url 'add_to_cart' %}" method="POST" id="prod_{{ prod.pk }}" class="product">
+	{% csrf_token %}
+
+	{{ prod.get_product_form }}
+
+	
+	<div style="float:right"><button type="Submit"><img border="0" src="{{ MEDIA_URL }}common/img/comprar.gif" 
+	    width="85" height="24" alt="Comprar" class="addToCart"></button></div>
+
+	</form>
+	</div>
+
+{% endfor %}
