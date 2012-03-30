@@ -19,6 +19,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
+from pyExcelerator import *
 
 from django.conf.urls.defaults import *
 
@@ -36,8 +37,9 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('uid', 'client', 'status', 'date', 'pay_type', 'pay_date', 'total', 'enviar')
     exclude = ('client', 'pay_details')
     readonly_fields = ('pay_date', 'date', 'pay_type', 'pay_id')
+    date_hierarchy = 'date'
     
-    actions = ['view_orders']
+    actions = ['view_orders', 'export_as_xls']
     
     def enviar(self, obj):
         if obj.status == Order.PAYED:
@@ -92,6 +94,42 @@ class OrderAdmin(admin.ModelAdmin):
         )
         return my_urls + urls
     
+    
+    def export_as_xls(modeladmin, request, queryset):
+        """
+        Generic xls export admin action.
+        """
+        if not request.user.is_staff:
+            raise PermissionDenied
+
+        camps = ('uid', 'Fecha', 'Cliente', 'Status',
+            'Total', 'Total s/p', u'Envío', 'Qty',
+            'Provincia', 'Ciudad')
+
+        wb = Workbook()
+        ws0 = wb.add_sheet('0')
+        col = 0
+        # write header row
+        for field in camps:
+            ws0.write(0, col, field)
+            col = col + 1
+
+        row = 1
+        # Write data rows
+        for obj in queryset:
+            col = 0
+            for field in obj.export():
+                ws0.write(row, col, unicode(field))
+                col = col + 1
+            row = row + 1
+
+        wb.save('/tmp/output.xls')
+        response = HttpResponse(open('/tmp/output.xls','r').read(),
+                      mimetype='application/ms-excel')
+        response['Content-Disposition'] = 'attachment; filename=Pedidos.xls'
+        return response
+    export_as_xls.short_description = "Export selected objects to XLS"
+
 
 
 

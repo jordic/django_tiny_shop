@@ -50,13 +50,27 @@ class Order(models.Model):
         return self.line_set.aggregate(Sum('total'))['total__sum']
 
     def quantity(self):
-        return self.line_set.aggregate(Sum('quantity'))['quantity__sum']-1
+        return self.line_set.filter(types='product').aggregate(Sum('quantity'))['quantity__sum']
 
     def total_no_ship(self):
         return self.line_set.exclude(types='ship').aggregate(Sum('total'))['total__sum']
         
     def shipping(self):
         return self.total() - self.total_no_ship()
+        
+    def export(self):
+        arr = []
+        for k in ('uid', 'date', 'client', 'status'):
+            arr.append( getattr(self, k) )
+        for k in ('total', 'total_no_ship', 'shipping', 'quantity'):
+            v = getattr(self, k)
+            arr.append( v() )
+        for k in ('ship_provincia', 'ship_city'):
+            arr.append( getattr(self.client, k) )    
+        return arr
+        #arr.append( self.quantity() )
+        
+        
 
 def generate_order_id():
     return base64.standard_b64encode(str(random.random()*1000).replace(".", ""))
