@@ -28,7 +28,7 @@ class CheckoutForm(forms.ModelForm):
     class Meta:
         model = Client
     
-    def create_order(self, request):
+    def create_order(self, request, form=None):
         if request.session.get(settings.ORDER_KEY):
             uid = request.session[settings.ORDER_KEY]
             try:
@@ -49,7 +49,7 @@ class CheckoutForm(forms.ModelForm):
         c = cart_from_session(request)
         pay_type = self.cleaned_data['pago']
         
-        order = order_from_cart(c, self.contact, pay_type)
+        order = order_from_cart(c, self.contact, pay_type, form)
         return order    
 
 

@@ -104,7 +104,7 @@ def checkout(request):
     if request.method == "POST":
         f = CheckoutForm(data=request.POST)
         if f.is_valid():
-            order = f.create_order(request)
+            order = f.create_order(request, f)
             request.session[settings.ORDER_KEY] = order.uid
             return HttpResponseRedirect(reverse('checkout_confirm'))
         else:

@@ -61,7 +61,7 @@ class Order(models.Model):
 def generate_order_id():
     return base64.standard_b64encode(str(random.random()*1000).replace(".", ""))
 
-def order_from_cart(cart, client, payment_type):
+def order_from_cart(cart, client, payment_type, form):
     '''Creates an order from a given session cart and a client..'''
     o = Order()
     o.client = client
@@ -86,7 +86,7 @@ def order_from_cart(cart, client, payment_type):
     #afegim linia de calcul dels shippings...
     amount = cart_total( l )
     cp = client.ship_pc
-    signals.order_created.send(Order, order=o, client=client, amount=amount, cart=cart)
+    signals.order_created.send(Order, order=o, client=client, amount=amount, cart=cart, form=form)
     return o
     
 
@@ -114,10 +114,12 @@ class Line(models.Model):
     PRODUCT = 'product'
     SHIP = 'ship'
     TAX = 'tax'
+    DESCUENTO = 'descuento'
         
     LINE_TYPES = (
         (PRODUCT, _('Producto')),
         (SHIP, _(u'Envío')),
+        (DESCUENTO, _('Descuento'))
     )
     order = models.ForeignKey(Order, blank=False, verbose_name=_(u"Pedido"))
     types = models.CharField(blank=False, max_length=20, choices=LINE_TYPES, verbose_name=_(u"Tipo Linea"))
