@@ -14,6 +14,7 @@ from product.cart import cart_list, cart_weight, cart_total
 from django.db.models import Sum
 #from shipping import calc_shipping_costs, cart_arrival_day
 from paypal.standard.ipn.signals import payment_was_successful
+from django.db.models.signals import post_save
 from order.views import email_notification
 import random
 import base64
@@ -69,8 +70,23 @@ class Order(models.Model):
             arr.append( getattr(self.client, k) )    
         return arr
         #arr.append( self.quantity() )
-        
-        
+    
+    @classmethod    
+    def get_export_fields(cl):
+        return ('uid', 'Fecha', 'Cliente', 'Status',
+            'Total', 'Total s/p', u'Envío', 'Qty',
+            'Provincia', 'Ciudad')  
+
+
+def set_uid(sender, **kwargs):
+    """ setejem el uid si es un pedido que arriba des de l'admin """
+    obj = kwargs['instance']
+    if not obj.uid:
+        obj.uid = obj.pk
+        obj.save()
+
+post_save.connect(set_uid, sender=Order)
+
 
 def generate_order_id():
     return base64.standard_b64encode(str(random.random()*1000).replace(".", ""))
@@ -147,7 +163,9 @@ class Line(models.Model):
     total = models.DecimalField(max_digits=8, decimal_places=2, verbose_name=_(u"Total"))
     extra = models.CharField(blank=True, max_length=255, verbose_name=_(u"Extra Info"))
     
-    
+    class Meta:
+        verbose_name = _(u'Línia Pedido')
+        verbose_name_plural = _('Líneas')
     
     
     

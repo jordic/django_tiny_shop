@@ -4,9 +4,26 @@
 
 
 {% block after_field_sets %}
+<script>
+(function($){
+	$(document).ready(function(){
+		$('td.amount input').blur(function(){
+			var pare = $(this).parent().parent()
+			if( $('td.total input', pare).val() == "" ) {
+				var qty = $('td.quantity input', pare).val()
+				var total = parseFloat( $(this).val() ) * parseFloat( qty )
+				$('td.total input', pare).val( total )				
+			}
+			
+		})
+	})
+})(django.jQuery);
+
+</script>
 <style>
 .datos p span { font-weight:Bold; }
 </style>
+	{% if object_id %}
 <div id="" class="module datos" style="padding:10px">
 	<h3>Datos del cliente</h3>
 	<p><span>{% trans "Email" %}: </span>{{ adminform.form.instance.client.email }}<br/>
@@ -21,16 +38,19 @@
 			{{ adminform.form.instance.client.ship_text|linebreaksbr }}
 		</p>
 		{% endif %}
-		
-	</div>	
+</div>	
 </div>
 <div class="module" style="padding:10px">
 	<h1 style="padding-right:20px; float:left"><strong>Total: </strong>{{ adminform.form.instance.total }}&euro; 
 		<span style="font-size:11px">({{ adminform.form.instance.total_no_ship }})</span></h1> 
+		{% if adminform.form.instance.pk %}
 		<input type="button" value="Notificar Envío" style="float:left" 
 			onclick="window.location.href='{% url 'admin:notificar_comprador' adminform.form.instance.pk  %}'">
+		{% endif %}
 	<div class="clear"> </div>
 </div>
+{% endif %}
+
 
 {% endblock %}
 

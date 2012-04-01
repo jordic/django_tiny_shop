@@ -25,7 +25,8 @@ from django.conf.urls.defaults import *
 
 class LineInline(admin.TabularInline):
     #readonly_fields = ('types', 'product', )
-    max_num = 0
+    #max_num = 1
+    extra = 1
     exclude  = ('extra',)
     
     model = Line
@@ -35,8 +36,8 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [LineInline]
     list_filter = ('status',)
     list_display = ('uid', 'client', 'status', 'date', 'pay_type', 'pay_date', 'total', 'enviar')
-    exclude = ('client', 'pay_details')
-    readonly_fields = ('pay_date', 'date', 'pay_type', 'pay_id')
+    exclude = ('pay_details', 'pay_date','pay_total', 'pay_id')
+    readonly_fields = ('date',)
     date_hierarchy = 'date'
     
     actions = ['view_orders', 'export_as_xls']
@@ -50,6 +51,14 @@ class OrderAdmin(admin.ModelAdmin):
     enviar.short_description = 'Acciones'
     enviar.allow_tags = True
     
+    def add_view(self, request, form_url='', extra_context=None):
+        self.readonly_fields = ('uid',)
+        return super(OrderAdmin, self).add_view(request, form_url, extra_context)
+    
+    def change_view(self, request, form_url='', extra_context=None):
+        self.readonly_fields = ('date','pay_id')
+        return super(OrderAdmin, self).change_view(request, form_url, extra_context)
+        
     
     def view_orders(self, request, queryset):
         c = {}
@@ -102,9 +111,7 @@ class OrderAdmin(admin.ModelAdmin):
         if not request.user.is_staff:
             raise PermissionDenied
 
-        camps = ('uid', 'Fecha', 'Cliente', 'Status',
-            'Total', 'Total s/p', u'Envío', 'Qty',
-            'Provincia', 'Ciudad')
+        camps = Order.get_export_fields()
 
         wb = Workbook()
         ws0 = wb.add_sheet('0')
