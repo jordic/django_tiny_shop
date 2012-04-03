@@ -17,7 +17,7 @@ import signals
 from django.utils.translation import ugettext_lazy as _
 
 DEFAULT_COUNTRY = getattr(settings, 'DEFAULT_COUNTRY',  'ES')
-COUNTRIES = getattr(settings, 'COUNTRIES', (DEFAULT_COUNTRY))
+COUNTRIES = getattr(settings, 'COUNTRIES', ())
 
 class CheckoutForm(forms.ModelForm):
     
@@ -26,6 +26,7 @@ class CheckoutForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CheckoutForm, self).__init__(*args, **kwargs)
+        print len(COUNTRIES)
         if len(COUNTRIES) <= 1:
             del self.fields['ship_country']
         signals.checkout_form_created.send(sender=CheckoutForm, form=self)
