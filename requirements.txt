@@ -4,3 +4,7 @@ django-debug-toolbar==0.8.5
 -e git://github.com/dcramer/django-paypal.git@7ae72d86b01d57b76f3aa9b8001ff6863988c867#egg=django_paypal-0.1.2-py2.6-dev
 django-templatetag-sugar==0.1
 sorl-thumbnail==11.09
+django-localeurl==1.5
+django-transmeta==0.6.7
+pyExcelerator==0.6.4.1
+django-rosetta==0.6.6

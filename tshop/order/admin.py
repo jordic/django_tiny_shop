@@ -44,7 +44,7 @@ class OrderAdmin(admin.ModelAdmin):
     
     def enviar(self, obj):
         if obj.status == Order.PAYED:
-            return '<a href="%s">Notificar Envío</a>' % reverse('admin:notificar_comprador', args=(obj.pk,))
+            return u'<a href="%s">Notificar Envío</a>' % reverse('admin:notificar_comprador', args=(obj.pk,))
         else:
             return ""
     
