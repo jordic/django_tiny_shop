@@ -1,0 +1,1159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-04-02 12:36+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: demo/localshop/countries.py:19
+msgid "Afghanistan"
+msgstr ""
+
+#: demo/localshop/countries.py:20
+msgid "Aland Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:21
+msgid "Albania"
+msgstr ""
+
+#: demo/localshop/countries.py:22
+msgid "Algeria"
+msgstr ""
+
+#: demo/localshop/countries.py:23
+msgid "American Samoa"
+msgstr ""
+
+#: demo/localshop/countries.py:24
+msgid "Andorra"
+msgstr ""
+
+#: demo/localshop/countries.py:25
+msgid "Angola"
+msgstr ""
+
+#: demo/localshop/countries.py:26
+msgid "Anguilla"
+msgstr ""
+
+#: demo/localshop/countries.py:27
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: demo/localshop/countries.py:28
+msgid "Argentina"
+msgstr ""
+
+#: demo/localshop/countries.py:29
+msgid "Armenia"
+msgstr ""
+
+#: demo/localshop/countries.py:30
+msgid "Aruba"
+msgstr ""
+
+#: demo/localshop/countries.py:31
+msgid "Australia"
+msgstr ""
+
+#: demo/localshop/countries.py:32
+msgid "Austria"
+msgstr ""
+
+#: demo/localshop/countries.py:33
+msgid "Azerbaijan"
+msgstr ""
+
+#: demo/localshop/countries.py:34
+msgid "Bahamas"
+msgstr ""
+
+#: demo/localshop/countries.py:35
+msgid "Bahrain"
+msgstr ""
+
+#: demo/localshop/countries.py:36
+msgid "Bangladesh"
+msgstr ""
+
+#: demo/localshop/countries.py:37
+msgid "Barbados"
+msgstr ""
+
+#: demo/localshop/countries.py:38
+msgid "Belarus"
+msgstr ""
+
+#: demo/localshop/countries.py:39
+msgid "Belgium"
+msgstr ""
+
+#: demo/localshop/countries.py:40
+msgid "Belize"
+msgstr ""
+
+#: demo/localshop/countries.py:41
+msgid "Benin"
+msgstr ""
+
+#: demo/localshop/countries.py:42
+msgid "Bermuda"
+msgstr ""
+
+#: demo/localshop/countries.py:43
+msgid "Bhutan"
+msgstr ""
+
+#: demo/localshop/countries.py:44
+msgid "Bolivia"
+msgstr ""
+
+#: demo/localshop/countries.py:45
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: demo/localshop/countries.py:46
+msgid "Botswana"
+msgstr ""
+
+#: demo/localshop/countries.py:47
+msgid "Brazil"
+msgstr ""
+
+#: demo/localshop/countries.py:48
+msgid "British Virgin Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:49
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: demo/localshop/countries.py:50
+msgid "Bulgaria"
+msgstr ""
+
+#: demo/localshop/countries.py:51
+msgid "Burkina Faso"
+msgstr ""
+
+#: demo/localshop/countries.py:52
+msgid "Burundi"
+msgstr ""
+
+#: demo/localshop/countries.py:53
+msgid "Cambodia"
+msgstr ""
+
+#: demo/localshop/countries.py:54
+msgid "Cameroon"
+msgstr ""
+
+#: demo/localshop/countries.py:55
+msgid "Canada"
+msgstr ""
+
+#: demo/localshop/countries.py:56
+msgid "Cape Verde"
+msgstr ""
+
+#: demo/localshop/countries.py:57
+msgid "Cayman Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:58
+msgid "Central African Republic"
+msgstr ""
+
+#: demo/localshop/countries.py:59
+msgid "Chad"
+msgstr ""
+
+#: demo/localshop/countries.py:60
+msgid "Channel Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:61
+msgid "Chile"
+msgstr ""
+
+#: demo/localshop/countries.py:62
+msgid "China"
+msgstr ""
+
+#: demo/localshop/countries.py:63
+msgid "China - Hong Kong"
+msgstr ""
+
+#: demo/localshop/countries.py:64
+msgid "China - Macao"
+msgstr ""
+
+#: demo/localshop/countries.py:65
+msgid "Colombia"
+msgstr ""
+
+#: demo/localshop/countries.py:66
+msgid "Comoros"
+msgstr ""
+
+#: demo/localshop/countries.py:67
+msgid "Congo"
+msgstr ""
+
+#: demo/localshop/countries.py:68
+msgid "Cook Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:69
+msgid "Costa Rica"
+msgstr ""
+
+#: demo/localshop/countries.py:70
+msgid "Cote d'Ivoire"
+msgstr ""
+
+#: demo/localshop/countries.py:71
+msgid "Croatia"
+msgstr ""
+
+#: demo/localshop/countries.py:72
+msgid "Cuba"
+msgstr ""
+
+#: demo/localshop/countries.py:73
+msgid "Cyprus"
+msgstr ""
+
+#: demo/localshop/countries.py:74
+msgid "Czech Republic"
+msgstr ""
+
+#: demo/localshop/countries.py:75
+msgid "Democratic People's Republic of Korea"
+msgstr ""
+
+#: demo/localshop/countries.py:76
+msgid "Democratic Republic of the Congo"
+msgstr ""
+
+#: demo/localshop/countries.py:77
+msgid "Denmark"
+msgstr ""
+
+#: demo/localshop/countries.py:78
+msgid "Djibouti"
+msgstr ""
+
+#: demo/localshop/countries.py:79
+msgid "Dominica"
+msgstr ""
+
+#: demo/localshop/countries.py:80
+msgid "Dominican Republic"
+msgstr ""
+
+#: demo/localshop/countries.py:81
+msgid "Ecuador"
+msgstr ""
+
+#: demo/localshop/countries.py:82
+msgid "Egypt"
+msgstr ""
+
+#: demo/localshop/countries.py:83
+msgid "El Salvador"
+msgstr ""
+
+#: demo/localshop/countries.py:84
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: demo/localshop/countries.py:85
+msgid "Eritrea"
+msgstr ""
+
+#: demo/localshop/countries.py:86
+msgid "Estonia"
+msgstr ""
+
+#: demo/localshop/countries.py:87
+msgid "Ethiopia"
+msgstr ""
+
+#: demo/localshop/countries.py:88
+msgid "Faeroe Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:89
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: demo/localshop/countries.py:90
+msgid "Fiji"
+msgstr ""
+
+#: demo/localshop/countries.py:91
+msgid "Finland"
+msgstr ""
+
+#: demo/localshop/countries.py:92
+msgid "France"
+msgstr ""
+
+#: demo/localshop/countries.py:93
+msgid "French Guiana"
+msgstr ""
+
+#: demo/localshop/countries.py:94
+msgid "French Polynesia"
+msgstr ""
+
+#: demo/localshop/countries.py:95
+msgid "Gabon"
+msgstr ""
+
+#: demo/localshop/countries.py:96
+msgid "Gambia"
+msgstr ""
+
+#: demo/localshop/countries.py:97
+msgid "Georgia"
+msgstr ""
+
+#: demo/localshop/countries.py:98
+msgid "Germany"
+msgstr ""
+
+#: demo/localshop/countries.py:99
+msgid "Ghana"
+msgstr ""
+
+#: demo/localshop/countries.py:100
+msgid "Gibraltar"
+msgstr ""
+
+#: demo/localshop/countries.py:101
+msgid "Greece"
+msgstr ""
+
+#: demo/localshop/countries.py:102
+msgid "Greenland"
+msgstr ""
+
+#: demo/localshop/countries.py:103
+msgid "Grenada"
+msgstr ""
+
+#: demo/localshop/countries.py:104
+msgid "Guadeloupe"
+msgstr ""
+
+#: demo/localshop/countries.py:105
+msgid "Guam"
+msgstr ""
+
+#: demo/localshop/countries.py:106
+msgid "Guatemala"
+msgstr ""
+
+#: demo/localshop/countries.py:107
+msgid "Guernsey"
+msgstr ""
+
+#: demo/localshop/countries.py:108
+msgid "Guinea"
+msgstr ""
+
+#: demo/localshop/countries.py:109
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: demo/localshop/countries.py:110
+msgid "Guyana"
+msgstr ""
+
+#: demo/localshop/countries.py:111
+msgid "Haiti"
+msgstr ""
+
+#: demo/localshop/countries.py:112
+msgid "Holy See (Vatican City)"
+msgstr ""
+
+#: demo/localshop/countries.py:113
+msgid "Honduras"
+msgstr ""
+
+#: demo/localshop/countries.py:114
+msgid "Hungary"
+msgstr ""
+
+#: demo/localshop/countries.py:115
+msgid "Iceland"
+msgstr ""
+
+#: demo/localshop/countries.py:116
+msgid "India"
+msgstr ""
+
+#: demo/localshop/countries.py:117
+msgid "Indonesia"
+msgstr ""
+
+#: demo/localshop/countries.py:118
+msgid "Iran"
+msgstr ""
+
+#: demo/localshop/countries.py:119
+msgid "Iraq"
+msgstr ""
+
+#: demo/localshop/countries.py:120
+msgid "Ireland"
+msgstr ""
+
+#: demo/localshop/countries.py:121
+msgid "Isle of Man"
+msgstr ""
+
+#: demo/localshop/countries.py:122
+msgid "Israel"
+msgstr ""
+
+#: demo/localshop/countries.py:123
+msgid "Italy"
+msgstr ""
+
+#: demo/localshop/countries.py:124
+msgid "Jamaica"
+msgstr ""
+
+#: demo/localshop/countries.py:125
+msgid "Japan"
+msgstr ""
+
+#: demo/localshop/countries.py:126
+msgid "Jersey"
+msgstr ""
+
+#: demo/localshop/countries.py:127
+msgid "Jordan"
+msgstr ""
+
+#: demo/localshop/countries.py:128
+msgid "Kazakhstan"
+msgstr ""
+
+#: demo/localshop/countries.py:129
+msgid "Kenya"
+msgstr ""
+
+#: demo/localshop/countries.py:130
+msgid "Kiribati"
+msgstr ""
+
+#: demo/localshop/countries.py:131
+msgid "Kuwait"
+msgstr ""
+
+#: demo/localshop/countries.py:132
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: demo/localshop/countries.py:133
+msgid "Lao People's Democratic Republic"
+msgstr ""
+
+#: demo/localshop/countries.py:134
+msgid "Latvia"
+msgstr ""
+
+#: demo/localshop/countries.py:135
+msgid "Lebanon"
+msgstr ""
+
+#: demo/localshop/countries.py:136
+msgid "Lesotho"
+msgstr ""
+
+#: demo/localshop/countries.py:137
+msgid "Liberia"
+msgstr ""
+
+#: demo/localshop/countries.py:138
+msgid "Libyan Arab Jamahiriya"
+msgstr ""
+
+#: demo/localshop/countries.py:139
+msgid "Liechtenstein"
+msgstr ""
+
+#: demo/localshop/countries.py:140
+msgid "Lithuania"
+msgstr ""
+
+#: demo/localshop/countries.py:141
+msgid "Luxembourg"
+msgstr ""
+
+#: demo/localshop/countries.py:142
+msgid "Macedonia"
+msgstr ""
+
+#: demo/localshop/countries.py:143
+msgid "Madagascar"
+msgstr ""
+
+#: demo/localshop/countries.py:144
+msgid "Malawi"
+msgstr ""
+
+#: demo/localshop/countries.py:145
+msgid "Malaysia"
+msgstr ""
+
+#: demo/localshop/countries.py:146
+msgid "Maldives"
+msgstr ""
+
+#: demo/localshop/countries.py:147
+msgid "Mali"
+msgstr ""
+
+#: demo/localshop/countries.py:148
+msgid "Malta"
+msgstr ""
+
+#: demo/localshop/countries.py:149
+msgid "Marshall Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:150
+msgid "Martinique"
+msgstr ""
+
+#: demo/localshop/countries.py:151
+msgid "Mauritania"
+msgstr ""
+
+#: demo/localshop/countries.py:152
+msgid "Mauritius"
+msgstr ""
+
+#: demo/localshop/countries.py:153
+msgid "Mayotte"
+msgstr ""
+
+#: demo/localshop/countries.py:154
+msgid "Mexico"
+msgstr ""
+
+#: demo/localshop/countries.py:155
+msgid "Micronesia, Federated States of"
+msgstr ""
+
+#: demo/localshop/countries.py:156
+msgid "Monaco"
+msgstr ""
+
+#: demo/localshop/countries.py:157
+msgid "Mongolia"
+msgstr ""
+
+#: demo/localshop/countries.py:158
+msgid "Montenegro"
+msgstr ""
+
+#: demo/localshop/countries.py:159
+msgid "Montserrat"
+msgstr ""
+
+#: demo/localshop/countries.py:160
+msgid "Morocco"
+msgstr ""
+
+#: demo/localshop/countries.py:161
+msgid "Mozambique"
+msgstr ""
+
+#: demo/localshop/countries.py:162
+msgid "Myanmar"
+msgstr ""
+
+#: demo/localshop/countries.py:163
+msgid "Namibia"
+msgstr ""
+
+#: demo/localshop/countries.py:164
+msgid "Nauru"
+msgstr ""
+
+#: demo/localshop/countries.py:165
+msgid "Nepal"
+msgstr ""
+
+#: demo/localshop/countries.py:166
+msgid "Netherlands"
+msgstr ""
+
+#: demo/localshop/countries.py:167
+msgid "Netherlands Antilles"
+msgstr ""
+
+#: demo/localshop/countries.py:168
+msgid "New Caledonia"
+msgstr ""
+
+#: demo/localshop/countries.py:169
+msgid "New Zealand"
+msgstr ""
+
+#: demo/localshop/countries.py:170
+msgid "Nicaragua"
+msgstr ""
+
+#: demo/localshop/countries.py:171
+msgid "Niger"
+msgstr ""
+
+#: demo/localshop/countries.py:172
+msgid "Nigeria"
+msgstr ""
+
+#: demo/localshop/countries.py:173
+msgid "Niue"
+msgstr ""
+
+#: demo/localshop/countries.py:174
+msgid "Norfolk Island"
+msgstr ""
+
+#: demo/localshop/countries.py:175
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:176
+msgid "Norway"
+msgstr ""
+
+#: demo/localshop/countries.py:177
+msgid "Occupied Palestinian Territory"
+msgstr ""
+
+#: demo/localshop/countries.py:178
+msgid "Oman"
+msgstr ""
+
+#: demo/localshop/countries.py:179
+msgid "Pakistan"
+msgstr ""
+
+#: demo/localshop/countries.py:180
+msgid "Palau"
+msgstr ""
+
+#: demo/localshop/countries.py:181
+msgid "Panama"
+msgstr ""
+
+#: demo/localshop/countries.py:182
+msgid "Papua New Guinea"
+msgstr ""
+
+#: demo/localshop/countries.py:183
+msgid "Paraguay"
+msgstr ""
+
+#: demo/localshop/countries.py:184
+msgid "Peru"
+msgstr ""
+
+#: demo/localshop/countries.py:185
+msgid "Philippines"
+msgstr ""
+
+#: demo/localshop/countries.py:186
+msgid "Pitcairn"
+msgstr ""
+
+#: demo/localshop/countries.py:187
+msgid "Poland"
+msgstr ""
+
+#: demo/localshop/countries.py:188
+msgid "Portugal"
+msgstr ""
+
+#: demo/localshop/countries.py:189
+msgid "Puerto Rico"
+msgstr ""
+
+#: demo/localshop/countries.py:190
+msgid "Qatar"
+msgstr ""
+
+#: demo/localshop/countries.py:191
+msgid "Republic of Korea"
+msgstr ""
+
+#: demo/localshop/countries.py:192
+msgid "Republic of Moldova"
+msgstr ""
+
+#: demo/localshop/countries.py:193
+msgid "Reunion"
+msgstr ""
+
+#: demo/localshop/countries.py:194
+msgid "Romania"
+msgstr ""
+
+#: demo/localshop/countries.py:195
+msgid "Russian Federation"
+msgstr ""
+
+#: demo/localshop/countries.py:196
+msgid "Rwanda"
+msgstr ""
+
+#: demo/localshop/countries.py:197
+msgid "Saint-Barthelemy"
+msgstr ""
+
+#: demo/localshop/countries.py:198
+msgid "Saint Helena"
+msgstr ""
+
+#: demo/localshop/countries.py:199
+msgid "Saint Kitts and Nevis"
+msgstr ""
+
+#: demo/localshop/countries.py:200
+msgid "Saint Lucia"
+msgstr ""
+
+#: demo/localshop/countries.py:201
+msgid "Saint-Martin (French part)"
+msgstr ""
+
+#: demo/localshop/countries.py:202
+msgid "Saint Pierre and Miquelon"
+msgstr ""
+
+#: demo/localshop/countries.py:203
+msgid "Saint Vincent and the Grenadines"
+msgstr ""
+
+#: demo/localshop/countries.py:204
+msgid "Samoa"
+msgstr ""
+
+#: demo/localshop/countries.py:205
+msgid "San Marino"
+msgstr ""
+
+#: demo/localshop/countries.py:206
+msgid "Sao Tome and Principe"
+msgstr ""
+
+#: demo/localshop/countries.py:207
+msgid "Saudi Arabia"
+msgstr ""
+
+#: demo/localshop/countries.py:208
+msgid "Senegal"
+msgstr ""
+
+#: demo/localshop/countries.py:209
+msgid "Serbia"
+msgstr ""
+
+#: demo/localshop/countries.py:210
+msgid "Seychelles"
+msgstr ""
+
+#: demo/localshop/countries.py:211
+msgid "Sierra Leone"
+msgstr ""
+
+#: demo/localshop/countries.py:212
+msgid "Singapore"
+msgstr ""
+
+#: demo/localshop/countries.py:213
+msgid "Slovakia"
+msgstr ""
+
+#: demo/localshop/countries.py:214
+msgid "Slovenia"
+msgstr ""
+
+#: demo/localshop/countries.py:215
+msgid "Solomon Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:216
+msgid "Somalia"
+msgstr ""
+
+#: demo/localshop/countries.py:217
+msgid "South Africa"
+msgstr ""
+
+#: demo/localshop/countries.py:218
+msgid "Spain"
+msgstr ""
+
+#: demo/localshop/countries.py:219
+msgid "Sri Lanka"
+msgstr ""
+
+#: demo/localshop/countries.py:220
+msgid "Sudan"
+msgstr ""
+
+#: demo/localshop/countries.py:221
+msgid "Suriname"
+msgstr ""
+
+#: demo/localshop/countries.py:222
+msgid "Svalbard and Jan Mayen Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:223
+msgid "Swaziland"
+msgstr ""
+
+#: demo/localshop/countries.py:224
+msgid "Sweden"
+msgstr ""
+
+#: demo/localshop/countries.py:225
+msgid "Switzerland"
+msgstr ""
+
+#: demo/localshop/countries.py:226
+msgid "Syrian Arab Republic"
+msgstr ""
+
+#: demo/localshop/countries.py:227
+msgid "Tajikistan"
+msgstr ""
+
+#: demo/localshop/countries.py:228
+msgid "Thailand"
+msgstr ""
+
+#: demo/localshop/countries.py:229
+msgid "Timor-Leste"
+msgstr ""
+
+#: demo/localshop/countries.py:230
+msgid "Togo"
+msgstr ""
+
+#: demo/localshop/countries.py:231
+msgid "Tokelau"
+msgstr ""
+
+#: demo/localshop/countries.py:232
+msgid "Tonga"
+msgstr ""
+
+#: demo/localshop/countries.py:233
+msgid "Trinidad and Tobago"
+msgstr ""
+
+#: demo/localshop/countries.py:234
+msgid "Tunisia"
+msgstr ""
+
+#: demo/localshop/countries.py:235
+msgid "Turkey"
+msgstr ""
+
+#: demo/localshop/countries.py:236
+msgid "Turkmenistan"
+msgstr ""
+
+#: demo/localshop/countries.py:237
+msgid "Turks and Caicos Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:238
+msgid "Tuvalu"
+msgstr ""
+
+#: demo/localshop/countries.py:239
+msgid "Uganda"
+msgstr ""
+
+#: demo/localshop/countries.py:240
+msgid "Ukraine"
+msgstr ""
+
+#: demo/localshop/countries.py:241
+msgid "United Arab Emirates"
+msgstr ""
+
+#: demo/localshop/countries.py:242
+msgid "United Kingdom"
+msgstr ""
+
+#: demo/localshop/countries.py:243
+msgid "United Republic of Tanzania"
+msgstr ""
+
+#: demo/localshop/countries.py:244
+msgid "United States of America"
+msgstr ""
+
+#: demo/localshop/countries.py:245
+msgid "United States Virgin Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:246
+msgid "Uruguay"
+msgstr ""
+
+#: demo/localshop/countries.py:247
+msgid "Uzbekistan"
+msgstr ""
+
+#: demo/localshop/countries.py:248
+msgid "Vanuatu"
+msgstr ""
+
+#: demo/localshop/countries.py:249
+msgid "Venezuela (Bolivarian Republic of)"
+msgstr ""
+
+#: demo/localshop/countries.py:250
+msgid "Viet Nam"
+msgstr ""
+
+#: demo/localshop/countries.py:251
+msgid "Wallis and Futuna Islands"
+msgstr ""
+
+#: demo/localshop/countries.py:252
+msgid "Western Sahara"
+msgstr ""
+
+#: demo/localshop/countries.py:253
+msgid "Yemen"
+msgstr ""
+
+#: demo/localshop/countries.py:254
+msgid "Zambia"
+msgstr ""
+
+#: demo/localshop/countries.py:255
+msgid "Zimbabwe"
+msgstr ""
+
+#: tshop/client/models.py:19
+msgid "Nombre Completo"
+msgstr ""
+
+#: tshop/client/models.py:20
+#: tshop/order/templates/admin/order/order/change_form.html:29
+msgid "Email"
+msgstr ""
+
+#: tshop/client/models.py:21
+msgid "Teléfono de Contacto"
+msgstr ""
+
+#: tshop/client/models.py:24
+msgid "Dirección de Envío"
+msgstr ""
+
+#: tshop/client/models.py:25
+msgid "Código Postal"
+msgstr ""
+
+#: tshop/client/models.py:26
+msgid "Provincia"
+msgstr ""
+
+#: tshop/client/models.py:28
+msgid "Ciudad"
+msgstr ""
+
+#: tshop/client/models.py:29
+msgid "Comentarios"
+msgstr ""
+
+#: tshop/client/models.py:31
+msgid "Acepta LOPD?"
+msgstr ""
+
+#: tshop/client/models.py:37
+msgid "cliente"
+msgstr ""
+
+#: tshop/descuentos/__init__.py:19
+msgid "Código de Descuento"
+msgstr ""
+
+#: tshop/descuentos/__init__.py:36
+msgid "El código de descuento introducido no es válido"
+msgstr ""
+
+#: tshop/descuentos/models.py:15
+msgid "Descuento en porcentaje"
+msgstr ""
+
+#: tshop/order/models.py:32
+msgid "Pendiente de Pago"
+msgstr ""
+
+#: tshop/order/models.py:33
+msgid "Pendiente de Envío"
+msgstr ""
+
+#: tshop/order/models.py:34
+msgid "Enviado"
+msgstr ""
+
+#: tshop/order/models.py:38
+msgid "Cliente"
+msgstr ""
+
+#: tshop/order/models.py:40
+msgid "Tipo de Pago"
+msgstr ""
+
+#: tshop/order/models.py:41
+msgid "Fecha Pago"
+msgstr ""
+
+#: tshop/order/models.py:42
+msgid "Pagado"
+msgstr ""
+
+#: tshop/order/models.py:43
+msgid "ID Transaccion"
+msgstr ""
+
+#: tshop/order/models.py:47 tshop/order/models.py:154
+msgid "Pedido"
+msgstr ""
+
+#: tshop/order/models.py:48
+msgid "Pedidos"
+msgstr ""
+
+#: tshop/order/models.py:150 tshop/order/models.py:156
+#: tshop/product/models.py:61
+msgid "Producto"
+msgstr ""
+
+#: tshop/order/models.py:151
+msgid "Envío"
+msgstr ""
+
+#: tshop/order/models.py:152
+msgid "Descuento"
+msgstr ""
+
+#: tshop/order/models.py:155
+msgid "Tipo Linea"
+msgstr ""
+
+#: tshop/order/models.py:157
+msgid "Variación de Producto"
+msgstr ""
+
+#: tshop/order/models.py:158 tshop/product/forms.py:35
+#: tshop/product/models.py:122
+msgid "Cantidad"
+msgstr ""
+
+#: tshop/order/models.py:160
+msgid "Precio/Unitario"
+msgstr ""
+
+#: tshop/order/models.py:162
+msgid "Precio/Descuento"
+msgstr ""
+
+#: tshop/order/models.py:163
+msgid "Total"
+msgstr ""
+
+#: tshop/order/models.py:164
+msgid "Extra Info"
+msgstr ""
+
+#: tshop/order/models.py:167
+msgid "Línia Pedido"
+msgstr ""
+
+#: tshop/order/models.py:168
+msgid "Líneas"
+msgstr ""
+
+#: tshop/order/templates/admin/order/order/change_form.html:30
+msgid "Teléfono"
+msgstr ""
+
+#: tshop/product/models.py:19 tshop/product/models.py:48
+#: tshop/product/models.py:104
+msgid "Título"
+msgstr ""
+
+#: tshop/product/models.py:24
+msgid "Categoría"
+msgstr ""
+
+#: tshop/product/models.py:25
+msgid "Categorias"
+msgstr ""
+
+#: tshop/product/models.py:50
+msgid "Activo?"
+msgstr ""
+
+#: tshop/product/models.py:51
+msgid "Destacado?"
+msgstr ""
+
+#: tshop/product/models.py:53 tshop/product/models.py:105
+msgid "Imágen"
+msgstr ""
+
+#: tshop/product/models.py:54 tshop/product/models.py:106
+#: tshop/product/models.py:123
+msgid "Precio"
+msgstr ""
+
+#: tshop/product/models.py:55
+msgid "Tamaño"
+msgstr ""
+
+#: tshop/product/models.py:56
+msgid "Peso en Gramos"
+msgstr ""
+
+#: tshop/product/models.py:62
+msgid "Productos"
+msgstr ""
+
+#: tshop/product/models.py:126
+msgid "Precios Escalados"
+msgstr ""

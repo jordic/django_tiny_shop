@@ -16,6 +16,9 @@ from django.contrib.localflavor.es.forms import *
 import signals
 from django.utils.translation import ugettext_lazy as _
 
+DEFAULT_COUNTRY = getattr(settings, 'DEFAULT_COUNTRY',  'ES')
+COUNTRIES = getattr(settings, 'COUNTRIES', (DEFAULT_COUNTRY))
+
 class CheckoutForm(forms.ModelForm):
     
     pago = forms.ChoiceField(widget=RadioSelect(), 
@@ -23,6 +26,8 @@ class CheckoutForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CheckoutForm, self).__init__(*args, **kwargs)
+        if len(COUNTRIES) <= 1:
+            del self.fields['ship_country']
         signals.checkout_form_created.send(sender=CheckoutForm, form=self)
         
     class Meta:
@@ -44,7 +49,7 @@ class CheckoutForm(forms.ModelForm):
         except:
             contact = None;
     
-                
+        
         self.contact = self.save()
         c = cart_from_session(request)
         pay_type = self.cleaned_data['pago']

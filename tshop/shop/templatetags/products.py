@@ -15,6 +15,7 @@ from templatetag_sugar.parser import Name, Variable, Constant, Optional, Model
 from django.core.cache import cache
 from shop.cart import cart_from_session
 from product.cart import cart_list, cart_total
+from django.utils.translation import get_language
 
 register = template.Library()
 
@@ -56,8 +57,12 @@ def get_cart(context, asvar):
 
 @register.inclusion_tag('shop/widget_category.html', takes_context=True)
 def widget_category( context, category ):
-    
-    c = Category.objects.get(slug=category)
+    lang = get_language()
+    print lang
+    ''' prodcut document '''
+    kw = {}
+    kw['slug_%s' % lang] = category
+    c = Category.objects.get(**kw)
     # try to find showcase product
     try:
         featured = Product.objects.featured().filter(category=c)[0]

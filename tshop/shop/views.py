@@ -23,6 +23,7 @@ from order.models import Order
 from payment import get_payment
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
+from django.utils.translation import get_language
 import signals
 # Create your views here.
 
@@ -71,8 +72,11 @@ def remove_from_cart(request, id):
     
 
 def product_view(request, slug):
+    lang = get_language()
     ''' prodcut document '''
-    p = get_object_or_404(Product, slug=slug)
+    kw = {}
+    kw['slug_%s' % lang] = slug
+    p = get_object_or_404(Product, **kw)
     related = Product.objects.filter(category=p.category, active=True).exclude(pk__in=[p.pk])
     context = { 
         'product': p, 
@@ -167,12 +171,17 @@ def shipping_cost(request):
     cl = cart_list(cart) 
     amount = cart_total( cl )
     
-    cp = request.GET.get('cp')
+    cp = request.GET.get('cp', None)
+    # aquest parxe es per tenir resultats en la vista de checkout, 
+    # on preguntem els costos d'enviament a un determinat pais...
+    if not cp:
+        cp = request.GET.get('country')
+    
     if cp != "":
         from shipping import get_shipping_method
         shipping_method = get_shipping_method()
         #print shipping_method
-        result = shipping_method(cart, cp, amount)
+        result = shipping_method(cart, postal=cp, amount=amount)
     else: 
         raise Http404
     

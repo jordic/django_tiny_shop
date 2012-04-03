@@ -11,8 +11,11 @@ from django.db import models
 from sorl.thumbnail import ImageField
 from forms import CartForm
 from django.utils.translation import ugettext_lazy as _
+from transmeta import TransMeta
+
 
 class Category(models.Model):
+    __metaclass__ = TransMeta
     title = models.CharField(blank=False, max_length=255, verbose_name=_(u"Título"))
     slug = models.SlugField()
     text = models.TextField(blank=True)
@@ -20,6 +23,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = _(u'Categoría')
         verbose_name_plural = _(u'Categorias')
+        translate = ('title', 'slug', 'text')
         
     def __unicode__(self):
         return self.title
@@ -37,6 +41,9 @@ class ProductManager(models.Manager):
          
 
 class Product(models.Model):
+    
+    __metaclass__ = TransMeta
+    
     category = models.ForeignKey(Category)
     title = models.CharField(blank=False, max_length=255, verbose_name=_(u"Título"))
     slug = models.SlugField()
@@ -53,6 +60,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = _(u'Producto')
         verbose_name_plural = _(u'Productos')
+        translate = ('title', 'slug', 'text')
         
     def __unicode__(self):
         return self.title

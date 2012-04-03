@@ -51,6 +51,7 @@ class BaseShipping(object):
         self.cart = cart
         self.client = client
         self.amount = amount
+        self.postal = postal
         
     def shipping_method(self):
         return "Default"

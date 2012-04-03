@@ -1,0 +1,15 @@
+Sql to update to international
+==================================
+
+
+ALTER TABLE `product_category` CHANGE `title` `title_es` VARCHAR(255)  NOT NULL  DEFAULT '';
+ALTER TABLE `product_category` CHANGE `slug` `slug_es` VARCHAR(50)  NOT NULL  DEFAULT '';
+ALTER TABLE `product_category` CHANGE `text` `text_es` LONGTEXT  NOT NULL;
+
+ALTER TABLE `product_product` CHANGE `title` `title_es` VARCHAR(255)  NOT NULL  DEFAULT '';
+ALTER TABLE `product_product` CHANGE `slug` `slug_es` VARCHAR(50)  NOT NULL  DEFAULT '';
+ALTER TABLE `product_product` CHANGE `text` `text_es` LONGTEXT  NOT NULL;
+
+ALTER TABLE `client_client` ADD `ship_country` VARCHAR(50)  NULL  DEFAULT ''  AFTER `ship_provincia`;
+
+

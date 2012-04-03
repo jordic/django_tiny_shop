@@ -18,7 +18,14 @@ from sorl.thumbnail.admin import AdminImageMixin
 from fields import TempoImageWidget
 from sorl.thumbnail import ImageField
 from django.conf.urls.defaults import *
+from django.conf import settings
 
+
+def get_prepopulated_fields():
+    r = {}
+    for l,k in settings.LANGUAGES:
+        r['slug_%s' % l] = ('title_%s' % l ,)
+    return r
 
 
 class PriceInline(admin.TabularInline):
@@ -31,7 +38,7 @@ class OptionsInline(admin.TabularInline):
     extra = 0
 
 class ProductAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = get_prepopulated_fields()
     formfield_overrides = {ImageField:{'widget':TempoImageWidget}}
     list_display = ('title', 'category', 'price')
     inlines = [PriceInline,OptionsInline]
@@ -39,8 +46,8 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('title',)}
-    pass
+    prepopulated_fields = get_prepopulated_fields()
+    
 
 
 
