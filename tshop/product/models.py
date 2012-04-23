@@ -17,8 +17,8 @@ from transmeta import TransMeta
 class Category(models.Model):
     __metaclass__ = TransMeta
     title = models.CharField(blank=False, max_length=255, verbose_name=_(u"Título"))
-    slug = models.SlugField()
-    text = models.TextField(blank=True)
+    slug = models.SlugField(verbose_name=_(u"URL Amigable"))
+    text = models.TextField(blank=True, verbose_name=_(u"Texto"))
 
     class Meta:
         verbose_name = _(u'Categoría')
@@ -46,10 +46,10 @@ class Product(models.Model):
     
     category = models.ForeignKey(Category)
     title = models.CharField(blank=False, max_length=255, verbose_name=_(u"Título"))
-    slug = models.SlugField()
+    slug = models.SlugField(verbose_name=_(u"URL Amigable"))
     active = models.BooleanField(default=True, verbose_name=_(u"Activo?"))
     featured = models.BooleanField(default=False, verbose_name=_(u"Destacado?"))
-    text = models.TextField(blank=True)
+    text = models.TextField(blank=True, verbose_name=_(u"Texto"))
     image = ImageField(upload_to="upload/producto/", blank=True, verbose_name=_("Imágen"))
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Precio"))
     size = models.CharField(blank=True, max_length=80, verbose_name=_(u"Tamaño"))
