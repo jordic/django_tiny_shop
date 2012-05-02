@@ -75,7 +75,7 @@ def product_view(request, slug):
     lang = get_language()
     ''' prodcut document '''
     kw = {}
-    kw['slug_%s' % lang] = slug
+    kw[str('slug_%s' % lang)] = slug
     p = get_object_or_404(Product, **kw)
     related = Product.objects.filter(category=p.category, active=True).exclude(pk__in=[p.pk])
     context = { 
