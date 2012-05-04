@@ -54,6 +54,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Precio"))
     size = models.CharField(blank=True, max_length=80, verbose_name=_(u"Tamaño"))
     weight = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Peso en Gramos"))
+    position = models.IntegerField(blank=True, null=True)
 
     objects = ProductManager()
 
@@ -61,6 +62,7 @@ class Product(models.Model):
         verbose_name = _(u'Producto')
         verbose_name_plural = _(u'Productos')
         translate = ('title', 'slug', 'text')
+        ordering = ['-position']
         
     def __unicode__(self):
         return self.title

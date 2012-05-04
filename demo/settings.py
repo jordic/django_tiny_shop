@@ -39,6 +39,11 @@ TIME_ZONE = 'Europe/Madrid'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'es'
+_ = lambda s: s # dummy ugettext function, as django's docs say
+LANGUAGES = (
+    ('es', _('Spanish')),
+)
+
 
 SITE_ID = 1
 
