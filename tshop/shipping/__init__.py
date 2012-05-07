@@ -17,7 +17,8 @@ from order.models import Line
 shipping_method = None
 
 def add_shipping_costs(sender, order, client, amount, cart, **kwargs):
-    cost = calc_shipping_costs(cart=cart, client=client, amount=amount)
+    
+    cost = calc_shipping_costs(cart=cart, client=client, amount=amount, postal=str(client.ship_country))
     Line.objects.create(
         order       = order,
         types       = Line.SHIP,
