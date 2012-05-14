@@ -16,18 +16,20 @@ from models import Descuento
 def on_create_form(sender, form, **kwargs):
     #print "Form create %s" % type(form)
     pos = len(form.fields) - 2
-    form.fields.insert( pos, 'descuento', forms.CharField(max_length=100, label=_(u"Código de Descuento")) )
+    form.fields.insert( pos, 'descuento', forms.CharField(required=False, max_length=100, label=_(u"Código de Descuento")) )
 
 signals.checkout_form_created.connect(on_create_form)
 
 
 def validate_discount(sender, data, **kwargs):
     """ Validates a discount code """
-    descuento = data['descuento']
-    valid = None
+    descuento = data.get('descuento', None)
+    if not descuento:
+        valid = True
+    else:
+        valid = None
     try:
         elcodi = Descuento.objects.get(codigo=descuento)
-        print elcodi
         if elcodi.activo == True:
             valid = True
     except:
@@ -40,19 +42,17 @@ signals.clean_checkout_form.connect(validate_discount)
 
 def add_discount_line(sender, order, client, amount, cart, form, **kwargs):
     
-    print "Codigo de descuento %s" % form.cleaned_data['descuento'] 
-    #try:
-    discount = Descuento.objects.get(codigo=form.cleaned_data['descuento'])
-    print discount
-    total = -(order.total_no_ship()*discount.descuento)/100
-    from order.models import Line
-    Line.objects.create(
-        order       = order,
-        types       = Line.DESCUENTO,
-        quantity    = 1,
-        total       = str(total))
-    #except:
-    #    pass
+    if form.cleaned_data['descuento']:
+        print "Codigo de descuento %s" % form.cleaned_data['descuento'] 
+        #try:
+        discount = Descuento.objects.get(codigo=form.cleaned_data['descuento'])
+        total = -(order.total_no_ship()*discount.descuento)/100
+        from order.models import Line
+        Line.objects.create(
+            order       = order,
+            types       = Line.DESCUENTO,
+            quantity    = 1,
+            total       = str(total))
     
 signals.order_created.connect(add_discount_line)
 
