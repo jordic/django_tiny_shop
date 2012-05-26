@@ -40,3 +40,12 @@ class Client(models.Model):
         
     class Meta:
         verbose_name=_(u'cliente')
+        
+        
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "email__icontains", "full_name__icontains",)
+        
+        
+        
+        

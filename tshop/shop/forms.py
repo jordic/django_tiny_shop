@@ -9,6 +9,7 @@ from django import forms
 from client.models import Client
 from django.conf import settings
 from django.forms.widgets import RadioSelect
+from django.forms.models import save_instance
 from shop.cart import Cart, cart_from_session
 from order.models import order_from_cart, Order
 from django.shortcuts import get_object_or_404    
@@ -47,15 +48,20 @@ class CheckoutForm(forms.ModelForm):
         try:
             contact = get_object_or_404(Client, email=self.cleaned_data['email'])
             self.instance = contact
+            #print "he trobat instancia %s" % self.instance
         except:
             contact = None;
     
-        
-        self.contact = self.save()
+        #contact = save_instance(self, contact)
+        if self.instance:
+            contact = save_instance(self, self.instance, construct=True)
+        else:
+            self.save()
+                
         c = cart_from_session(request)
         pay_type = self.cleaned_data['pago']
         
-        order = order_from_cart(c, self.contact, pay_type, form)
+        order = order_from_cart(c, contact, pay_type, form)
         return order    
 
 
