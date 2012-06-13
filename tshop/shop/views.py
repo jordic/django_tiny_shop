@@ -35,7 +35,8 @@ def home(request):
     return direct_to_template( request, 
             template="pages/home.html",
             extra_context=context)            
-            
+
+@csrf_exempt            
 def add_to_cart(request):
     ''' add a product to cart, with product variations if have... '''
     f = CartForm(request.POST)
@@ -107,11 +108,16 @@ def checkout(request):
             extra_context=c)
     if request.method == "POST":
         f = CheckoutForm(data=request.POST)
+        #import pdb
+        #pdb.set_trace()
+        
+        #print f.fields['ship_country'].choices
         if f.is_valid():
             order = f.create_order(request, f)
             request.session[settings.ORDER_KEY] = order.uid
             return HttpResponseRedirect(reverse('checkout_confirm'))
         else:
+            print f.errors
             c['form'] = f
             return direct_to_template(request, 
                 template="shop/checkout.html", extra_context=c)

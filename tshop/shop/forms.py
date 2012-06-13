@@ -27,10 +27,11 @@ class CheckoutForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CheckoutForm, self).__init__(*args, **kwargs)
-        print len(COUNTRIES)
+        #print len(COUNTRIES)
         if len(COUNTRIES) <= 1:
             del self.fields['ship_country']
         signals.checkout_form_created.send(sender=CheckoutForm, form=self)
+        
         
     class Meta:
         model = Client
