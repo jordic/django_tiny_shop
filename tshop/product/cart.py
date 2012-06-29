@@ -8,6 +8,7 @@
 
 from models import Product, Options
 from django.core.cache import cache
+from shop import signals
 
 def cart_list(cart):
     ''' Calcs product prices with a cart with duplicate products (variations..) 
@@ -53,7 +54,7 @@ def cart_list(cart):
                 m[5] = m[2]*unitario
                 l[k] = m
             k = k+1
-    
+    signals.cart_list_created.send(cart, list=l)
     return l        
 
 def cart_weight(cart):

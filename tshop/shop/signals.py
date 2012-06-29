@@ -23,3 +23,7 @@ clean_checkout_form = Signal(providing_args=["data"])
 
 # Create an order
 order_created = Signal(providing_args=["order", "client", "amount"])
+
+# Cart list 
+# used for altering cart listing based on external modules/api
+cart_list_created = Signal(providing_args=["list"])

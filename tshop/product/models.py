@@ -100,6 +100,16 @@ class Product(models.Model):
             uprice = vprice.price / vprice.quantity
         return uprice*qty
     
+    def sales_price(self):
+        """ Works if modules sales is activated """
+        try:
+            if self.sales.active:
+                return self.sales.sales_price
+            return None
+        except:
+            return None
+
+
     
 class Options(models.Model):
     product = models.ForeignKey(Product, related_name="variations")
