@@ -46,7 +46,7 @@ def sermepa_form(order):
 
 
 def confirm_payment(sender, **kwargs):
-        print sender
+        #print sender
         try:
             order = Order.objects.get(uid=sender.Ds_Order)
         except:

@@ -1,0 +1,8 @@
+{% load url from future %}
+<div id="transferencia">
+<form action="{% url 'checkout_process' %}" method="POST">
+{% csrf_token %}
+{{ order_form }}
+<input type="Submit" name="submit" value="Comprar" class="button" />
+</form>
+</div>
