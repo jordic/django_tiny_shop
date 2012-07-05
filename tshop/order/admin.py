@@ -9,6 +9,7 @@
 
 
 from django.contrib import admin
+from django.db import models
 from models import *
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404, HttpResponse, QueryDict, HttpRequest
@@ -34,9 +35,11 @@ class LineInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
+
     inlines = [LineInline]
     list_filter = ('status',)
-    list_display = ('uid', 'client', 'status', 'date', 'pay_type', 'pay_date', 'total', 'enviar')
+    list_display = ('uid', 'client', 'status', 'date_c', 'pay_type', 
+        'pay_date_c', 'envio', 'total', 'enviar')
     exclude = ('pay_details', 'pay_date','pay_total', 'pay_id')
     readonly_fields = ('date', 'send_date')
     date_hierarchy = 'date'
@@ -50,6 +53,21 @@ class OrderAdmin(admin.ModelAdmin):
         else:
             return ""
     
+    def pay_date_c(self, obj):
+        return obj.pay_date.strftime('%d/%m/%Y')
+    pay_date_c.short_description = 'Pago'
+    pay_date_c.admin_order_field = 'pay_date'
+
+    def date_c(self, obj):
+        return obj.date.strftime('%d/%m/%Y')
+    date_c.short_description = 'Pedido'
+    date_c.admin_order_field = 'date'
+
+    def envio(self, obj):
+        return obj.send_date.strftime('%d/%m/%Y')
+    envio.short_description = "Envio"    
+    envio.admin_order_field = 'send_date'
+
     enviar.short_description = 'Acciones'
     enviar.allow_tags = True
     
