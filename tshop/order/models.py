@@ -42,6 +42,7 @@ class Order(models.Model):
     pay_total = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2, verbose_name=_(u"Pagado"))
     pay_id = models.CharField(blank=True, null=True, verbose_name=_(u"ID Transaccion"), max_length=255)
     pay_details = models.CharField(blank=True, max_length=255)
+    send_date = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Fecha envio'))
 
     class Meta:
         verbose_name = _("Pedido")

@@ -20,6 +20,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from pyExcelerator import *
+import datetime
 
 from django.conf.urls.defaults import *
 
@@ -37,9 +38,10 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status',)
     list_display = ('uid', 'client', 'status', 'date', 'pay_type', 'pay_date', 'total', 'enviar')
     exclude = ('pay_details', 'pay_date','pay_total', 'pay_id')
-    readonly_fields = ('date',)
+    readonly_fields = ('date', 'send_date')
     date_hierarchy = 'date'
-    
+    search_fields = ['client__email', 'client__full_name', 'uid', 'client__ship_city']
+
     actions = ['view_orders', 'export_as_xls']
     
     def enviar(self, obj):
@@ -52,11 +54,11 @@ class OrderAdmin(admin.ModelAdmin):
     enviar.allow_tags = True
     
     def add_view(self, request, form_url='', extra_context=None):
-        self.readonly_fields = ('uid',)
+        self.readonly_fields = ('uid', 'send_date', )
         return super(OrderAdmin, self).add_view(request, form_url, extra_context)
     
     def change_view(self, request, form_url='', extra_context=None):
-        self.readonly_fields = ('date','pay_id')
+        self.readonly_fields = ('date','pay_id', 'send_date',)
         return super(OrderAdmin, self).change_view(request, form_url, extra_context)
         
     
@@ -85,6 +87,7 @@ class OrderAdmin(admin.ModelAdmin):
         msg.send()
         
         obj.status = Order.SENDED
+        obj.send_date = datetime.datetime.now()
         obj.save()
         
         messages.add_message(request, messages.SUCCESS, u"El envío ha sido notificado" )

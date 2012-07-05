@@ -3,7 +3,16 @@ DJANGO tiny Shop
 2011 © TempoMediaLab Interactiu SL
 Jordi Collell <jordi@tempointeractiu.com>
 
+
+v.0.5
++ Adding send_date field to track order sending date
+    ALTER TABLE `order_order` ADD `send_date` DATETIME  NULL;
++ Afegeixo cercador a comandes per poder localitzar rapidament
+    les comandes
 + Added list orders command
++ Export clients to excel
++ Export orders to excel
+
 
 
 v0.2: 
