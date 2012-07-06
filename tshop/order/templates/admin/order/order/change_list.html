@@ -19,6 +19,16 @@
 		titol = $('#content h1').text()
 		$('#content h1').text( 'Total Facturado: ' + total.toFixed(2) + "€" )
 
+        /*$('td').filter(function() {
+                return $(this).text().indexOf('Pago') !== -1;
+            }).closest('tr').css(
+            {'color': '#999'}
+        );*/
+        $('td:contains("Pago")').css('color', '#a8a8a8')
+        $('td:contains("Enviado")').css('color', '#6aa850')
+        $('td:contains("Envío")').css('color', '#a84141')
+    
+
     });
 })(django.jQuery);
 </script>

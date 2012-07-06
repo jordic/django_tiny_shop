@@ -5,12 +5,19 @@ Jordi Collell <jordi@tempointeractiu.com>
 
 
 v.0.5
--- Bug not sending emails in shopper language.
+
++ Added colors in admin_list orders
++ added clients export to excel
+++ Bug not sending emails in shopper language.
 + Setting language on order
-- Getting language on notifications
++ Getting language on notifications
 
 + Added transfer payment module, for local testing all 
     app flow.
++ Added sales module. To manage product sales
++ Adding discounts codes app
++ Added position field to product model
++
 + Adding send_date field to track order sending date
     ALTER TABLE `order_order` ADD `send_date` DATETIME  NULL;
 + Afegeixo cercador a comandes per poder localitzar rapidament
