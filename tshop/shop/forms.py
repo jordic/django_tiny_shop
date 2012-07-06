@@ -25,6 +25,7 @@ class CheckoutForm(forms.ModelForm):
     pago = forms.ChoiceField(widget=RadioSelect(), 
         choices=settings.PAYMENT_MODES, initial=settings.PAYMENT_MODES_DEFAULT )
 
+
     def __init__(self, *args, **kwargs):
         super(CheckoutForm, self).__init__(*args, **kwargs)
         #print len(COUNTRIES)
@@ -35,7 +36,8 @@ class CheckoutForm(forms.ModelForm):
         
     class Meta:
         model = Client
-    
+        exclude = ('lang',)
+
     def create_order(self, request, form=None):
         if request.session.get(settings.ORDER_KEY):
             uid = request.session[settings.ORDER_KEY]

@@ -34,6 +34,9 @@ class Client(models.Model):
 
         
     lopd = models.BooleanField(default=True, verbose_name=_(u"Acepta LOPD?"))
+    lang = models.CharField(null=True, blank=True, max_length=10, 
+        verbose_name=_(u'Idioma'))
+
 
     def __unicode__(self):
         return "%s <%s>" % (self.full_name, self.email)
