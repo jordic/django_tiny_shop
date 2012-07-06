@@ -17,6 +17,7 @@ def transferencia_process(request):
     if f.is_valid():
         id = f.cleaned_data['order']
         o = Order.objects.get(pk=id)
+        o.status = Order.PAYED        
         o.save()
         email_notification(o)
         return HttpResponseRedirect(reverse('return_url'))

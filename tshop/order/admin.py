@@ -22,6 +22,7 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from pyExcelerator import *
 import datetime
+from django.utils.translation import activate
 
 from django.conf.urls.defaults import *
 
@@ -97,6 +98,7 @@ class OrderAdmin(admin.ModelAdmin):
         context = {}
         context['order'] = obj
         context['server'] = settings.SITE_DOMAIN
+        activate(obj.client.lang)
         message = render_to_string('order/email_notify_sending.html', context)
         #dests = [k['client'].email]
         dests = [obj.client.email]

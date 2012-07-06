@@ -9,6 +9,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
+from django.utils.translation import activate
 
 
 def email_notification(order):
@@ -18,6 +19,8 @@ def email_notification(order):
     context['order'] = order
     context['server'] = settings.SITE_DOMAIN
     
+    activate(order.client.lang)
+
     message = render_to_string('shop/email_order_confirm.html', context)
     #dests = [k['client'].email]
     dests = settings.EMAIL_NOTIFICATION_SENDERS + [order.client.email]

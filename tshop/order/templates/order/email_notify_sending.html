@@ -1,17 +1,17 @@
 {% extends "base_email.html" %}
-
+{% load i18n %}
 
 {% block content %}
 
-<p>Hola {{ order.client.full_name }}.</p> 
+<p>{% trans "Hola" %} {{ order.client.full_name }}.</p> 
 
-<p>Te escribimos para notificarte que tu pedido, <br />
+<p>{% trans "Te escribimos para notificarte que tu pedido," %} <br />
 {{ order.uid }}
 <br />
-ya ha salido de nuestras oficinas en dirección a tu domicilio.</p>
+{% trans "ya ha salido de nuestras oficinas en dirección a tu domicilio" %}.</p>
 
 
-<p>Muchas gracias por haber confiado en nosotros.</p>
+<p>{% trans "Muchas gracias por haber confiado en nosotros" %}.</p>
 
 {% endblock content %}
 
