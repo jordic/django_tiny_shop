@@ -1,0 +1,27 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% load url from future %}
+{% block module_content %}
+<style>
+    .latest_orders li.pendiente { color:#999; }
+    .latest_orders li.enviado { color:green; }
+    .latest_orders li.pagado { color:red; }
+</style>
+<ul class="{{ module.layout }} latest_orders">
+    {% spaceless %}
+    {% for obj in module.objects %}
+    <li class="{% cycle 'odd' 'even' %}">
+        {{ obj.date|date:"d/m/Y" }}
+        <a href="{% url 'admin:order_order_change' obj.pk %}">
+            {{ obj.client.email }} - {{ obj.total }}€
+        </a>
+        <ul>
+            <li class="{{ obj.status }}">{{ obj.get_status_display }}</li>
+        </ul>
+    </li>
+    {% endfor %}
+    {% endspaceless %}
+    <li>
+        <a class="addlink" href="{% url 'admin:order_order_changelist' %}">Todos los pedidos</a>
+    </li>
+</ul>
+{% endblock %}

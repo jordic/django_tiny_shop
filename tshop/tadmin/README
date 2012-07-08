@@ -1,0 +1,11 @@
+
+
+TADMIN MODULE
+====================
+
++ Simple module for integrating django-admin-tools in django tiny shop.
++ Defines a custom module for shop basics: Products, Orderds, Clients and categories. 
++ Also defines signals for adding new menu items and new dashboard items.
+
+
+
