@@ -8,4 +8,92 @@ TADMIN MODULE
 + Also defines signals for adding new menu items and new dashboard items.
 
 
+Installation:
+=============
+
+- install django-admin-tools
+    pip install django_admin_tools
+
+- add tadmin and admin_tools to settings:
+
+    INSTALLED_APPS = (
+        'admin_tools',
+        'admin_tools.theming',
+        'admin_tools.menu',
+        'admin_tools.dashboard',
+        'tadmin',
+        ....
+    )
+
+- Sync db
+    
+    ./manage.py syncdb
+
+- Add this settings to settings.py
+
+    # django admin tools custom menus and dashboards
+    ADMIN_TOOLS_MENU = 'tadmin.menu.ShopMenu'
+    ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'tadmin.dashboard.ShopAppIndexDashboard'
+    ADMIN_TOOLS_INDEX_DASHBOARD = 'tadmin.dashboard.ShopIndexDashboard'
+
+- Add admin tools to general urls.py
+
+    url(r'^admin_tools/', include('admin_tools.urls')),
+
+- Copy static files from admin tools to your admin content
+
+    cp -r ../gshopenv/lib/python2.7/site-packages/admin_tools/media/admin_tools media/admin_tools
+
+
+How to add new item menus, or new dashboards
+======================
+
+From your localshop app, you can add new menu items or dashboard items
+with signals provided by tadmin, should be defined in one 
+init parsed file like __init__py or models.py:
+
+
+- Example for adding new menu items:
+
+    # personalitzem el menu principal de la app
+    from admin_tools.menu import items, Menu
+    from tadmin import signals as menu_signals
+
+    def add_to_menu(sender, **kwargs):
+        m = kwargs.get('menu')
+        k = items.MenuItem(title=_('Contenido'), 
+               children=[
+                items.MenuItem(_('Faqs'), reverse('admin:faqs_faq_changelist')),
+                items.MenuItem(_('Distribuidores'), reverse('admin:faqs_faq_changelist')),
+                ]
+                    
+            )
+        m.children.insert(2, k)
+
+    menu_signals.custom_menu.connect( add_to_menu )
+
+
+Signals provided by tadmin:
+=================
+
+Look at tadmin/signals.py for docs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
