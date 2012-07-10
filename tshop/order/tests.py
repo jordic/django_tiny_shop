@@ -13,6 +13,7 @@ from product.cart import cart_list, cart_weight, cart_total
 from order.models import generate_order_id
 from decimal import *
 from shipping import calc_shipping_costs
+from order.models import Order
 
 class SimpleTest(TestCase):
     fixtures = ['product.json']
@@ -47,4 +48,30 @@ class SimpleTest(TestCase):
             t.append(num)
         
         #[(12L, 37, u'1')]
-        
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

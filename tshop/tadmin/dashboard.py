@@ -101,7 +101,7 @@ class ShopAppIndexDashboard(AppIndexDashboard):
         """
         Use this method if you need to access the request context.
         """
-        return super(CustomAppIndexDashboard, self).init_with_context(context)
+        return super(ShopAppIndexDashboard, self).init_with_context(context)
 
 
 

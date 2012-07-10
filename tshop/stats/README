@@ -1,0 +1,47 @@
+
+STATS MODULE FOR TSHOP
+=========================
+
+- Basic statistics of orders and product sellings:
+
++ Add to installed apps
++ Include urls
+    url(r'^stats/', include('stats.urls')),
+
+
+Howto:
+=======
+--> Basic view with input date range format like google analytics
+http://www.eyecon.ro/datepicker/
+
+    --> Graphs of 
+            orders per day.
+            Pasta facturada per dia..
+    
+    --> Product performance... Quants productes de cada tipus s'han venut
+        durant el periode. I quin volum de pasta suposa.
+
+        --> Transacciones: 5
+        --> Ingresos: 233,00 €
+        --> Valor medio: 46,60 €
+        --> Compras únicas: 9
+        --> Cantidad: 11
+
+
+Dashboard module:
+============
+Resum dels darrers 30 dies:
+++ views: json_api ( date_init, date_end )
+    return {
+        'dades_graph',
+        'transactions',
+        'ingresos',
+        'compra_mitjana'
+        ...
+    }
+
+
+La vista genèrica, només implmementa la la pàgina amb el contingut 
+necessàri... 
+
+

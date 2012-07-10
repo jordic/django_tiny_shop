@@ -20,6 +20,7 @@ import random
 import base64
 from shop import signals
 from django.utils.translation import ugettext_lazy as _
+from manager import StatsManager
 
 # Create your models here.
 class Order(models.Model):
@@ -43,6 +44,9 @@ class Order(models.Model):
     pay_id = models.CharField(blank=True, null=True, verbose_name=_(u"ID Transaccion"), max_length=255)
     pay_details = models.CharField(blank=True, max_length=255)
     send_date = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Fecha envio'))
+
+    objects = models.Manager()
+    stats = StatsManager()
 
     class Meta:
         verbose_name = _("Pedido")

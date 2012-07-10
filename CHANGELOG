@@ -4,7 +4,15 @@ DJANGO tiny Shop
 Jordi Collell <jordi@tempointeractiu.com>
 
 
-v.0.5
+v.0.
+
+
+Thinking in new product model, based on Mixins 
+http://www.djangocurrent.com/2011/05/django-aspect-oriented-models.html
+
+
+
+v.0.6
 
 + Added colors in admin_list orders
 + added clients export to excel

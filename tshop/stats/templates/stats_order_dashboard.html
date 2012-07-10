@@ -1,0 +1,136 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% load url from future %}
+{% block module_content %}
+<style>
+    .stats_order { padding:10px; }
+    .red { color:green; }
+</style>
+<script src="/media/admin/charts/highcharts.js"></script>
+<script type="text/javascript">
+
+var result;
+
+(function($){
+
+
+no_time = function(date)
+{
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+    return date;
+}
+
+TransformData = function(serie){
+    this.serie = serie
+    this.keys = {}
+    this.data =[]
+    this.bills = []
+    this.orders = []
+    // Iterate over dates
+    i = 0;
+    for (var d = no_time(ini); d<=end; d.setDate(d.getDate() + 1) )
+    {
+        this.keys[d.getTime()] = i;
+        this.bills[i] = 0
+        this.orders[i] = 0
+        i++;
+    }
+    
+    facturas = this.serie.facturas_dia
+    for(i=0; i<facturas.length; i++)
+    {
+        var k = no_time(new Date(facturas[i][0]))
+        var t = k.getTime();
+        var pos = this.keys[t];
+        this.bills[pos] = facturas[i][1];
+        
+    }
+
+    pedidos = this.serie.pedidos_dia
+    for(i=0; i<pedidos.length; i++)
+    {
+        var k = no_time(new Date(pedidos[i][0]))
+        var t = k.getTime();
+        var pos = this.keys[t];
+        this.orders[pos] = pedidos[i][1];
+        
+    }
+}
+
+var end = (new Date());
+var ini = new Date();
+ini.setDate(end.getDate() - 30);
+
+obj = {
+    'start': $.datepicker.formatDate('dd/mm/yy', ini),
+    'end': $.datepicker.formatDate('dd/mm/yy', end)
+}
+
+$.getJSON('{% url "stats_api" %}', obj, function(data){
+    $('#total_facturado').text(data.total_facturat + " €")
+    $('#total_orders').text(data.total_orders)
+    
+    
+    result = new TransformData( data )
+    
+    chart1 = new Highcharts.Chart({
+        title: { text: "" },
+        chart: {
+            renderTo: 'stats',
+            zoomType: 'xy',
+            height: 300,
+            
+        },
+        xAxis: {
+            type: 'datetime',
+
+        },
+        yAxis: [{ title: {text:'Total €'} },
+        { // Secondary yAxis
+            title: {    text: 'N.Pedidos',
+                        style: { color: '#AA4643' }
+            },
+            opposite: true
+
+        }],
+        series: [
+            { 
+                pointInterval: 24 * 3600 * 1000,
+                pointStart: Date.UTC(ini.getFullYear(), 
+                        ini.getMonth()-1, ini.getDate()-1),
+                data: result.bills,
+                name: '€'
+            },
+
+            {
+              pointInterval: 24 * 3600 * 1000,
+                pointStart: Date.UTC(ini.getFullYear(), 
+                        ini.getMonth()-1, ini.getDate()-1),
+                data: result.orders,
+                name: 'orders',
+                yAxis: 1  
+            }
+
+
+        ]
+      });
+
+
+
+})
+
+
+})($)
+
+</script>
+<div class="{{ module.layout }} stats_order">
+    <ul class="{{ module.layout }}">
+        <li>Total Facturado <ul><li id="total_facturado" class="red"></li></ul></li>
+        <li>Total Pedidos <ul><li id="total_orders" class="red"></li></ul></li>
+    <div id="stats">
+        
+    </div>
+</div>
+{% endblock %}

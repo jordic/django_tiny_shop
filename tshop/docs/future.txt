@@ -1,0 +1,57 @@
+
+
+
+Plans futurs per la tenda:
+===================
+
+
+Transformar el model producte i el model client, en 
+alguna cosa realment modular:
+
+Aproximació 1 ( Basada en )
+http://www.djangocurrent.com/2011/05/django-aspect-oriented-models.html
+
+
+La tenda proveeix un model >Producte_abastracte<, que 
+defineix les propietats basiques i la API general del producte.
+-- Es proveeixen una serie de Mixins, que li afegeixen funcionalitats, 
+per exemple, un petit sistema de stocks, en el format, 
+
+ProductStockMixin():
+    - stock: es la quantitat actual que en tenim
+    
+
+ProductSalesMixin():
+    - on_sale
+    - sale_price
+
+o casos mes adequats a producte:
+
+
+BookProductMixin():
+    - ispn
+    - author
+    - year
+    - edition
+    - pages
+    - preview
+
+
+Amb aquesta aproximació s'hauria de tenir en compte:
+    - Qualsevol instalació de tenda requereix d'un model i algun sistema de 
+    registre del model, per poder retornar el model final, des dels moduls que en depenen.
+
+Enlloc d'aconseguir el model, via un import directe, canviar-ho per un 
+get_product_model() la funcio product model, pot, si la classe Product (concreta), 
+no està definida, definir-la tenint en compte hooks d'altres mòduls, si ja està
+definida, dons retornarla... D'aquesta manera la classe Product, passa a ser dinàmica.
+
+
+Des de moduls externs ( altres aplicacions django ), s'hauria de
+poder modificar la definició d'aquest model.
+
+
+
+
+
+
