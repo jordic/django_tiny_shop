@@ -4,6 +4,11 @@
 
 
 {% block after_field_sets %}
+<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}select2/select2.css">
+<script>
+var jQuery = django.jQuery;
+</script>
+<script src="{% load adminmedia %}{% admin_media_prefix %}select2/select2.js"></script>
 <script>
 (function($){
 	$(document).ready(function(){
@@ -15,13 +20,23 @@
 				$('td.total input', pare).val( total )				
 			}
 			
-		})
+		});
+
+		if(jQuery().select2) {
+			$('#id_client').select2();		
+		}
 	})
 })(django.jQuery);
 
+
+
+
+
 </script>
+
 <style>
 .datos p span { font-weight:Bold; }
+.form-row { overflow:visible; }
 </style>
 	{% if object_id %}
 <div id="" class="module datos" style="padding:10px">
