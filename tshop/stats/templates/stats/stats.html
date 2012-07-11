@@ -4,24 +4,23 @@
 
 
 {% block content %}
-<link rel="stylesheet" href="/media/static/admin_tools/css/jquery/jquery-ui.css" type="text/css" media="screen, projection"/>
-<link rel="stylesheet" href="/media/static/admin_tools/css/dashboard.css" type="text/css" media="screen, projection"/>
-<!--[if lt IE 8]>
-<link rel="stylesheet" href="/media/static/admin_tools/css/dashboard-ie.css" type="text/css" media="screen, projection"/>
+<link rel="stylesheet" href="{% load adminmedia %}{% admin_media_prefix %}admin_tools/css/jquery/jquery-ui.css" type="text/css" media="screen, projection"/>
+
+<link rel="stylesheet" href="{% load adminmedia %}{% admin_media_prefix %}admin_tools/css/dashboard-ie.css" type="text/css" media="screen, projection"/>
 <![endif]-->
 
 
 
 <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/media/admin/css/ie.css" /><![endif]-->
 
-<link rel="stylesheet" type="text/css" media="screen" href="/media/static/admin_tools/css/theming.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% load adminmedia %}{% admin_media_prefix %}admin_tools/css/theming.css" />
 <script type="text/javascript">window.__admin_media_prefix__ = "/media/admin/";</script>
 <script type="text/javascript" charset="utf-8">
 
     // Load js files syncronously and conditionally
     var js_files = [
         {
-            src : '/media/static/admin_tools/js/jquery/jquery-ui.min.js',
+            src : '{% load adminmedia %}{% admin_media_prefix %}admin_tools/js/jquery/jquery-ui.min.js',
             test: function() { return typeof(jQuery) == 'undefined'; }
         },
     ];
