@@ -4,5 +4,5 @@
 # Autor: jordi collell <jordi@tempointeractiu.cat>
 # http://tempointeractiu.cat
 # -------------------------------------------------------------------
-__version__ = '0.2'
+__version__ = '0.8'
 VERSION = tuple(map(int, __version__.split('.')))

@@ -1,0 +1,27 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% load stocktpl cache %}
+{% load url from future %}
+{% block module_content %}
+{% cache 180 dashboard_stocks %}
+<style>
+    .latest_orders li.pendiente { color:#999; }
+    .latest_orders li.enviado { color:green; }
+    .latest_orders li.pagado { color:red; }
+</style>
+<ul class="{{ module.layout }} latest_orders">
+    
+    {% get_stock module.stock as stocks %}
+    {% for k, v in stocks.products.items %}
+    <li class="{% cycle 'odd' 'even' %}">
+        {{ v.0 }}
+    <ul><li>
+        {{ v.1 }}</li></ul></li>
+
+    {% endfor %}
+    <li>
+        <a class="addlink" href="{% url 'admin:stocks_stocknote_changelist' %}">Albaranes</a>
+    </li>
+</ul>
+{% endcache %}
+{% endblock %}
+

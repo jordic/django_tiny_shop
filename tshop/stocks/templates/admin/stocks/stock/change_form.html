@@ -1,0 +1,20 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_modify adminmedia stocktpl %}
+{% load url from future %}
+
+
+
+{% block after_field_sets %}
+
+<h2>Inventario de producto</h2>
+
+{% get_stock adminform.form.instance as stocks %}
+<table width="400" border=0>
+
+{% for k, v in stocks.products.items %}
+    <tr><td>{{ v.0 }}</td><td>{{ v.1 }}</td></tr>
+
+{% endfor %}
+</table>
+
+{% endblock %}
