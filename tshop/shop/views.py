@@ -47,7 +47,7 @@ def add_to_cart(request):
         c.add((product.pk, variation, f.cleaned_data['qty']))
         c.save(request)
     else:
-        return Http404()
+        raise Http404
     
     if request.is_ajax():
         return HttpResponse('ok')
@@ -78,6 +78,9 @@ def product_view(request, slug):
     kw = {}
     kw[str('slug_%s' % lang)] = slug
     p = get_object_or_404(Product, **kw)
+    if p.active == False:
+        raise Http404
+
     related = Product.objects.filter(category=p.category, active=True).exclude(pk__in=[p.pk])
     context = { 
         'product': p, 
