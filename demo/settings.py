@@ -236,5 +236,5 @@ LOGGING = {
 
 THUMBNAIL_DEBUG = True
 
-from local_settings import *
+#from local_settings import *
 

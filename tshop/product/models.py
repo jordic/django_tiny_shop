@@ -40,7 +40,7 @@ class ProductManager(models.Manager):
         return self.get_query_set().exclude(pk__in=[inn])
          
 
-class Product(models.Model):
+class ProductAbstractClass(models.Model):
     
     __metaclass__ = TransMeta
     
@@ -59,6 +59,7 @@ class Product(models.Model):
     objects = ProductManager()
 
     class Meta:
+        abstract = True
         verbose_name = _(u'Producto')
         verbose_name_plural = _(u'Productos')
         translate = ('title', 'slug', 'text')
@@ -136,6 +137,52 @@ class Price(models.Model):
 
     class Meta:
         verbose_name=_("Precios Escalados")
+
+
+
+
+def get_base_model():
+    """Determine the base Model to inherit in the
+    Entry Model, this allow to overload it."""
+    if not PRODUCT_BASE_MODEL:
+        return ProductAbstractClass
+
+    dot = PRODUCT_BASE_MODEL.rindex('.')
+    module_name = PRODUCT_BASE_MODEL[:dot]
+    class_name = PRODUCT_BASE_MODEL[dot + 1:]
+    try:
+        _class = getattr(import_module(module_name), class_name)
+        return _class
+    except (ImportError, AttributeError):
+        warnings.warn('%s cannot be imported' % PRODUCT_BASE_MODEL,
+                      RuntimeWarning)
+    return ProductAbstractClass
+
+
+
+class Product(get_base_model()):
+    """ Final product extendable by clients ... """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
