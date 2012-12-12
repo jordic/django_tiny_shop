@@ -13,7 +13,7 @@ from pyExcelerator import *
 
 class ClientAdmin(admin.ModelAdmin):
     search_fields = ('full_name', 'email', 'ship_city')
-    list_filter = ('ship_provincia',)
+    #list_filter = ('ship_provincia',)
 
     actions = ['export_as_xls']
 

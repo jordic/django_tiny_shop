@@ -24,7 +24,7 @@ class CartForm(forms.Form):
             self.fields['sub'] = forms.ChoiceField(choices=self.get_variations(instance), label=_(conf.LABEL_VARIATIONS))
     
     def get_variations(self, instance):
-        return [(str(op.pk), op.title) for op in instance.variations.all()]
+        return instance.get_variations()
 
     def get_product(self):
         from models import Product

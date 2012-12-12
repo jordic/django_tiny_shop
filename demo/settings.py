@@ -207,7 +207,7 @@ LABEL_VARIATIONS = 'Color'
 
 # quantity on product forms add to basket
 PRODUCT_QTY_FORM = 15
-
+#PRODUCT_BASE_MODEL = None
 
 ## END SHOP SETTINGS
 

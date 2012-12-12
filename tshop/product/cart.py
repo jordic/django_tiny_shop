@@ -20,7 +20,7 @@ def cart_list(cart):
     for c in cart:
         prod = Product.objects.get(pk=c[0])
         quantity = int(c[2])
-        subpr = Options.objects.get(pk=c[1]) if c[1] else None
+        subpr = prod.get_variation(c[1]) if c[1] else None
             
         # mirem si el producte ja es a la cistella, per agrupar...
         if dupli.get(prod.pk):

@@ -38,6 +38,7 @@ def home(request):
 
 @csrf_exempt            
 def add_to_cart(request):
+    #print "Adding to cart..."
     ''' add a product to cart, with product variations if have... '''
     f = CartForm(request.POST)
     if f.is_valid():
@@ -47,6 +48,7 @@ def add_to_cart(request):
         c.add((product.pk, variation, f.cleaned_data['qty']))
         c.save(request)
     else:
+        print f
         raise Http404
     
     if request.is_ajax():
@@ -73,6 +75,7 @@ def remove_from_cart(request, id):
     
 
 def product_view(request, slug):
+    print "Aqui"
     lang = get_language()
     ''' prodcut document '''
     kw = {}
@@ -96,6 +99,9 @@ def checkout(request):
     cart = cart_from_session(request)
     if cart.total() == 0:
         return HttpResponseRedirect(reverse('view_cart'))
+    
+    c['cart'] = cart_list(cart)
+    c['total'] = cart_total( c['cart'] )
     
     if request.method == "GET":
         if request.session.get(settings.ORDER_KEY):

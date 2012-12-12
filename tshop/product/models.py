@@ -6,12 +6,18 @@
 '''
 '''
 
-
+import warnings
 from django.db import models
 from sorl.thumbnail import ImageField
 from forms import CartForm
 from django.utils.translation import ugettext_lazy as _
 from transmeta import TransMeta
+from django.utils.importlib import import_module
+
+try:
+    from settings import PRODUCT_BASE_MODEL
+except:
+    PRODUCT_BASE_MODEL = None
 
 
 class Category(models.Model):
@@ -44,16 +50,17 @@ class ProductAbstractClass(models.Model):
     
     __metaclass__ = TransMeta
     
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, verbose_name=_(u'Categoría'))
     title = models.CharField(blank=False, max_length=255, verbose_name=_(u"Título"))
     slug = models.SlugField(verbose_name=_(u"URL Amigable"))
     active = models.BooleanField(default=True, verbose_name=_(u"Activo?"))
     featured = models.BooleanField(default=False, verbose_name=_(u"Destacado?"))
     text = models.TextField(blank=True, verbose_name=_(u"Texto"))
-    image = ImageField(upload_to="upload/producto/", blank=True, verbose_name=_("Imágen"))
+    image = models.ImageField(_("Thumbnail"), upload_to="upload/producto/", blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Precio"))
     size = models.CharField(blank=True, max_length=80, verbose_name=_(u"Tamaño"))
-    weight = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Peso en Gramos"))
+    weight = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Peso en Gramos"), 
+        blank=True, null=True, default=0)
     position = models.IntegerField(blank=True, null=True)
 
     objects = ProductManager()
@@ -74,6 +81,14 @@ class ProductAbstractClass(models.Model):
             return True
         return None
     
+    def get_variations(self):
+        """ Return a list of product variation objects to user choose """
+        return [(str(op.pk), op.title) for op in self.variations.all()]
+
+    def get_variation(self, item):
+        """ returns variation object ... """
+        return Options.objects.get(pk=item)
+
     def get_product_form(self):
         ''' Returns a form with, product options '''
         c = CartForm()
@@ -110,6 +125,32 @@ class ProductAbstractClass(models.Model):
         except:
             return None
 
+    
+
+
+
+def get_base_model():
+    """Determine the base Model to inherit in the
+    Entry Model, this allow to overload it."""
+    if not PRODUCT_BASE_MODEL:
+        return ProductAbstractClass
+
+    dot = PRODUCT_BASE_MODEL.rindex('.')
+    module_name = PRODUCT_BASE_MODEL[:dot]
+    class_name = PRODUCT_BASE_MODEL[dot + 1:]
+    try:
+        _class = getattr(import_module(module_name), class_name)
+        return _class
+    except (ImportError, AttributeError):
+        warnings.warn('%s cannot be imported' % PRODUCT_BASE_MODEL,
+                      RuntimeWarning)
+    return ProductAbstractClass
+
+
+
+class Product(get_base_model()):
+    """ Final product extendable by clients ... """
+
 
     
 class Options(models.Model):
@@ -141,27 +182,6 @@ class Price(models.Model):
 
 
 
-def get_base_model():
-    """Determine the base Model to inherit in the
-    Entry Model, this allow to overload it."""
-    if not PRODUCT_BASE_MODEL:
-        return ProductAbstractClass
-
-    dot = PRODUCT_BASE_MODEL.rindex('.')
-    module_name = PRODUCT_BASE_MODEL[:dot]
-    class_name = PRODUCT_BASE_MODEL[dot + 1:]
-    try:
-        _class = getattr(import_module(module_name), class_name)
-        return _class
-    except (ImportError, AttributeError):
-        warnings.warn('%s cannot be imported' % PRODUCT_BASE_MODEL,
-                      RuntimeWarning)
-    return ProductAbstractClass
-
-
-
-class Product(get_base_model()):
-    """ Final product extendable by clients ... """
 
 
 
