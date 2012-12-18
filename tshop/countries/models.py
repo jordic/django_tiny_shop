@@ -24,7 +24,7 @@ class ShopCountry(models.Model):
         translate = ('name',)
         verbose_name = u'País con tienda'
         verbose_name_plural = u'Países con tienda'
-
+        ordering = ('code', 'name_es')
 
 
     def __unicode__(self):
@@ -33,10 +33,12 @@ class ShopCountry(models.Model):
 
 
 
+
 def get_country_list():
     obj = ShopCountry.objects.filter(active=True)
-    l = [('', _(u'Escoge país'))] + [ (k.code, k.name) for k in obj ]
-    return sorted(l, key=lambda tup: tup[1])
+    l =  [ (k.code, k.name) for k in obj ]
+    l = sorted(l, key=lambda tup: tup[1])
+    return [('', _(u'Escoge país'))] + l
 
 
 
