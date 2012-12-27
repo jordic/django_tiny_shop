@@ -44,6 +44,8 @@ class Order(models.Model):
     pay_id = models.CharField(blank=True, null=True, verbose_name=_(u"ID Transaccion"), max_length=255)
     pay_details = models.CharField(blank=True, max_length=255)
     send_date = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Fecha envio'))
+    send_type = models.CharField(max_length=250, blank=True, null=True)
+
 
     objects = models.Manager()
     stats = StatsManager()
@@ -76,6 +78,27 @@ class Order(models.Model):
         return arr
         #arr.append( self.quantity() )
     
+    def line_ordered(self):
+        i = []
+        for a in self.line_set.all():
+            i.append(a)
+        
+        def comp(a,b):
+            if a.types == 'product' and b.types == 'ship':
+                return -1
+            if a.types == 'ship' and b.types == 'product':
+                return 1
+            
+            #if b.types == 'product':
+            #    return b
+            return 0
+        print i
+        return sorted(i, cmp=comp)
+
+
+
+
+
     @classmethod    
     def get_export_fields(cl):
         return ('uid', 'Fecha', 'Cliente', 'Status',

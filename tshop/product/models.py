@@ -19,6 +19,10 @@ try:
 except:
     PRODUCT_BASE_MODEL = None
 
+try: 
+    from settings import PRODUCT_OPTIONS_BASE_MODEL
+except:
+    PRODUCT_OPTIONS_BASE_MODEL = None
 
 class Category(models.Model):
     __metaclass__ = TransMeta
@@ -153,7 +157,7 @@ class Product(get_base_model()):
 
 
     
-class Options(models.Model):
+class OptionsAbstractClass(models.Model):
     product = models.ForeignKey(Product, related_name="variations")
     title = models.CharField(blank=False, max_length=255, verbose_name=_("Título"))
     image = ImageField(null=True, upload_to="upload/opciones/", blank=True, verbose_name=_("Imágen"))
@@ -162,6 +166,7 @@ class Options(models.Model):
     
     class Meta:
         verbose_name=u"Opciones de Producto"
+        abstract = True
         
     def __unicode__(self):
         return u"Opción: %s" % self.title
@@ -170,6 +175,28 @@ class Options(models.Model):
         if self.image:
             return True
         return False
+
+
+def get_options_base_model():
+    """Determine the base Model to inherit in the
+    Entry Model, this allow to overload it."""
+    if not PRODUCT_OPTIONS_BASE_MODEL:
+        return OptionsAbstractClass
+
+    dot = PRODUCT_OPTIONS_BASE_MODEL.rindex('.')
+    module_name = PRODUCT_OPTIONS_BASE_MODEL[:dot]
+    class_name = PRODUCT_OPTIONS_BASE_MODEL[dot + 1:]
+    try:
+        _class = getattr(import_module(module_name), class_name)
+        return _class
+    except (ImportError, AttributeError):
+        warnings.warn('%s cannot be imported' % PRODUCT_OPTIONS_BASE_MODEL,
+                      RuntimeWarning)
+    return OptionsAbstractClass
+
+class Options(get_options_base_model()):
+    """  Final options class """
+
         
 class Price(models.Model):
     product = models.ForeignKey(Product, related_name="prices")

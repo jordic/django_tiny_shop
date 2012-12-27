@@ -75,6 +75,10 @@ def cart_total(c):
     return amount
 
 
+def cart_quantity(c):
+    pass
+
+
 """ This middleware is obsolte and will disapear """
 
 class SimpleCartMiddleware(object):

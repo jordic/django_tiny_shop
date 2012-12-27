@@ -34,7 +34,7 @@ class PriceInline(admin.TabularInline):
 
 class OptionsInline(admin.TabularInline):
     model = Options
-    fields = ('title', 'image')
+    #fields = ('title', 'image')
     extra = 0
 
 class ProductAdmin(admin.ModelAdmin):

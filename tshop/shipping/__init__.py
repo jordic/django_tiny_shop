@@ -19,11 +19,12 @@ shipping_method = None
 def add_shipping_costs(sender, order, client, amount, cart, **kwargs):
     
     cost = calc_shipping_costs(cart=cart, client=client, amount=amount, postal=str(client.ship_country))
-    Line.objects.create(
-        order       = order,
-        types       = Line.SHIP,
-        quantity    = 1,
-        total       = cost)   
+    if cost:
+        Line.objects.create(
+            order       = order,
+            types       = Line.SHIP,
+            quantity    = 1,
+            total       = cost)   
 
 signals.order_created.connect(add_shipping_costs)
 
@@ -31,6 +32,8 @@ signals.order_created.connect(add_shipping_costs)
 def calc_shipping_costs(cart, postal=None, amount=None, client=None):
     """ Calcs shipping costs """
     ms = get_shipping_method()
+    if not ms:
+        return None
     ship = ms(cart=cart, postal=postal, amount=amount, client=client)
     #weight = cart_weight(cart)
     return ship.calc_shipping_cost()
@@ -43,7 +46,7 @@ def register_shipping_method(c):
 def get_shipping_method():
     global shipping_method
     if not shipping_method:
-        return CorreosShipping
+        return None
     return shipping_method
 
 class BaseShipping(object):
