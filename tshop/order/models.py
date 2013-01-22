@@ -92,7 +92,7 @@ class Order(models.Model):
             #if b.types == 'product':
             #    return b
             return 0
-        print i
+        #print i
         return sorted(i, cmp=comp)
 
 
