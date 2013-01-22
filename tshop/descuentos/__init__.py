@@ -37,15 +37,17 @@ def validate_discount(sender, data, **kwargs):
     if not valid:
         raise forms.ValidationError(_(u"El código de descuento introducido no es válido"))
 
-signals.clean_checkout_form.connect(validate_discount)
+#signals.clean_checkout_form.connect(validate_discount)
 
 
 def add_discount_line(sender, order, client, amount, cart, form, **kwargs):
     
     if form.cleaned_data['descuento']:
-        print "Codigo de descuento %s" % form.cleaned_data['descuento'] 
-        #try:
-        discount = Descuento.objects.get(codigo=form.cleaned_data['descuento'])
+        #print "Codigo de descuento %s" % form.cleaned_data['descuento'] 
+        try:
+            discount = Descuento.objects.get(codigo=form.cleaned_data['descuento'])
+        except:
+            return None
         total = -(order.total_no_ship()*discount.descuento)/100
         from order.models import Line
         Line.objects.create(
