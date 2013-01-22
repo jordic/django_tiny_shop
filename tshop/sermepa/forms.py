@@ -48,14 +48,12 @@ class SermepaPaymentForm(forms.Form):
     def render(self):
         return mark_safe(u"""<form action="%s" method="post">
             %s
-            <input type="image" src="%s" border="0" name="submit" alt="Comprar ahora" />
-        </form>""" % (settings.SERMEPA_URL_PRO, self.as_p(), settings.SERMEPA_BUTTON_IMG))
+        """ % (settings.SERMEPA_URL_PRO, self.as_p()))
         
     def sandbox(self):
         return mark_safe(u"""<form action="%s" method="post">
             %s
-            <input type="image" src="%s" border="0" name="submit" alt="Comprar ahora" />
-        </form>""" % (settings.SERMEPA_URL_TEST, self.as_p(), settings.SERMEPA_BUTTON_IMG))
+        """ % (settings.SERMEPA_URL_TEST, self.as_p()))
         
 class SermepaResponseForm(forms.ModelForm):
     Ds_Date = forms.DateField(required=False, input_formats=('%d/%m/%Y',))
