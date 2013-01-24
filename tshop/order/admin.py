@@ -139,7 +139,7 @@ class OrderAdmin(admin.ModelAdmin):
         )
 
         urls = url_patterns + super(OrderAdmin, self).get_urls()
-        print urls
+        #print urls
         return urls
 
     
