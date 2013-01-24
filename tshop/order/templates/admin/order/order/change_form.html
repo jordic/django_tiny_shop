@@ -60,7 +60,7 @@ var jQuery = django.jQuery;
 		<span style="font-size:11px">({{ adminform.form.instance.total_no_ship }})</span></h1> 
 		{% if adminform.form.instance.pk %}
 		<input type="button" value="Notificar Envío" style="float:left" 
-			onclick="window.location.href='{% url 'admin:notificar_comprador' adminform.form.instance.pk  %}'">
+			onclick="window.location.href='{% url 'admin:order_order_notificar_envio' adminform.form.instance.pk  %}'">
 		{% endif %}
 	<div class="clear"> </div>
 </div>

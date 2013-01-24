@@ -75,7 +75,7 @@ def remove_from_cart(request, id):
     
 
 def product_view(request, slug):
-    print "Aqui"
+    #print "Aqui"
     lang = get_language()
     ''' prodcut document '''
     kw = {}

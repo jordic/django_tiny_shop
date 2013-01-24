@@ -50,7 +50,7 @@ class OrderAdmin(admin.ModelAdmin):
     
     def enviar(self, obj):
         if obj.status == Order.PAYED:
-            return u'<a href="%s">Notificar Envío</a>' % reverse('admin:notificar_comprador', args=(obj.pk,))
+            return u'<a href="%s">Notificar Envío</a>' % reverse('admin:order_order_notificar_envio', args=(obj.pk,))
         else:
             return ""
     
@@ -93,6 +93,7 @@ class OrderAdmin(admin.ModelAdmin):
     
     
     def notificar_envio(self, request, pk):
+        #print "ara"
         obj = get_object_or_404(Order, pk=pk)
         subject = settings.EMAIL_SENDING_SUBJECT
         context = {}
@@ -114,7 +115,7 @@ class OrderAdmin(admin.ModelAdmin):
         return HttpResponseRedirect( reverse('admin:order_order_changelist') )
         
         
-    
+    '''
     def get_urls(self):
         urls = super(OrderAdmin, self).get_urls()
         my_urls = patterns('',
@@ -124,8 +125,23 @@ class OrderAdmin(admin.ModelAdmin):
                 name='notificar_comprador',
             ),
         )
+        #print my_urls, urls
         return my_urls + urls
-    
+    '''
+    def get_urls(self):
+
+        from django.conf.urls.defaults import patterns, url
+        info = "%s_%s" % (self.model._meta.app_label, self.model._meta.module_name)
+        pat = lambda regex, fn: url(regex, self.admin_site.admin_view(fn), name='%s_%s' % (info, fn.__name__))
+
+        url_patterns = patterns('',
+            pat(r'^([0-9]+)/notify-buyer/$', self.notificar_envio),
+        )
+
+        urls = url_patterns + super(OrderAdmin, self).get_urls()
+        print urls
+        return urls
+
     
     def export_as_xls(modeladmin, request, queryset):
         """
