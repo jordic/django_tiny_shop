@@ -44,7 +44,8 @@ class OrderAdmin(admin.ModelAdmin):
     exclude = ('pay_details', 'pay_date','pay_total', 'pay_id')
     readonly_fields = ('date', 'send_date')
     date_hierarchy = 'date'
-    search_fields = ['client__email', 'client__full_name', 'uid', 'client__ship_city']
+    search_fields = ['client__email', 'client__ship_name', 'client__ship_surname', 
+        'uid', 'client__ship_city']
 
     actions = ['view_orders', 'export_as_xls']
     
