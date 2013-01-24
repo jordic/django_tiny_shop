@@ -66,18 +66,6 @@ class Order(models.Model):
     def shipping(self):
         return self.total() - self.total_no_ship()
         
-    def export(self):
-        arr = []
-        for k in ('uid', 'date', 'client', 'status'):
-            arr.append( getattr(self, k) )
-        for k in ('total', 'total_no_ship', 'shipping', 'quantity'):
-            v = getattr(self, k)
-            arr.append( v() )
-        for k in ('ship_provincia', 'ship_city'):
-            arr.append( getattr(self.client, k) )    
-        return arr
-        #arr.append( self.quantity() )
-    
     def line_ordered(self):
         i = []
         for a in self.line_set.all():
@@ -95,15 +83,33 @@ class Order(models.Model):
         #print i
         return sorted(i, cmp=comp)
 
-
+    def export(self):
+        arr = []
+        for k in ('uid', 'date', 'client', 'status'):
+            arr.append( getattr(self, k) )
+        for k in ('total', 'total_no_ship', 'shipping', 'quantity'):
+            v = getattr(self, k)
+            arr.append( v() )
+        for k in self.client._meta.fields:
+            if k.name != "id":
+                arr.append( getattr(self.client, k.name) )    
+        return arr
 
 
 
     @classmethod    
     def get_export_fields(cl):
-        return ('uid', 'Fecha', 'Cliente', 'Status',
-            'Total', 'Total s/p', u'Envío', 'Qty',
-            'Provincia', 'Ciudad')  
+        ff =  ['uid', 'Fecha', 'Cliente', 'Status',
+            'Total', 'Total s/p', u'Envío', 'Qty']
+        kk = []
+        from client.models import Client
+        from django.utils.translation import ugettext_lazy as _
+        for f in Client._meta.fields:
+            if f.name != "id":
+                kk.append( f.name )
+        return ff + kk
+
+
 
 
 def set_uid(sender, **kwargs):
