@@ -92,7 +92,16 @@ class Order(models.Model):
             arr.append( v() )
         for k in self.client._meta.fields:
             if k.name != "id":
-                arr.append( getattr(self.client, k.name) )    
+                arr.append( getattr(self.client, k.name) )
+        ## get line export
+        for k in self.line_set.filter(types=Line.PRODUCT):
+            if k.product_option:
+                prod = k.product_option.__unicode__()
+            else:
+                prod = k.product
+            t = [k.quantity, prod, k.total]
+            arr = arr + t
+        
         return arr
 
 
@@ -102,12 +111,19 @@ class Order(models.Model):
         ff =  ['uid', 'Fecha', 'Cliente', 'Status',
             'Total', 'Total s/p', u'Envío', 'Qty']
         kk = []
+        ll = [  'Q1', 'P1', 'T1',
+                'Q2', 'P2', 'T2',
+                'Q3', 'P3', 'T3',
+                'Q4', 'P4', 'T4',
+                'Q5', 'P5', 'T5',
+                'Q6', 'P6', 'T6',
+        ]
         from client.models import Client
         from django.utils.translation import ugettext_lazy as _
         for f in Client._meta.fields:
             if f.name != "id":
                 kk.append( f.name )
-        return ff + kk
+        return ff + kk + ll
 
 
 
