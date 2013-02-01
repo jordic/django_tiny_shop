@@ -9,6 +9,7 @@
 from models import Product, Options
 from django.core.cache import cache
 from shop import signals
+from django.conf import settings
 
 def cart_list(cart):
     ''' Calcs product prices with a cart with duplicate products (variations..) 
@@ -88,6 +89,16 @@ class SimpleCartMiddleware(object):
     '''
     def process_request(self, request):
         
+        if request.session.get(settings.ORDER_KEY):
+            from order.models import Order
+            try:
+                uid = request.session.get(settings.ORDER_KEY)
+                o = Order.objects.get(uid=uid)
+                if o.status in ( Order.PAYED, Order.SENDED ):
+                    request.session.flush()
+            except:
+                pass
+
         from shop.cart import cart_from_session
         c = cart_from_session(request)
         if c.total() == 0:

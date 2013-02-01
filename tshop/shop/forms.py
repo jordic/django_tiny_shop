@@ -43,7 +43,8 @@ class CheckoutForm(forms.ModelForm):
             uid = request.session[settings.ORDER_KEY]
             try:
                 order = Order.objects.get(uid=uid)
-                order.delete()
+                if order.status == Order.PENDING:
+                    order.delete()
             except:
                 pass
         
