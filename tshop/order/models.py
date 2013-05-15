@@ -45,6 +45,7 @@ class Order(models.Model):
     pay_details = models.CharField(blank=True, max_length=255)
     send_date = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Fecha envio'))
     send_type = models.CharField(max_length=250, blank=True, null=True)
+    send_ref = models.CharField("Referencia Envio", max_length=250, blank=True, null=True)
 
 
     objects = models.Manager()
