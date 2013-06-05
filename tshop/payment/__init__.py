@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from paypal.standard.forms import PayPalPaymentsForm
-
+from django.utils.translation import get_language
 
 payment_modules = {}
 
@@ -42,7 +42,7 @@ def paypal_form(order):
         # It'll be a good idea to setup a SITE_DOMAIN inside settings
         # so you don't need to hardcode these values.
         'currency_code': 'EUR',
-        'lc': 'es_ES',
+        'lc': get_language(),
         #'notify_url': settings.SITE_DOMAIN + "/tienda/checkout/paypal/ipn",
         'notify_url': settings.SITE_DOMAIN + reverse('paypal-ipn'),
         'return_url': settings.SITE_DOMAIN + reverse('return_url'),

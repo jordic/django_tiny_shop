@@ -196,6 +196,7 @@ class Line(models.Model):
     SHIP = 'ship'
     TAX = 'tax'
     DESCUENTO = 'descuento'
+    OLD = 'old'
         
     LINE_TYPES = (
         (PRODUCT, _('Producto')),
