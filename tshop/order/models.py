@@ -54,6 +54,7 @@ class Order(models.Model):
     class Meta:
         verbose_name = _("Pedido")
         verbose_name_plural = _("Pedidos")
+        ordering = ['-date']
 
     def total(self):
         return self.line_set.aggregate(Sum('total'))['total__sum']
