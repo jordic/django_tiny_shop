@@ -54,6 +54,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Precio"))
     size = models.CharField(blank=True, max_length=80, verbose_name=_(u"Tamaño"))
     weight = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Peso en Gramos"))
+    sku = models.CharField("Codigo de producto", max_length=255, blank=True, null=True)
     position = models.IntegerField(blank=True, null=True)
 
     objects = ProductManager()

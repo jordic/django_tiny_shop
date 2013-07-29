@@ -22,6 +22,9 @@ class ProductSales(models.Model):
         verbose_name = "Rebajas"
         verbose_name_plural = "Rebajas"
 
+    def __unicode__(self):
+        return self.product.title
+
 
 def on_cart_list(sender, **kwargs):
     l = kwargs['list']
