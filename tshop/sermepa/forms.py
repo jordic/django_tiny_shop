@@ -11,10 +11,24 @@
 from django import forms
 from django.conf import settings
 from django.utils.safestring import mark_safe
+from django.utils.translation import get_language
 
 import hashlib
 
 from models import SermepaResponse
+
+
+IDIOMAS = {
+    'en': '002',
+    'es': '001',
+    'fr': '004',
+    'de': '005',
+    'pt': '009',
+    'it': '007',
+    'ct': '003',
+    'sk': '008'
+}
+
 
 class SermepaPaymentForm(forms.Form):
 
@@ -32,6 +46,7 @@ class SermepaPaymentForm(forms.Form):
     Ds_Merchant_Order = forms.CharField(widget=forms.HiddenInput())
     Ds_Merchant_UrlOK = forms.CharField(widget=forms.HiddenInput())
     Ds_Merchant_UrlKO = forms.CharField(widget=forms.HiddenInput())
+    Ds_Merchant_ConsumerLanguage = forms.CharField(widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super(SermepaPaymentForm, self).__init__(*args, **kwargs)
@@ -44,6 +59,12 @@ class SermepaPaymentForm(forms.Form):
                                   settings.SERMEPA_SECRET_KEY,)
         sha1 = hashlib.sha1(key)
         self.initial['Ds_Merchant_MerchantSignature'] = sha1.hexdigest().upper()
+
+        lang = get_language()[0:2]
+        print lang
+
+        self.initial['Ds_Merchant_ConsumerLanguage'] = IDIOMAS[lang]
+
         
     def render(self):
         return mark_safe(u"""<form action="%s" method="post">
