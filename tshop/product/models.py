@@ -76,9 +76,12 @@ class Product(models.Model):
     
     def get_product_form(self):
         ''' Returns a form with, product options '''
+        #if self.prod_form:
+        #    return self.prod_form
         c = CartForm()
         c.set_instance(instance=self)
-        return c
+        self.prod_form = c
+        return self.prod_form
 
     def has_tabbed_price(self):
         ''' have the model tabbed price '''
