@@ -94,9 +94,14 @@ def checkout(request):
     f = CheckoutForm()
     c = {}
     cart = cart_from_session(request)
+    #c['cart'] = cart
+    #print cart.total()
     if cart.total() == 0:
         return HttpResponseRedirect(reverse('view_cart'))
     
+    c['cart'] = cart_list(cart)
+    c['total'] = cart_total( c['cart'] )
+
     if request.method == "GET":
         if request.session.get(settings.ORDER_KEY):
             uid = request.session.get(settings.ORDER_KEY)
