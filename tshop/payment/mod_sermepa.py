@@ -32,8 +32,8 @@ def sermepa_form(order):
         "Ds_Merchant_Currency":             settings.SERMEPA_CURRENCY,
         # Ds_Merchant_ConsumerLanguage
         "Ds_Merchant_MerchantURL": merchant_url,
-        "Ds_Merchant_UrlOK": "%s%s" % (settings.SITE_DOMAIN, reverse('return_url')),
-        "Ds_Merchant_UrlKO": "%s%s" % (settings.SITE_DOMAIN, reverse('cancel_url')),
+        "Ds_Merchant_UrlOK": "%s%s?utm_nooverride=1" % (settings.SITE_DOMAIN, reverse('return_url')),
+        "Ds_Merchant_UrlKO": "%s%s?utm_nooverride=1" % (settings.SITE_DOMAIN, reverse('cancel_url')),
     }
     
 

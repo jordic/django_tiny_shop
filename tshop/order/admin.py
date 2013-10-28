@@ -138,6 +138,7 @@ class OrderAdmin(admin.ModelAdmin):
         url_patterns = patterns('',
             pat(r'^([0-9]+)/notify-buyer/$', self.notificar_envio),
         )
+        print url_patterns
 
         urls = url_patterns + super(OrderAdmin, self).get_urls()
         #print urls
