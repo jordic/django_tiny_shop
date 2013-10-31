@@ -94,7 +94,7 @@ class SimpleCartMiddleware(object):
             try:
                 uid = request.session.get(settings.ORDER_KEY)
                 o = Order.objects.get(uid=uid)
-                if o.status in ( Order.PAYED, Order.SENDED ) \ 
+                if o.status in ( Order.PAYED, Order.SENDED ) \
                     and "checkout/ok" not in request.get_full_path():
                     request.session.flush()
             except:
