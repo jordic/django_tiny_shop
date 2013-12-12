@@ -20,7 +20,17 @@ def cart_list(cart):
     for c in cart:
         prod = Product.objects.get(pk=c[0])
         quantity = int(c[2])
-        subpr = Options.objects.get(pk=c[1]) if c[1] else None
+        #print c[1]
+        # multiples variacions de producte...
+        is_multiple = None
+        #print type(c[1])==list
+        if type(c[1])==list:
+            is_multiple = True
+            ris = []
+            for k in c[1]:
+                ris.append( Options.objects.get(pk=int(k) ) )
+        else:
+            subpr = Options.objects.get(pk=c[1]) if c[1] else None
             
         # mirem si el producte ja es a la cistella, per agrupar...
         if dupli.get(prod.pk):
@@ -37,7 +47,12 @@ def cart_list(cart):
         else:
             precio_total = price*quantity
         
-        l.append([prod, subpr, quantity, price, unit, precio_total])
+        if is_multiple:
+            l.append([prod, ris[0], quantity, price, unit, precio_total])
+            for f in ris[1:]:
+                l.append([prod, f, 1, 0, 1, 0, 'm'])
+        else:
+            l.append([prod, subpr, quantity, price, unit, precio_total])
 
     # revisem productes duplicats amb descompte per quanitat..    
     for p in in_cart:
