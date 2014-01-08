@@ -65,7 +65,7 @@ class CheckoutForm(forms.ModelForm):
         c = cart_from_session(request)
         pay_type = self.cleaned_data['pago']
         
-        order = order_from_cart(c, contact, pay_type, form)
+        order = order_from_cart(c, contact, pay_type, form, request)
         return order    
 
 

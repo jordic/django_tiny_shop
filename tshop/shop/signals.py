@@ -27,3 +27,6 @@ order_created = Signal(providing_args=["order", "client", "amount"])
 # Cart list 
 # used for altering cart listing based on external modules/api
 cart_list_created = Signal(providing_args=["list"])
+
+# Order confirmed
+order_confirmed = Signal(providing_args=['order'])

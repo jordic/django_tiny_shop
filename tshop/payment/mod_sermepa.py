@@ -15,6 +15,7 @@ from sermepa.signals import payment_was_successful, payment_was_error, signature
 from order.models import Order
 from order.views import email_notification
 from decimal import *
+from shop import signals
 
 def sermepa_form(order):
     
@@ -58,6 +59,7 @@ def confirm_payment(sender, **kwargs):
         order.pay_total = ".".join( (a[:-2],a[-2:]) )
         order.pay_id = sender.Ds_AuthorisationCode
         order.save()
+        signals.order_confirmed.send( Order,  order=order )
         email_notification(order)
     
     

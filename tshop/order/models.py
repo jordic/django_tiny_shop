@@ -143,7 +143,7 @@ post_save.connect(set_uid, sender=Order)
 def generate_order_id():
     return base64.standard_b64encode(str(random.random()*1000).replace(".", ""))
 
-def order_from_cart(cart, client, payment_type, form):
+def order_from_cart(cart, client, payment_type, form, request=None):
     '''Creates an order from a given session cart and a client..'''
     o = Order()
     o.client = client
@@ -168,7 +168,7 @@ def order_from_cart(cart, client, payment_type, form):
     #afegim linia de calcul dels shippings...
     amount = cart_total( l )
     cp = client.ship_pc
-    signals.order_created.send(Order, order=o, client=client, amount=amount, cart=cart, form=form)
+    signals.order_created.send(Order, order=o, client=client, amount=amount, cart=cart, form=form, request=request)
     return o
     
 
@@ -184,6 +184,7 @@ def confirm_payment(sender, **kwargs):
     order.pay_total = sender.auth_amount
     order.pay_id = sender.txn_id
     order.save()
+    signals.order_confirmed.send(Order, order=order )
     email_notification(order)
     
 # paypal ipn signal
