@@ -15,6 +15,6 @@ import views
 
 urlpatterns = patterns('',
         #url(r'^$', views.soon, name="soon"),
-        url(r'^cart/checkout/process$', views.transferencia_process, 
+        url(r'^cart/checkout/process/$', views.transferencia_process, 
             name="checkout_process"),
     )
