@@ -164,7 +164,7 @@ def order_from_cart(cart, client, payment_type, form, request=None, order=None):
     
     #o.save()
     if order:
-        o.line_set.delete()
+        o.line_set.all().delete()
 
     l = cart_list(cart)
     for item in l:
