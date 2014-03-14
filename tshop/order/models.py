@@ -143,16 +143,29 @@ post_save.connect(set_uid, sender=Order)
 def generate_order_id():
     return base64.standard_b64encode(str(random.random()*1000).replace(".", ""))
 
-def order_from_cart(cart, client, payment_type, form, request=None):
-    '''Creates an order from a given session cart and a client..'''
-    o = Order()
-    o.client = client
-    o.status = Order.PENDING
+def order_from_cart(cart, client, payment_type, form, request=None, order=None):
+    '''
+    Creates an order from a given session cart and a client..
+    If an order is given, updates it
+
+    '''
+    if not order:
+        o = Order()
+        o.client = client
+        o.status = Order.PENDING
+        o.save()
+        o.uid = "0000%s-%s" % (o.pk, o.client.email[0:2])
+    else:
+        o = order
+        
     o.pay_type = payment_type
     o.save()
     #uid = generate_order_id()
-    o.uid = "0000%s-%s" % (o.pk, o.client.email[0:2])
-    o.save()
+    
+    #o.save()
+    if order:
+        o.line_set.delete()
+
     l = cart_list(cart)
     for item in l:
         print item

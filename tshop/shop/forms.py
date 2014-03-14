@@ -39,12 +39,13 @@ class CheckoutForm(forms.ModelForm):
         exclude = ('lang',)
 
     def create_order(self, request, form=None):
+        order = None
         if request.session.get(settings.ORDER_KEY):
             uid = request.session[settings.ORDER_KEY]
             try:
                 order = Order.objects.get(uid=uid)
-                if order.status == Order.PENDING:
-                    order.delete()
+                #if order.status == Order.PENDING:
+                    #order.delete()
             except:
                 pass
         
@@ -65,8 +66,8 @@ class CheckoutForm(forms.ModelForm):
         c = cart_from_session(request)
         pay_type = self.cleaned_data['pago']
         
-        order = order_from_cart(c, contact, pay_type, form, request)
-        return order    
+        o = order_from_cart(c, contact, pay_type, form, request, order)
+        return o
 
 
     def clean_ship_pc(self):
