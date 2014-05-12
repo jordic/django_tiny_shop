@@ -16,6 +16,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.localflavor.es.forms import *
 import signals
 from django.utils.translation import ugettext_lazy as _
+from random import randint
 
 DEFAULT_COUNTRY = getattr(settings, 'DEFAULT_COUNTRY',  'ES')
 COUNTRIES = getattr(settings, 'COUNTRIES', ())
@@ -44,6 +45,10 @@ class CheckoutForm(forms.ModelForm):
             uid = request.session[settings.ORDER_KEY]
             try:
                 order = Order.objects.get(uid=uid)
+                # add a random number to current order, just in case, it will resend
+                # to sermepa, don't catch as duplicate order
+                order.uid = order.uid[:-2] + "%s" % randint(1,99)
+                order.save()
                 #if order.status == Order.PENDING:
                     #order.delete()
             except:
