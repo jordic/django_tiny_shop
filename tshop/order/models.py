@@ -183,14 +183,29 @@ def order_from_cart(cart, client, payment_type, form, request=None, order=None):
     cp = client.ship_pc
     signals.order_created.send(Order, order=o, client=client, amount=amount, cart=cart, form=form, request=request)
     return o
+
+
+def get_order_from_invoice(invoice):
+    ''' as inovice numbers are not stables, can be changed, we have to 
+        determine invoice number throught, invoice pattern '''
+    try:
+        order = Order.objects.get(uid=invoice)
+        return order
+    except:
+        try:
+            uid = int(invoice[0:-3])
+            order = Order.objects.get(pk=uid)
+            return order
+        except:
+            return None
+    return None
     
 
 def confirm_payment(sender, **kwargs):
-    
-    try:
-        order = Order.objects.get(uid=sender.invoice)
-    except:
+    order = get_order_from_invoice(sender.invoice)
+    if not order:
         return
+
     #order = Order.objects.get(uid=sender.invoice)
     order.status = Order.PAYED
     order.pay_date = sender.payment_date
