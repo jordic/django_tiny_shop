@@ -27,6 +27,10 @@ from django.utils.translation import get_language
 import signals
 # Create your views here.
 
+DISABLE_PRODUCTS_INACTIVE = getattr(settings, "DISABLE_PRODUCTS_INACTIVE", None)
+
+
+
 def soon(request):
     return HttpResponse("Soon")
 
@@ -78,7 +82,7 @@ def product_view(request, slug):
     kw = {}
     kw[str('slug_%s' % lang)] = slug
     p = get_object_or_404(Product, **kw)
-    if p.active == False:
+    if p.active == False and DISABLE_PRODUCTS_INACTIVE:
         raise Http404
 
     related = Product.objects.filter(category=p.category, active=True).exclude(pk__in=[p.pk])
