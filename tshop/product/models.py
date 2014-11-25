@@ -140,6 +140,7 @@ class Price(models.Model):
 
     class Meta:
         verbose_name=_("Precios Escalados")
+        ordering = ('quantity',)
 
 
 
