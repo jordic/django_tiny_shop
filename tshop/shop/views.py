@@ -151,8 +151,11 @@ def checkout_confirm(request):
         c['payment_template'] = "shop/%s_payment_form.html" % order.pay_type
         c['order_form'] = get_payment(order)
         
-        return direct_to_template(request, 
+        resp = direct_to_template(request, 
                template="shop/checkout_confirm.html", extra_context=c)
+        resp['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate' 
+        resp['Expires'] = 'Fri, 01 Jan 2010 00:00:00 GMT'
+        return resp
 
 @never_cache
 @csrf_exempt       
