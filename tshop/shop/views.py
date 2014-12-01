@@ -139,7 +139,7 @@ def checkout(request):
 
 
 
-
+@never_cache
 def checkout_confirm(request):
     uid = request.session.get(settings.ORDER_KEY)
     order = get_object_or_404(Order, uid=uid)
