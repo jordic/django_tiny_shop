@@ -48,6 +48,18 @@ class Order(models.Model):
     objects = models.Manager()
     stats = StatsManager()
 
+
+    # This method creates a new uid, for sermepa processing..
+    # just incrementing the first digit in 0001234-ha > 00001234
+
+    def new_uid(self):
+        f = list(self.uid)
+        f[0] = str(int(self.uid[0])+1)
+        self.uid = "".join(f)
+        self.save()
+
+
+
     class Meta:
         verbose_name = _("Pedido")
         verbose_name_plural = _("Pedidos")

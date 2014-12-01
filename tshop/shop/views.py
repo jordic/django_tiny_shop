@@ -144,6 +144,7 @@ def checkout_confirm(request):
     uid = request.session.get(settings.ORDER_KEY)
     order = get_object_or_404(Order, uid=uid)
     if order.status == 'pendiente':
+        order.new_uid()
         c = {}
         c['order'] = order
         c['payment_template'] = "shop/%s_payment_form.html" % order.pay_type
