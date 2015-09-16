@@ -15,12 +15,14 @@ from transmeta import TransMeta
 from django.utils.importlib import import_module
 
 try:
-    from settings import PRODUCT_BASE_MODEL
+    from django.conf import settings
+    PRODUCT_BASE_MODEL = settings.PRODUCT_BASE_MODEL
 except:
     PRODUCT_BASE_MODEL = None
 
-try: 
-    from settings import PRODUCT_OPTIONS_BASE_MODEL
+try:
+    from django.conf import settings
+    PRODUCT_OPTIONS_BASE_MODEL = settings.PRODUCT_OPTIONS_BASE_MODEL
 except:
     PRODUCT_OPTIONS_BASE_MODEL = None
 
@@ -34,26 +36,26 @@ class Category(models.Model):
         verbose_name = _(u'Categoría')
         verbose_name_plural = _(u'Categorias')
         translate = ('title', 'slug', 'text')
-        
+
     def __unicode__(self):
         return self.title
 
 class ProductManager(models.Manager):
-    
+
     def active(self):
         return self.get_query_set().filter(active=True)
-    
+
     def featured(self):
         return self.get_query_set().filter(featured=True)
-    
+
     def not_featured(self, inn):
         return self.get_query_set().exclude(pk__in=[inn])
-         
+
 
 class ProductAbstractClass(models.Model):
-    
+
     __metaclass__ = TransMeta
-    
+
     category = models.ForeignKey(Category, verbose_name=_(u'Categoría'))
     title = models.CharField(blank=False, max_length=255, verbose_name=_(u"Título"))
     slug = models.SlugField(verbose_name=_(u"URL Amigable"))
@@ -63,7 +65,7 @@ class ProductAbstractClass(models.Model):
     image = models.ImageField(_("Thumbnail"), upload_to="upload/producto/", blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Precio"))
     size = models.CharField(blank=True, max_length=80, verbose_name=_(u"Tamaño"))
-    weight = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Peso en Gramos"), 
+    weight = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_(u"Peso en Gramos"),
         blank=True, null=True, default=0)
     position = models.IntegerField(blank=True, null=True)
 
@@ -75,7 +77,7 @@ class ProductAbstractClass(models.Model):
         verbose_name_plural = _(u'Productos')
         translate = ('title', 'slug', 'text')
         ordering = ['-position']
-        
+
     def __unicode__(self):
         return self.title
 
@@ -84,7 +86,7 @@ class ProductAbstractClass(models.Model):
         if len(self.variations.all())>0:
             return True
         return None
-    
+
     def get_variations(self):
         """ Return a list of product variation objects to user choose """
         return [(str(op.pk), op.title) for op in self.variations.all()]
@@ -119,7 +121,7 @@ class ProductAbstractClass(models.Model):
         else:
             uprice = vprice.price / vprice.quantity
         return uprice*qty
-    
+
     def sales_price(self):
         """ Works if modules sales is activated """
         try:
@@ -129,7 +131,7 @@ class ProductAbstractClass(models.Model):
         except:
             return None
 
-    
+
 
 
 
@@ -156,21 +158,21 @@ class Product(get_base_model()):
     """ Final product extendable by clients ... """
 
 
-    
+
 class OptionsAbstractClass(models.Model):
     product = models.ForeignKey(Product, related_name="variations")
     title = models.CharField(blank=False, max_length=255, verbose_name=_("Título"))
     image = ImageField(null=True, upload_to="upload/opciones/", blank=True, verbose_name=_("Imágen"))
     price = models.DecimalField(null=True, blank=True, max_digits=6, decimal_places=2, verbose_name=_("Precio"))
     text = models.TextField(null=True, blank=True)
-    
+
     class Meta:
         verbose_name=u"Opciones de Producto"
         abstract = True
-        
+
     def __unicode__(self):
         return u"Opción: %s" % self.title
-        
+
     def has_image(self):
         if self.image:
             return True
@@ -197,7 +199,7 @@ def get_options_base_model():
 class Options(get_options_base_model()):
     """  Final options class """
 
-        
+
 class Price(models.Model):
     product = models.ForeignKey(Product, related_name="prices")
     quantity = models.IntegerField(blank=False, verbose_name=_("Cantidad"))
@@ -234,4 +236,4 @@ class Price(models.Model):
 
 
 
-    
+
