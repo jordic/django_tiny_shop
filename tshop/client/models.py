@@ -18,36 +18,37 @@ COUNTRIES = getattr(settings, 'COUNTRIES', (''))
 DEFAULT_COUNTRY = getattr(settings, 'DEFAULT_COUNTRY', ('es'))
 
 try:
-    from settings import CLIENT_BASE_MODEL
+    from django.conf import settings
+    CLIENT_BASE_MODEL = settings.CLIENT_BASE_MODEL
 except:
     CLIENT_BASE_MODEL = None
 
 
 class ClientAbstractClass(models.Model):
-    
+
     full_name = models.CharField(blank=False, max_length=255, verbose_name=_(u"Nombre Completo"))
     email = models.EmailField(blank=False, max_length=150, verbose_name=_(u"Email"))
     phone = models.CharField(blank=False, max_length=80, verbose_name=_(u"Teléfono de Contacto"))
-    
+
     # shipping address
-    ship_country = models.CharField(null=True, blank=False, max_length=25, 
+    ship_country = models.CharField(null=True, blank=False, max_length=25,
         verbose_name=_(u"Pais"), choices=COUNTRIES, default=DEFAULT_COUNTRY)
     ship_address = models.CharField(blank=False, max_length=255, verbose_name=_(u"Dirección de Envío"))
     ship_pc = models.CharField(blank=False, max_length=80, verbose_name=_(u"Código Postal"))
-    ship_provincia = models.CharField(blank=True, verbose_name=_("Provincia"), choices=PROVINCE_CHOICES, 
+    ship_provincia = models.CharField(blank=True, verbose_name=_("Provincia"), choices=PROVINCE_CHOICES,
         max_length=50)
     ship_city = models.CharField(blank=False, max_length=255, verbose_name=_(u"Ciudad"))
     ship_text = models.TextField(blank=True, verbose_name=_(u"Comentarios"))
 
-        
+
     lopd = models.BooleanField(default=True, verbose_name=_(u"Acepta LOPD?"))
-    lang = models.CharField(null=True, blank=True, max_length=10, 
+    lang = models.CharField(null=True, blank=True, max_length=10,
         verbose_name=_(u'Idioma'))
 
 
     def __unicode__(self):
         return "%s <%s>" % (self.full_name, self.email)
-        
+
     class Meta:
         verbose_name=_(u'cliente')
         abstract = True
