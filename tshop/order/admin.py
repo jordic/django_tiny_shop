@@ -7,7 +7,7 @@
 '''
 
 
-
+from functools import update_wrapper
 from django.contrib import admin
 from django.db import models
 from models import *
@@ -31,7 +31,7 @@ class LineInline(admin.TabularInline):
     #max_num = 1
     extra = 1
     exclude  = ('extra',)
-    
+
     model = Line
 
 
@@ -39,22 +39,22 @@ class OrderAdmin(admin.ModelAdmin):
 
     inlines = [LineInline]
     list_filter = ('status',)
-    list_display = ('uid', 'client', 'status', 'date_c', 'pay_type', 
+    list_display = ('uid', 'client', 'status', 'date_c', 'pay_type',
         'pay_date_c', 'envio', 'total', 'enviar')
     exclude = ('pay_details', 'pay_date','pay_total', 'pay_id')
     readonly_fields = ('date', 'send_date')
     date_hierarchy = 'date'
-    search_fields = ['client__email', 'client__ship_name', 'client__ship_surname', 
+    search_fields = ['client__email', 'client__ship_name', 'client__ship_surname',
         'uid', 'client__ship_city']
 
     actions = ['view_orders', 'export_as_xls']
-    
+
     def enviar(self, obj):
         if obj.status == Order.PAYED:
             return u'<a href="%s">Notificar Envío</a>' % reverse('admin:order_order_notificar_envio', args=(obj.pk,))
         else:
             return ""
-    
+
     def pay_date_c(self, obj):
         return obj.pay_date.strftime('%d/%m/%Y')
     pay_date_c.short_description = 'Pago'
@@ -67,21 +67,21 @@ class OrderAdmin(admin.ModelAdmin):
 
     def envio(self, obj):
         return obj.send_date.strftime('%d/%m/%Y')
-    envio.short_description = "Envio"    
+    envio.short_description = "Envio"
     envio.admin_order_field = 'send_date'
 
     enviar.short_description = 'Acciones'
     enviar.allow_tags = True
-    
+
     def add_view(self, request, form_url='', extra_context=None):
         self.readonly_fields = ('uid', 'send_date', )
         return super(OrderAdmin, self).add_view(request, form_url, extra_context)
-    
-    def change_view(self, request, form_url='', extra_context=None):
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
         self.readonly_fields = ('date','pay_id', 'send_date',)
-        return super(OrderAdmin, self).change_view(request, form_url, extra_context)
-        
-    
+        return super(OrderAdmin, self).change_view(request, object_id, form_url, extra_context)
+
+
     def view_orders(self, request, queryset):
         c = {}
         c['obj'] = queryset
@@ -89,10 +89,10 @@ class OrderAdmin(admin.ModelAdmin):
         for k in queryset:
             total = total + k.total()
         c['total'] = total
-        
+
         return direct_to_template(request, 'admin/order/order/view_orders.html', c)
-    
-    
+
+
     def notificar_envio(self, request, pk):
         #print "ara"
         obj = get_object_or_404(Order, pk=pk)
@@ -107,44 +107,35 @@ class OrderAdmin(admin.ModelAdmin):
         msg = EmailMessage(subject, message, settings.EMAIL_FROM, dests)
         msg.content_subtype = "html"  # Main content is now text/html
         msg.send()
-        
+
         obj.status = Order.SENDED
         obj.send_date = datetime.datetime.now()
         obj.save()
-        
+
         messages.add_message(request, messages.SUCCESS, u"El envío ha sido notificado" )
         return HttpResponseRedirect( reverse('admin:order_order_changelist') )
-        
-        
-    '''
+
+
     def get_urls(self):
         urls = super(OrderAdmin, self).get_urls()
-        my_urls = patterns('',
+        from django.conf.urls import patterns, url
+
+        def wrap(view):
+            def wrapper(*args, **kwargs):
+                return self.admin_site.admin_view(view)(*args, **kwargs)
+            return update_wrapper(wrapper, view)
+
+        info = self.model._meta.app_label, self.model._meta.module_name
+
+        myurls = patterns('',
             url(
-                r'notify_buyer/(?P<pk>\d+)$',
-                self.admin_site.admin_view(self.notificar_envio),
-                name='notificar_comprador',
-            ),
+                r'^([0-9]+)/notify-buyer/$',
+                wrap(self.notificar_envio),
+                name='%s_%s_notificar_envio' % info
+            )
         )
-        #print my_urls, urls
-        return my_urls + urls
-    '''
-    def get_urls(self):
+        return myurls + urls
 
-        from django.conf.urls.defaults import patterns, url
-        info = "%s_%s" % (self.model._meta.app_label, self.model._meta.module_name)
-        pat = lambda regex, fn: url(regex, self.admin_site.admin_view(fn), name='%s_%s' % (info, fn.__name__))
-
-        url_patterns = patterns('',
-            pat(r'^([0-9]+)/notify-buyer/$', self.notificar_envio),
-        )
-        print url_patterns
-
-        urls = url_patterns + super(OrderAdmin, self).get_urls()
-        #print urls
-        return urls
-
-    
     def export_as_xls(modeladmin, request, queryset):
         """
         Generic xls export admin action.
