@@ -24,11 +24,11 @@ from manager import StatsManager
 
 # Create your models here.
 class Order(models.Model):
-    
+
     PENDING = 'pendiente'
     PAYED = 'pagado'
     SENDED = 'enviado'
-    
+
     STATUS_OPTIONS = (
         (PENDING, _(u'Pendiente de Pago')),
         (PAYED, _(u'Pendiente de Envío')),
@@ -64,21 +64,21 @@ class Order(models.Model):
 
     def total_no_ship(self):
         return self.line_set.exclude(types='ship').aggregate(Sum('total'))['total__sum']
-        
+
     def shipping(self):
         return self.total() - self.total_no_ship()
-        
+
     def line_ordered(self):
         i = []
         for a in self.line_set.all():
             i.append(a)
-        
+
         def comp(a,b):
             if a.types == 'product' and b.types == 'ship':
                 return -1
             if a.types == 'ship' and b.types == 'product':
                 return 1
-            
+
             #if b.types == 'product':
             #    return b
             return 0
@@ -95,6 +95,11 @@ class Order(models.Model):
         for k in self.client._meta.fields:
             if k.name != "id":
                 arr.append( getattr(self.client, k.name) )
+        # get discount code
+        descuento = ''
+        for k in self.line_set.filter(types=Line.DESCUENTO):
+            descuento = k.extra
+        arr = arr + [descuento]
         ## get line export
         for k in self.line_set.filter(types=Line.PRODUCT):
             if k.product_option:
@@ -103,15 +108,15 @@ class Order(models.Model):
                 prod = k.product
             t = [k.quantity, prod, k.total]
             arr = arr + t
-        
         return arr
 
 
 
-    @classmethod    
+    @classmethod
     def get_export_fields(cl):
         ff =  ['uid', 'Fecha', 'Cliente', 'Status',
-            'Total', 'Total s/p', u'Envío', 'Qty']
+            'Total', 'Total s/p', u'Envío', 'Qty',
+               ]
         kk = []
         ll = [  'Q1', 'P1', 'T1',
                 'Q2', 'P2', 'T2',
@@ -125,7 +130,7 @@ class Order(models.Model):
         for f in Client._meta.fields:
             if f.name != "id":
                 kk.append( f.name )
-        return ff + kk + ll
+        return ff + kk + ['Descuento'] + ll
 
 
 
@@ -157,11 +162,11 @@ def order_from_cart(cart, client, payment_type, form, request=None, order=None):
         o.uid = "0000%s-%s" % (o.pk, o.client.email[0:2])
     else:
         o = order
-        
+
     o.pay_type = payment_type
     o.save()
     #uid = generate_order_id()
-    
+
     #o.save()
     if order:
         o.line_set.all().delete()
@@ -170,8 +175,8 @@ def order_from_cart(cart, client, payment_type, form, request=None, order=None):
     for item in l:
         print item
         en = Line.objects.create(
-            order           =o, 
-            types           =Line.PRODUCT, 
+            order           =o,
+            types           =Line.PRODUCT,
             product         =item[0],
             product_option  =item[1],
             quantity        =item[2],
@@ -186,7 +191,7 @@ def order_from_cart(cart, client, payment_type, form, request=None, order=None):
 
 
 def get_order_from_invoice(invoice):
-    ''' as inovice numbers are not stables, can be changed, we have to 
+    ''' as inovice numbers are not stables, can be changed, we have to
         determine invoice number throught, invoice pattern '''
     try:
         order = Order.objects.get(uid=invoice)
@@ -199,7 +204,7 @@ def get_order_from_invoice(invoice):
         except:
             return None
     return None
-    
+
 
 def confirm_payment(sender, **kwargs):
     order = get_order_from_invoice(sender.invoice)
@@ -214,20 +219,20 @@ def confirm_payment(sender, **kwargs):
     order.save()
     signals.order_confirmed.send(Order, order=order )
     email_notification(order)
-    
+
 # paypal ipn signal
 payment_was_successful.connect(confirm_payment)
 
 
-    
-    
+
+
 class Line(models.Model):
     PRODUCT = 'product'
     SHIP = 'ship'
     TAX = 'tax'
     DESCUENTO = 'descuento'
     OLD = 'old'
-        
+
     LINE_TYPES = (
         (PRODUCT, _('Producto')),
         (SHIP, _(u'Envío')),
@@ -238,22 +243,22 @@ class Line(models.Model):
     product = models.ForeignKey(Product, null=True, blank=True, verbose_name=_(u"Producto"))
     product_option = models.ForeignKey(Options, null=True, blank=True, verbose_name=_(u"Variación de Producto"))
     quantity = models.IntegerField(blank=True, null=True, verbose_name=_(u"Cantidad"))
-    amount = models.DecimalField(blank=True, null=True, 
+    amount = models.DecimalField(blank=True, null=True,
         max_digits=8, decimal_places=2, verbose_name=_(u"Precio/Unitario"))
-    amount_discount = models.DecimalField(null=True, blank=True, 
+    amount_discount = models.DecimalField(null=True, blank=True,
         max_digits=8, decimal_places=2, verbose_name=_(u"Precio/Descuento"))
     total = models.DecimalField(max_digits=8, decimal_places=2, verbose_name=_(u"Total"))
     extra = models.CharField(blank=True, max_length=255, verbose_name=_(u"Extra Info"))
-    
+
     class Meta:
         verbose_name = _(u'Línia Pedido')
         verbose_name_plural = _('Líneas')
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
 
