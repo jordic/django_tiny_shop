@@ -66,7 +66,11 @@ class Order(models.Model):
         return self.line_set.exclude(types='ship').aggregate(Sum('total'))['total__sum']
 
     def shipping(self):
-        return self.total() - self.total_no_ship()
+        total = self.total()
+        total_no = self.total_no_ship()
+        if not total_no:
+            return total
+        return total - total_no
 
     def line_ordered(self):
         i = []
