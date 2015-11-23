@@ -1,66 +1,47 @@
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-# ^ la línia superior serveix per poder posar accents a l'arxiu
-# Autor: jordi collell <jordi@tempointeractiu.cat>
-# http://tempointeractiu.cat
-# -------------------------------------------------------------------
-""" 
-
-"""
-
+# -*- encoding: utf-8 -*-
+from __future__ import unicode_literals
 from django import forms
 from django.conf import settings
 from django.utils.safestring import mark_safe
+from utils import redsys_generate_request
 
-import hashlib
-
-from models import SermepaResponse
 
 class SermepaPaymentForm(forms.Form):
-
-    Ds_Merchant_Currency = forms.IntegerField(widget=forms.HiddenInput())
-    Ds_Merchant_Titular = forms.CharField(widget=forms.HiddenInput())
-    Ds_Merchant_MerchantName = forms.CharField(widget=forms.HiddenInput())
-    Ds_Merchant_ProductDescription = forms.CharField(widget=forms.HiddenInput())
-    Ds_Merchant_MerchantData = forms.CharField(widget=forms.HiddenInput())
-    Ds_Merchant_MerchantURL = forms.CharField(widget=forms.HiddenInput())
-    Ds_Merchant_TransactionType = forms.IntegerField(widget=forms.HiddenInput())
-    Ds_Merchant_Amount = forms.IntegerField(widget=forms.HiddenInput())
-    Ds_Merchant_MerchantSignature = forms.CharField(widget=forms.HiddenInput())
-    Ds_Merchant_Terminal = forms.IntegerField(widget=forms.HiddenInput())
-    Ds_Merchant_MerchantCode = forms.CharField(widget=forms.HiddenInput())
-    Ds_Merchant_Order = forms.CharField(widget=forms.HiddenInput())
-    Ds_Merchant_UrlOK = forms.CharField(widget=forms.HiddenInput())
-    Ds_Merchant_UrlKO = forms.CharField(widget=forms.HiddenInput())
+    Ds_SignatureVersion = forms.IntegerField(widget=forms.HiddenInput())
+    Ds_MerchantParameters = forms.IntegerField(widget=forms.HiddenInput())
+    Ds_Signature = forms.IntegerField(widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
+        merchant_parameters = kwargs.pop('merchant_parameters', None)
         super(SermepaPaymentForm, self).__init__(*args, **kwargs)
-        key = '%s%s%s%s%s%s%s' % (self.initial['Ds_Merchant_Amount'], 
-                                  self.initial['Ds_Merchant_Order'], 
-                                  self.initial['Ds_Merchant_MerchantCode'], 
-                                  self.initial['Ds_Merchant_Currency'],
-                                  self.initial['Ds_Merchant_TransactionType'], 
-                                  self.initial['Ds_Merchant_MerchantURL'],
-                                  settings.SERMEPA_SECRET_KEY,)
-        sha1 = hashlib.sha1(key)
-        self.initial['Ds_Merchant_MerchantSignature'] = sha1.hexdigest().upper()
-        
+
+        if merchant_parameters:
+            # Generate needed parameters using 256 signature Redsys method
+            Ds_MerchantParameters, Ds_Signature = redsys_generate_request(merchant_parameters)
+
+            # Parameters to send to RedSys
+            self.initial['Ds_SignatureVersion'] = settings.SERMEPA_SIGNATURE_VERSION
+            self.initial['Ds_MerchantParameters'] = Ds_MerchantParameters
+            self.initial['Ds_Signature'] = Ds_Signature
+
     def render(self):
-        return mark_safe(u"""<form action="%s" method="post">
+        return mark_safe(u"""<form id="tpv_form" action="%s" method="post">
             %s
-            <input type="image" src="%s" border="0" name="submit" alt="Comprar ahora" />
+            <input type="submit" src='%s' name="submit" alt="Comprar ahora" value="Comprar ahora"/>
         </form>""" % (settings.SERMEPA_URL_PRO, self.as_p(), settings.SERMEPA_BUTTON_IMG))
-        
+
     def sandbox(self):
-        return mark_safe(u"""<form action="%s" method="post">
+        return mark_safe(u"""<form id="tpv_form" action="%s" method="post">
             %s
-            <input type="image" src="%s" border="0" name="submit" alt="Comprar ahora" />
+            <input type="image" src="%s" name="submit" alt="Comprar ahora" value="Comprar ahora"/>
         </form>""" % (settings.SERMEPA_URL_TEST, self.as_p(), settings.SERMEPA_BUTTON_IMG))
-        
-class SermepaResponseForm(forms.ModelForm):
+
+
+class SermepaResponseForm(forms.Form):
+    Ds_SignatureVersion = forms.CharField(max_length=256)
+    Ds_Signature = forms.CharField(max_length=256)
+    Ds_MerchantParameters = forms.CharField(max_length=2048)
+
     Ds_Date = forms.DateField(required=False, input_formats=('%d/%m/%Y',))
     Ds_Hour = forms.TimeField(required=False, input_formats=('%H:%M',))
 
-    class Meta:
-        model = SermepaResponse
-    

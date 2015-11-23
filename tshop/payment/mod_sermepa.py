@@ -4,7 +4,7 @@
 # Autor: jordi collell <jordi@tempointeractiu.cat>
 # http://tempointeractiu.cat
 # -------------------------------------------------------------------
-""" 
+"""
 
 """
 
@@ -17,9 +17,9 @@ from order.views import email_notification
 from decimal import *
 
 def sermepa_form(order):
-    
+
     merchant_url = "%s%s" % (settings.SITE_DOMAIN, reverse('sermepa_ipn'))
-    
+
     sermepa_dict = {
         "Ds_Merchant_Titular":              settings.SERMEPA_TITULAR,
         "Ds_Merchant_MerchantData":         settings.SERMEPA_MERCHANTDATA,
@@ -35,9 +35,10 @@ def sermepa_form(order):
         "Ds_Merchant_UrlOK": "%s%s" % (settings.SITE_DOMAIN, reverse('return_url')),
         "Ds_Merchant_UrlKO": "%s%s" % (settings.SITE_DOMAIN, reverse('cancel_url')),
     }
-    
 
-    form = SermepaPaymentForm(initial=sermepa_dict)
+
+    form = SermepaPaymentForm(merchant_parameters=sermepa_dict)
+    print form
     if settings.DEBUG:
         rendered_form = form.sandbox()
     else:
@@ -59,7 +60,7 @@ def confirm_payment(sender, **kwargs):
         order.pay_id = sender.Ds_AuthorisationCode
         order.save()
         email_notification(order)
-    
-    
+
+
 #payment_was_successful
 payment_was_successful.connect(confirm_payment)
